@@ -1,3 +1,4 @@
+/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -5,15 +6,17 @@
     font-family: "Roboto", sans-serif;
 }
 
-.header {
+body {
     min-height: 100vh;
     width: 100%;
     background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)), url("images/banner.png");
     background-position: center;
     background-size: cover;
     position: relative;
+    color: #fff;
 }
 
+/* Navigation */
 nav {
     display: flex;
     padding: 2% 6%;
@@ -60,9 +63,18 @@ nav img {
     width: 100%;
 }
 
+/* Header */
+.header {
+    min-height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)), url("images/banner.png");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
 .text-box {
     width: 90%;
-    color: #fff;
     position: absolute;
     top: 25%;
     left: 50%;
@@ -74,13 +86,14 @@ nav img {
     font-size: 62px;
 }
 
+/* Search Bar */
 .search-bar {
     position: absolute;
     top: calc(25% + 80px);
     left: 50%;
     transform: translate(-50%, 0);
     width: 600px;
-    height: 60px; 
+    height: 60px;
     background-color: #fff;
     border-radius: 30px;
     display: flex;
@@ -100,20 +113,20 @@ nav img {
     height: 100%;
     border: none;
     outline: none;
-    font-size: 20px; 
+    font-size: 20px;
     padding-left: 10px;
 }
 
+/* Suggestions */
 .suggestions {
     position: absolute;
-    bottom: 12%; /* Position near the bottom of the banner */
+    bottom: 12%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     justify-content: space-between;
     width: 90%;
     max-width: 1200px;
-    color: #fff; /* White text for visibility */
     text-align: center;
 }
 
@@ -123,7 +136,7 @@ nav img {
 }
 
 .suggestion h2 {
-    font-size: 20px; /* Slightly smaller to fit better */
+    font-size: 20px;
     font-weight: 700;
     margin-bottom: 8px;
 }
@@ -137,11 +150,12 @@ nav img {
 
 .suggestion img {
     width: 100%;
-    max-width: 200px; /* Keep the image smaller */
+    max-width: 200px;
     height: auto;
     border-radius: 10px;
 }
 
+/* Buttons */
 .find-out-more {
     display: inline-block;
     padding: 12px 24px;
@@ -162,6 +176,95 @@ nav img {
     transform: scale(1.05);
 }
 
+/* Form Wrapper */
+.wrapper {
+    width: 420px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    left: 50%;
+    bottom: 12%;
+    transform: translate(100%, 50%);
+    padding: 20px;
+}
+
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+.input-box {
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid rgba(225, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder {
+    color: #fff;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+    accent-color: #fff;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register-link p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -170,15 +273,7 @@ nav img {
         bottom: 8%;
     }
 
-    .suggestion {
-        width: 100%;
-        margin-bottom: 15px;
-    }
-
     .suggestion img {
-        max-width: 150px; /* Smaller image on smaller screens */
+        max-width: 150px;
     }
 }
-
-
-
