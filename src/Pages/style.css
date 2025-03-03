@@ -74,11 +74,11 @@ nav img {
 }
 
 .text-box {
-    width: 100%; /* Ensure full width */
+    width: 100%; 
     position: absolute;
     top: 25%;
     left: 50%;
-    transform: translateX(-50%); /* Moves the element back by 50% of its own width */
+    transform: translateX(-50%); 
     text-align: center;
     display: flex;
     justify-content: center;
