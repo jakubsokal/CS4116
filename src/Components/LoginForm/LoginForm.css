@@ -5,9 +5,15 @@
     backdrop-filter: blur(30px);
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     color: #fff;
+    min-height: 400px;
     border-radius: 10px;
     padding: 30px 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
 
 .wrapper h1 {
     font-size: 36px;
@@ -79,6 +85,7 @@
     font-size: 16px;
     color: #333;
     font-weight: 700;
+    margin-top: 20px; 
 }
 
 .wrapper .register-link {

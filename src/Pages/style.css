@@ -74,17 +74,27 @@ nav img {
 }
 
 .text-box {
-    width: 90%;
+    width: 100%; /* Ensure full width */
     position: absolute;
     top: 25%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%); /* Moves the element back by 50% of its own width */
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .text-box h1 {
     font-size: 62px;
+    text-align: center; 
+    white-space: nowrap; 
+    margin: 0 auto; 
 }
+
+
+
+
 
 /* Search Bar */
 .search-bar {
