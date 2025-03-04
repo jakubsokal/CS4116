@@ -20,6 +20,137 @@ nav {
     justify-content: space-between;
     align-items: center;
 }
+.button {
+    background-color: #ff5125; 
+    border: none;
+    border-radius: 8px;
+    max-width:250px;
+    max-height: 200px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 200px;
+  }
+ 
+  .button:hover {
+    color: rgb(255, 90, 24);
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+
+
+.managebookings {
+    display: flex;
+    width: 100%;
+    height: 70%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.section {
+    padding: 20px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+
+
+#upcomingbookings {
+    background-color: #444;
+    color: white;
+    outline: rgb(122, 122, 122);
+    outline: 2px solid rgb(84, 84, 97);
+    text-align: center;
+    display: flex;
+}
+
+#historybookings {
+    background-color: #444;
+    color: white;
+    outline: 2px solid rgb(84, 84, 97);
+    text-align: center;
+    display: flex;
+    
+}
+.section ul {
+    list-style: none;
+}
+
+.section ul li {
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+}
+.section ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.section ul li::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #ff5125;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+.section ul li::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #ff5125;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+.section ul li:hover::after {
+    width: 100%;
+}
+
+
+#booking-table{
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    font-size: 8px;
+    background-color: rgba(220, 221, 222, 0.747);
+    overflow-x: auto; 
+    display: block; 
+    white-space: nowrap;
+    
+}
+.booking-table th{
+    border: 1px solid  rgb(84, 84, 97);
+    padding: 12px;
+    font-weight: bold;
+    color: #e0411d;
+    background-color: rgb(235, 235, 235);
+    
+} 
+.booking-table td {
+    border: 2px solid  rgb(84, 84, 97);
+    padding: 12px;
+    word-wrap: break-word;
+}
+.booking-table .colspan-2 {
+    width: 40%;
+}
+
+.booking-table .colspan-1 {
+    width: 20%;
+}
+
 
 nav img {
     width: 150px;
