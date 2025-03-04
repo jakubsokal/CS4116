@@ -1,0 +1,219 @@
+@media only screen and (min-width: 900px) {
+
+    /* Search Bar */
+    .search-bar {
+        position: absolute;
+        top: calc(25% + 80px);
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 750px;
+        height: 45px;
+        background-color: #fff;
+        border-radius: 11px;
+        display: flex;
+        align-items: center;
+        padding: 0px 5px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar i {
+        font-size: 24px;
+        color: #777;
+        margin-right: 12px;
+    }
+
+    .search-bar input {
+        flex: 1 1;
+        height: 100%;
+        border: none;
+        outline: none;
+        font-size: 20px;
+        padding-left: 5px;
+        border-radius: 20px;
+    }
+
+    .search-button{
+        position: absolute;
+        margin: 5px 0px 3px 0px;
+        background-color: #ff5125;
+        color: #fff;
+        border: none;
+        outline: none;
+        width: 35px;
+        height: 75%;
+        border-radius: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    .search-button:hover{
+        background: #c5330f;
+    }
+
+    .search-icon:hover{
+        background-color: #c5330f
+    }
+
+    .search-icon{
+        position: relative;
+        padding: 7px 7px 7px 7px;
+        background-color: #ff5125;
+        color: #fff;
+        border: none;
+        outline: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+}
+
+@media only screen and (min-width: 650px ) and (max-width: 900px) {
+
+    /* Search Bar */
+    .search-bar {
+        position: absolute;
+        top: calc(25% + 80px);
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 500px;
+        height: 35px;
+        background-color: #fff;
+        border-radius: 11px;
+        display: flex;
+        align-items: center;
+        padding: 0px 5px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar i {
+        font-size: 24px;
+        color: #777;
+        margin-right: 12px;
+    }
+
+    .search-bar input {
+        flex: 1 1;
+        height: 100%;
+        border: none;
+        outline: none;
+        font-size: 15px;
+        padding-left: 5px;
+        border-radius: 20px;
+    }
+
+    .search-button{
+        position: absolute;
+        margin: 2px 0px 1px 0px;
+        background-color: #ff5125;
+        color: #fff;
+        border: none;
+        outline: none;
+        width: 25px;
+        height: 75%;
+        border-radius: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    .search-button:hover{
+        background: #c5330f;
+    }
+
+    .search-icon:hover{
+        background-color: #c5330f
+    }
+
+    .search-icon{
+        position: relative;
+        padding: 7px 7px 7px 7px;
+        background-color: #ff5125;
+        color: #fff;
+        border: none;
+        outline: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 5px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+
+    /* Search Bar */
+    .search-bar {
+        position: relative;
+        top: calc(25% + 80px);
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 300px;
+        height: 30px;
+        background-color: #fff;
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        padding: 0px 5px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar i {
+        font-size: 24px;
+        color: #777;
+        margin-right: 12px;
+    }
+
+    .search-bar input {
+        flex: 1 1;
+        font-size: 5px;
+        height: 100%;
+        border: none;
+        outline: none;
+        font-size: 10px;
+        padding-left: 55px;
+        border-radius: 7px;
+    }
+
+    .search-button{
+        position: absolute;
+        margin: 5px 0px 5px 0px;
+        background-color: #ff5125;
+        color: #fff;
+        border: none;
+        outline: none;
+        width: 20px;
+        height: 75%;
+        border-radius: 5px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    .search-button:hover{
+        background: #c5330f;
+    }
+
+    .search-icon:hover{
+        background-color: #c5330f
+    }
+
+    .search-icon{
+        position: absolute;
+        margin: 5px 0px 5px 5px;
+        background-color: #ff5125;
+        color: #fff;
+        border: none;
+        outline: none;
+        width: 10px;
+        height: 50%;
+        border-radius: 1px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+}
