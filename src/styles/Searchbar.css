@@ -1,6 +1,6 @@
+/* Default styles for large screens (900px and up) */
 @media only screen and (min-width: 900px) {
 
-    /* Search Bar */
     .search-bar {
         position: absolute;
         top: calc(25% + 80px);
@@ -12,208 +12,130 @@
         border-radius: 11px;
         display: flex;
         align-items: center;
-        padding: 0px 5px;
+        padding: 0px 10px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .search-bar i {
-        font-size: 24px;
-        color: #777;
-        margin-right: 12px;
+    .search-icon {
+        background-color: #ff5125;
+        color: #fff;
+        font-size: 22px;
+        min-width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+    }
+
+    .search-icon:hover {
+        background-color: #c5330f;
     }
 
     .search-bar input {
-        flex: 1 1;
+        flex: 1;
         height: 100%;
         border: none;
         outline: none;
         font-size: 20px;
-        padding-left: 5px;
+        padding-left: 10px;
         border-radius: 20px;
-    }
-
-    .search-button{
-        position: absolute;
-        margin: 5px 0px 3px 0px;
-        background-color: #ff5125;
-        color: #fff;
-        border: none;
-        outline: none;
-        width: 35px;
-        height: 75%;
-        border-radius: 10px;
-        font-size: 20px;
-        cursor: pointer;
-        transition: 0.5s;
-    }
-
-    .search-button:hover{
-        background: #c5330f;
-    }
-
-    .search-icon:hover{
-        background-color: #c5330f
-    }
-
-    .search-icon{
-        position: relative;
-        padding: 7px 7px 7px 7px;
-        background-color: #ff5125;
-        color: #fff;
-        border: none;
-        outline: none;
-        width: 35px;
-        height: 35px;
-        border-radius: 10px;
-        font-size: 20px;
-        cursor: pointer;
-        transition: 0.5s;
     }
 }
 
-@media only screen and (min-width: 650px ) and (max-width: 900px) {
+/* Medium screens (tablets, 650px - 900px) */
+@media only screen and (min-width: 650px) and (max-width: 900px) {
 
-    /* Search Bar */
     .search-bar {
         position: absolute;
         top: calc(25% + 80px);
         left: 50%;
         transform: translate(-50%, 0);
         width: 500px;
-        height: 35px;
+        height: 40px;
         background-color: #fff;
         border-radius: 11px;
         display: flex;
         align-items: center;
-        padding: 0px 5px;
+        padding: 0px 10px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .search-bar i {
-        font-size: 24px;
-        color: #777;
-        margin-right: 12px;
+    .search-icon {
+        background-color: #ff5125;
+        color: #fff;
+        font-size: 20px;
+        min-width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s ease-in-out;
+        cursor: pointer; 
+    }
+
+    .search-icon:hover {
+        background-color: #c5330f;
     }
 
     .search-bar input {
-        flex: 1 1;
+        flex: 1;
         height: 100%;
         border: none;
         outline: none;
-        font-size: 15px;
-        padding-left: 5px;
+        font-size: 16px;
+        padding-left: 10px;
         border-radius: 20px;
-    }
-
-    .search-button{
-        position: absolute;
-        margin: 2px 0px 1px 0px;
-        background-color: #ff5125;
-        color: #fff;
-        border: none;
-        outline: none;
-        width: 25px;
-        height: 75%;
-        border-radius: 10px;
-        font-size: 20px;
-        cursor: pointer;
-        transition: 0.5s;
-    }
-
-    .search-button:hover{
-        background: #c5330f;
-    }
-
-    .search-icon:hover{
-        background-color: #c5330f
-    }
-
-    .search-icon{
-        position: relative;
-        padding: 7px 7px 7px 7px;
-        background-color: #ff5125;
-        color: #fff;
-        border: none;
-        outline: none;
-        width: 25px;
-        height: 25px;
-        border-radius: 5px;
-        font-size: 20px;
-        cursor: pointer;
-        transition: 0.5s;
     }
 }
 
+/* Small screens (mobile devices, max-width: 650px) */
 @media only screen and (max-width: 650px) {
 
-    /* Search Bar */
     .search-bar {
         position: relative;
-        top: calc(25% + 80px);
+        top: calc(25% + 50px);
         left: 50%;
         transform: translate(-50%, 0);
-        width: 300px;
-        height: 30px;
+        width: 90%;
+        max-width: 320px;
+        height: 35px;
         background-color: #fff;
         border-radius: 7px;
         display: flex;
         align-items: center;
-        padding: 0px 5px;
+        padding: 0px 8px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .search-bar i {
-        font-size: 24px;
-        color: #777;
-        margin-right: 12px;
+    .search-icon {
+        background-color: #ff5125;
+        color: #fff;
+        font-size: 18px;
+        min-width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s ease-in-out;
+        cursor: pointer; 
+    }
+
+    .search-icon:hover {
+        background-color: #c5330f;
     }
 
     .search-bar input {
-        flex: 1 1;
-        font-size: 5px;
+        flex: 1;
         height: 100%;
         border: none;
         outline: none;
-        font-size: 10px;
-        padding-left: 55px;
+        font-size: 14px;
+        padding-left: 8px;
         border-radius: 7px;
-    }
-
-    .search-button{
-        position: absolute;
-        margin: 5px 0px 5px 0px;
-        background-color: #ff5125;
-        color: #fff;
-        border: none;
-        outline: none;
-        width: 20px;
-        height: 75%;
-        border-radius: 5px;
-        font-size: 20px;
-        cursor: pointer;
-        transition: 0.5s;
-    }
-
-    .search-button:hover{
-        background: #c5330f;
-    }
-
-    .search-icon:hover{
-        background-color: #c5330f
-    }
-
-    .search-icon{
-        position: absolute;
-        margin: 5px 0px 5px 5px;
-        background-color: #ff5125;
-        color: #fff;
-        border: none;
-        outline: none;
-        width: 10px;
-        height: 50%;
-        border-radius: 1px;
-        font-size: 20px;
-        cursor: pointer;
-        transition: 0.5s;
     }
 }

@@ -1,18 +1,18 @@
 import Navbar from "@/components/Navbar";
-import SearchBar from "@/components/Searchbar"; 
+import SearchBar from "@/components/Searchbar";
 
-const ExplorePage = () => {
+const LandingPage = () => {
   return (
     <div>
       <Navbar />
-      
-      <section className="header">
-        <div className="text-box">
-          <h1>Peak Performance, Unlocked</h1>
-        </div>
 
-        <SearchBar /> 
-        
+      <section className="header">
+        <div className="hero-content">
+          <div className="text-box">
+            <h1>Peak Performance, Unlocked</h1>
+          </div>
+          <SearchBar />
+        </div>
       </section>
 
       <section className="suggestions">
@@ -38,4 +38,4 @@ const ExplorePage = () => {
   );
 };
 
-export default ExplorePage;
+export default LandingPage;

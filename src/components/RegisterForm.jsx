@@ -5,11 +5,6 @@ import { useRouter } from "next/navigation";
 import "@/styles/RegisterForm.css";
 import { FaUser, FaLock } from "react-icons/fa";
 
-const interestsOptions = [
-    "Physiotherapy", "Gym", "Personal Trainer", "Psychologist", "Nutritionist", "Sauna", "Ice Bath", "Yoga", "General Fitness",
-    "Running", "Hurling", "Football", "Soccer", "Rugby", "Tennis"
-];
-
 const RegisterForm = () => {
     const router = useRouter(); 
     const [formData, setFormData] = useState({
@@ -51,27 +46,16 @@ const RegisterForm = () => {
                     <FaUser className="icon" />
                 </div>
                 <div className="input-box">
+                    <input type="text" name="email" placeholder="Email" required onChange={handleChange} />
+                </div>
+                <div className="input-box">
                     <input type="password" name="password" placeholder="Password" required onChange={handleChange} />
                     <FaLock className="icon" />
                 </div>
-
-                <div className="interests-section">
-                    <h3>Select Your Interests:</h3>
-                    <div className="interests-options">
-                        {interestsOptions.map((interest, index) => (
-                            <label key={index} className="interest-label">
-                                <input 
-                                    type="checkbox" 
-                                    name="interests" 
-                                    value={interest} 
-                                    onChange={handleChange} 
-                                />
-                                {interest}
-                            </label>
-                        ))}
-                    </div>
+                <div className="input-box">
+                    <input type="password" name="password" placeholder="Confirm Password" required onChange={handleChange} />
+                    <FaLock className="icon" />
                 </div>
-
                 <button type="submit">Register</button>
             </form>
         </div>
