@@ -9,7 +9,9 @@ const SearchBar = () => {
 
   return (
     <div className="search-bar">
-      <FaSearch className="search-icon" alt="search" />
+      <div className="search-icon-container">
+        <FaSearch className="search-icon" alt="search" />
+      </div>
       <input
         type="text"
         value={query}

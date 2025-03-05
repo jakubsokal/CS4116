@@ -1,3 +1,9 @@
+@font-face {
+  font-family: Urbanist-Bold;
+  src: url(../../public/fonts/Urbanist-Bold.ttf);
+  font-weight: bold;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -17,6 +23,7 @@ body {
 }
 
 body {
+  font-family: 'Urbanist-Bold';
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;

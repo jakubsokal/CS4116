@@ -117,4 +117,6 @@
   }
 
   .menu-toggle.active div:nth-child(1) {
-    transform: rotate(45deg
+    transform: rotate(45deg);
+  }
+}

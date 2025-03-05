@@ -1,14 +1,28 @@
+@font-face {
+    font-family: 'Urbanist-Bold';
+    src: url('../../public/fonts/Urbanist-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: bold;
+  }
+  
+  @font-face {
+    font-family: 'Urbanist-Regular';
+    src: url('../../public/fonts/Urbanist-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Urbanist-Bold';
 }
 
 body {
     min-height: 100vh;
     width: 100%;
-    background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)), url("/banner.png");
+    background-image: linear-gradient(rgba(4, 9, 30, 0.5), rgba(4,9,30,0.5)), url("/images/banner.png");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -65,7 +79,6 @@ nav img {
 .header {
     min-height: 100vh;
     width: 100%;
-    background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)), url("/banner.png");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -147,24 +160,6 @@ nav img {
     }
 }
 
-/* Adjust Search Bar for Medium Screens */
-@media (max-width: 900px) {
-    .search-bar {
-        width: 90%;
-        max-width: 500px;
-        height: 40px;
-    }
-}
-
-/* Adjust Search Bar for Small Screens */
-@media (max-width: 650px) {
-    .search-bar {
-        width: 90%;
-        max-width: 320px;
-        height: 35px;
-    }
-}
-
 .suggestions {
     position: absolute;
     bottom: 10%; 
@@ -174,7 +169,6 @@ nav img {
     justify-content: space-between;
     width: 90%;
     max-width: 1200px;
-    text-align: center;
 }
 
 .suggestion {
@@ -183,6 +177,7 @@ nav img {
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
     border-radius: 10px;
+    text-align: left;
 }
 
 .suggestion h2 {
@@ -192,10 +187,10 @@ nav img {
 }
 
 .suggestion p {
+    font-family: 'Urbanist-Regular';
     font-size: 16px;
     line-height: 1.4;
     max-width: 90%;
-    margin: 0 auto;
 }
 
 .suggestion img {
@@ -224,6 +219,7 @@ nav img {
         width: 90%;
         max-width: 400px;
         margin-bottom: 30px;
+        text-align: left;
     }
 }
 
@@ -238,7 +234,6 @@ nav img {
         justify-content: space-between;
         width: 90%;
         max-width: 1200px;
-        text-align: center;
     }
 
     .suggestion {
