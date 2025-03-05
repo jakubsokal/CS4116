@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <Link href="/">
-        <Image src="/logo.png" alt="Logo" width={100} height={50} className="logo" />
+        <Image src="/images/logo.png" alt="Logo" width={100} height={50} className="logo" />
       </Link>
 
       <div className={`menu-toggle ${menuOpen ? "active" : ""}`} onClick={toggleMenu}>
