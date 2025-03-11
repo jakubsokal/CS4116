@@ -1,0 +1,3502 @@
+[
+  {
+    "name": "Abbeydorney Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Abbeyfeale Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Abbeyknockmoy Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Abbeyleix Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Adamstown Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Adare Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Aghada - Rostellan Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Aglish Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Ahascragh Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Ailt an Chorráin (Burtonport) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Allenwood Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Anagaire (Annagry) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "An Bun Beag (Bunbeg) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "An Charraig (Carrick) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "An Cheathrú Rua (Carraroe) Town",
+    "county": "Galway"
+  },
+  {
+    "name": "{An Clochán Liath (Dungloe) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "An Fál Carrach (Falcarragh, Cross Roads) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Annacotty Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Annagassan Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Annaghdown Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Annascaul Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Annayalla (Annyalla) Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "An Rinn (Ring) Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "An Spidéal (Spiddle) Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Ardagh Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Ardara Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Ardee",
+    "county": "Louth"
+  },
+  {
+    "name": "Ardfert Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Ardfinnan Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Ardmore Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Ardnacrusha (Castlebank) Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Arklow",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Arthurstown Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Arvagh (Arva) Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Ashbourne Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Ashford Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Askeaton Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Athboy Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Athea Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Athenry Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Athgarvan Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Athleague Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Athlone",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Athlone",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Athy",
+    "county": "Kildare"
+  },
+  {
+    "name": "Aughnacliffe Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Aughrim Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Avoca Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Baile Chláir (Claregalway) Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Baile Mhic Íre (Ballymakeery) Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Bailieborough Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Balbriggan",
+    "county": "Dublin"
+  },
+  {
+    "name": "Balla Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Ballaghaderreen Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Ballina Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Ballina",
+    "county": "Mayo"
+  },
+  {
+    "name": "Ballinabrannagh (Ballinabranna) Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Ballinaclash Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Ballinagar Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Ballinagh Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Ballinakill Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Ballinalack Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Ballinalee Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Ballinameen Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Ballinamore Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Ballinasloe",
+    "county": "Galway"
+  },
+  {
+    "name": "Ballincar Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Ballinderreen Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Ballindine Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Ballindrait (Baile an Droichid) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Ballineen - Enniskean Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Ballingarry Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Ballingarry Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Ballinlough Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Ballinroad Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Ballinrobe Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Ballinspittle Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Ballintober Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Ballintogher Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Ballintra Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Ballitore (Ballytore) Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Ballivor Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Ballon Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Ballyagran Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Ballybay",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Ballybofey - Stranorlar Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Ballyboghil (Ballyboughal) Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Ballybrittas Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Ballybunion Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Ballycanew Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Ballycannan Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Ballycastle Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Ballyclerahan Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Ballyclogh Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Ballycolla Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Ballyconnell Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Ballycotton Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Ballycullane Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Ballycumber Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Ballydehob Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Ballydesmond Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Ballyduff Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Ballyforan Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Ballygar Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Ballygarvan Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Ballygawley Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Ballyhack Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Ballyhahill Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Ballyhaise Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Ballyhale Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Ballyhaunis Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Ballyheigue Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Ballyhogue Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Ballyhooly Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Ballyjamesduff Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Ballyknockan Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Ballylanders Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Ballyliffin Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Ballylinan Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Ballylongford Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Ballymacarbry Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Ballymacoda Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Ballymahon Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Ballymore Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Ballymore Eustace Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Ballymote Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Ballymurn Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Ballynacargy Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Ballynacarrow (Ballinacarrow) Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Ballyneety (Glen) Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Ballynoe Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Ballyoulster Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Ballyporeen Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Ballyragget Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Ballyroan Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Ballyroe Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Ballysadare (Ballisodare) Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Ballyshannon",
+    "county": "Donegal"
+  },
+  {
+    "name": "Ballysimon Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Ballyvaughan Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Balrothery Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Baltimore Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Baltinglass Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Baltray Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Banagher Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Bandon",
+    "county": "Cork"
+  },
+  {
+    "name": "Bangor Erris Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Bansha Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Banteer Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Bantry Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Barndarrig Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Barntown Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Baylin Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Béal an Mhuirthead (Belmullet) Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Béal Átha an Ghaorthaidh (Ballingeary) Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Bearna Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Beaufort Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Beaulieu Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Belcarra Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Belgooly Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Bellanagare Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Bellanode (Ballinode) Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Bellavary Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Belmont Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Belturbet",
+    "county": "Cavan"
+  },
+  {
+    "name": "Bennettsbridge Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Birr",
+    "county": "Offaly"
+  },
+  {
+    "name": "Blacklion Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Blackwater (Castle Ellis) Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Blarney Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Blessington Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Boherbue Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Boherlahan Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Bohola Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Bonniconlon (Bunnyconnelan) Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Borris Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Borris-in-Ossory Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Borrisokane Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Borrisoleigh Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Boyle",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Bracknagh Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Bray",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Bray",
+    "county": "Dublin"
+  },
+  {
+    "name": "Bree Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Bridebridge Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Bridge End Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Bridgetown Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Brittas Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Broadford (Ardskeagh) Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Broadford Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Brosna Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Brownstown (Curragh Camp) Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Bruff Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Bruree Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Bunclody Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Buncrana",
+    "county": "Donegal"
+  },
+  {
+    "name": "Bundoran",
+    "county": "Donegal"
+  },
+  {
+    "name": "Bun na Leaca (Brinlack) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Bunratty Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Burnfoot Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Butlersbridge Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Buttevant Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Bweeng Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Caherconlish Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Cahir Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Cahirciveen (Cahersiveen) Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Callan Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Calverstown Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Camolin Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Campile Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Cappamore Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Cappawhite Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Cappoquin Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Carlanstown Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Carlingford Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Carlow Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Carlow Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Carndonagh Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Carnew Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Carney Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Carragh Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Carraig Airt Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Carrickmacross",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Carrick-on-Shannon Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Carrick-on-Shannon Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Carrick-on-Suir",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Carrigaline Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Carrigallen Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Carrigans Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Carrigkerry Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Carrignavar Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Carrig-on-Bannow (Danescastle) Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Carrigtwohill Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Carrowkeel (Kerrykeel) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Cashel",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Castlebar",
+    "county": "Mayo"
+  },
+  {
+    "name": "Castlebellingham - Kilsaran Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Castleblayney",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Castlebridge - Blackwater Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Castlecomer Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Castleconnell Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Castledermot Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Castlefin (Castlefinn) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Castlegregory Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Castleisland Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Castlelyons Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Castlemagner Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Castlemaine Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Castlemartyr Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Castlepollard Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Castlerea Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Castletown Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Castletownbere Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Castletown Geoghegan Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Castletownroche Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Castletownshend (Castletownsend) Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Causeway Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Cavan Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Celbridge Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Charlestown - Bellahy Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Charlestown - Bellahy Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Charleville (Rathluirc) Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Cheekpoint Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Churchtown Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Cill Charthaigh (Kilcar) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Cill Rónáin (Kilronan) Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Clane Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Clara Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Claremorris Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Clarina Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Clarinbridge Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Clashmore Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Clifden Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Cliffoney (Cliffony) Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Clogh Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Cloghan Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Clogheen Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Clogherhead Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Cloghfin Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Clonakilty",
+    "county": "Cork"
+  },
+  {
+    "name": "Clonard Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Clonaslee Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Clonbullogue Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Clondrohid Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Clondulane Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Clonee Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Clonegal (Clonegall) Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Clones",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Clongeen Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Clonlara Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Clonmany Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Clonmel",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Clonmellon Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Clonroche Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Clontibret Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Clonygowan Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Cloonfad Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Cloontuskert (Clontuskert) Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Cloughduv Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Cloughjordan Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Cloyne Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Cluain Bú (Cloonboo) Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Coachford Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Cobh",
+    "county": "Cork"
+  },
+  {
+    "name": "Coill Dubh (Blackwood) Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Collinstown Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Collon Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Collooney Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Conna Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Convoy Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Coolaney Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Coolboy Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Coolgreany Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Cootehall Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Cootehill",
+    "county": "Cavan"
+  },
+  {
+    "name": "Cork City",
+    "county": "Cork"
+  },
+  {
+    "name": "Corofin Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Corrandulla Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Corrofin Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Courtbrack Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Courtmacsherry Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Courtown Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Cratloe Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Craughwell Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Creeslough Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Crinkill (Crinkle) Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Cromane Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Crookstown Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Croom Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Crossakeel (Crossakiel) Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Crossbarry Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Crosshaven - Churchbay Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Crossmolina Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Crusheen Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Culdaff Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Cut Bush (Ballysax) Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Daingean Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Delvin Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Derrinturn Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Dingle (Daingean Uí Chúis) Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Doirí Beaga (Derrybeg) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Donabate Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Donard Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Donaskeigh Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Donegal Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Doneraile Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Donore Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Doohamlat (Doohamlet) Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Doohooma (Dumha Thuama) Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Doon Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Doonbeg Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Drangan Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Drimoleague Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Drogheda",
+    "county": "Louth"
+  },
+  {
+    "name": "Dromahair Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Dromina Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Dromineer Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Dromiskin Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Drommahane Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Dromore West Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Drumcollogher Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Drumconrath Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Drumkeen Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Drumkeeran Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Drumlish Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Drumod Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Drumshanbo Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Drumsna Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Duagh Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Dublin City",
+    "county": "Dublin"
+  },
+  {
+    "name": "Duleek Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Dunboyne Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Duncannon Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Duncormick Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Dundalk",
+    "county": "Louth"
+  },
+  {
+    "name": "Dunderrow Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Dundrum Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Dunfanaghy Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Dungarvan",
+    "county": "Waterford"
+  },
+  {
+    "name": "Dunhill Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Dunkineely Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Dunlavin Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Dunleer Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Dunmanway Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Dunmore Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Dunmore East Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Dunshaughlin Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Durrow Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Durrus Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Easky Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Edenderry",
+    "county": "Offaly"
+  },
+  {
+    "name": "Edgeworthstown (Meathas Truim) Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Elphin Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Emly Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Emo Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Emyvale Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Enfield Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Ennis",
+    "county": "Clare"
+  },
+  {
+    "name": "Enniscorthy",
+    "county": "Wexford"
+  },
+  {
+    "name": "Enniscrone (Inniscrone) Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Enniskerry Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Ennistymon (Ennistimon) Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Errill (Erril) Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Eyrecourt Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Fahan Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Farran Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Feakle Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Fedamore Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Fenit Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Fennagh Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Ferbane Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Fermoy",
+    "county": "Cork"
+  },
+  {
+    "name": "Ferns Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Fethard Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Fethard-on-Sea Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Fiddown Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Fieries Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Foxford Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Foynes Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Freemount Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Frenchpark Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Freshford Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Galbally Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Galway City",
+    "county": "Galway"
+  },
+  {
+    "name": "Garristown Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Geashill Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Glanworth Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Glassan Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Glasslough (Glaslough) Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Gleann Cholm Cille Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Glenamaddy Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Glenbeigh Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Glencullen Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Glenealy Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Gleneely Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Glengarriff Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Glenties Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Glenville Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Glin Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Gneevgullia Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Gob an Choire (Achill Sound) Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Golden Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Goresbridge Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Gorey",
+    "county": "Wexford"
+  },
+  {
+    "name": "Gormanston Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Gort Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Gort an Choirce (Gortahork) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Gortnahoo (Gortnahoe) Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Gowran Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Graiguenamanagh - Tinnahinch Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Graiguenamanagh - Tinnahinch Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Granard Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Grange Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Grangemore (Brannockstown) Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Greencastle Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Grenagh Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Greystones - Delgany",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Gurteen (Gorteen) Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Hacketstown Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Halfway Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Headford Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Holycross Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Hospital Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Inagh Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Inchigeelagh Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Inistioge Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Innishannon (Inishannon) Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Inniskeen Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Irishtown Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Jenkinstown Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Johnstown Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Johnstown Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Johnstownbridge Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Julianstown Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Kanturk Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Keadew Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Keel - Dooagh Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Keenagh Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Kells Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Kells (Ceannanus Mór)",
+    "county": "Meath"
+  },
+  {
+    "name": "Kenmare Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Kentstown Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Kernanstown Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Keshcarrigan Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Kilbeggan Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Kilberry Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Kilbrin Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Kilbrittain Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Kilcloon Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Kilcock Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Kilcolgan Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Kilcoole Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Kilcormac (Frankford) Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Kilcullen Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Kilcummin Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Kildalkey Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Kildangan Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Kildare Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Kildavin Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Kildimo Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Kildorrery Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Kildrum Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Kildysart Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Kilfenora Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Kilfinane (Kilfinnane) Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Kilflynn Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Kilgarvan Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Kilkee",
+    "county": "Clare"
+  },
+  {
+    "name": "Kilkelly Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Kilkenny Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Kilkishen Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Kill Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Kill Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Killala Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Killaloe Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Killarney",
+    "county": "Kerry"
+  },
+  {
+    "name": "Killashee Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Killavullen Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Killeagh Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Killeigh Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Killenard Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Killenaule Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Killeshandra Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Killimor Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Killinierin Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Killorglin Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Killucan - Rathwire Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Killumney Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Killurin Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Killurin Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Killybegs Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Killygordon (Killygordan) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Kilmacanogue Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Kilmacow Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Kilmacrennan Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Kilmacthomas Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Kilmaine Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Kilmainhamwood Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Kilmaley Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Kilmallock Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Kilmead (Kilmeade) Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Kilmeaden Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Kilmeage Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Kilmessan Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Kilmihil (Kilmihill) Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Kilmoganny Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Kilmore Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Kilmore Quay Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Kilmuckridge (Kilmuckeridge) Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Kilmurry (Ballymulcashel) Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Kilnaleck Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Kilpedder Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Kilrush",
+    "county": "Clare"
+  },
+  {
+    "name": "Kilsheelan Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Kilteel Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Kilteely Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Kiltimagh Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Kilworth Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Kingscourt Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Kinlough Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Kinnegad Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Kinnitty Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Kinsale",
+    "county": "Cork"
+  },
+  {
+    "name": "Kinsaley Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Kinsealy - Drinan Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Kinvara (Kinvarra) Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Knightstown Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Knock Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Knockananna Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Knockbridge Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Knockcroghery Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Knocklong Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Knocknagree Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Knockraha Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Knocktopher Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Lackaghbeg (Lackagh) Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Ladysbridge (Knockglass) Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Ladytown (Two Mile House) Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Laghy Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Lahardane Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Lahinch (Lehinch) Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Lanesborough - Ballyleague Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Lanesborough - Ballyleague Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Laragh Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Laytown - Bettystown - Mornington - Donacarney Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Leap Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Legan Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Leighlinbridge",
+    "county": "Carlow"
+  },
+  {
+    "name": "Leitrim Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Leixlip Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Lemybrien Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Letterkenny",
+    "county": "Donegal"
+  },
+  {
+    "name": "Lifford Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Limerick City",
+    "county": "Limerick"
+  },
+  {
+    "name": "Liscannor Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Liscarroll Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Lisdoonvarna Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Lismore",
+    "county": "Waterford"
+  },
+  {
+    "name": "Lisronagh Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Lissycasey Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Listowel",
+    "county": "Kerry"
+  },
+  {
+    "name": "Littleton Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Lixnaw Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Loch an Iúir (Loughanure) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Longford Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Longwood Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Lordship (Rampark) Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Loughglinn Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Lough Gowna (Loch Gowna) Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Loughrea Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Loughshinny Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Louisburgh Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Louth Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Lusk Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Lyre Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Macroom",
+    "county": "Cork"
+  },
+  {
+    "name": "Maigh Cuilinn (Moycullen) Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Malahide Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Malin Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Mallow",
+    "county": "Cork"
+  },
+  {
+    "name": "Manorcunningham Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Manorhamilton Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Manor Kilbride Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Maynooth Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Midleton",
+    "county": "Cork"
+  },
+  {
+    "name": "Milford Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Milford Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Millstreet Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Milltown Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Milltown Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Milltown Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Miltown Malbay Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Mín Lárach (Meenlaragh) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Mitchelstown Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Moate Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Model Village (Dripsey) Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Mogeely Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Mohill Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Monaghan Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Monamolin (incl. Ballyedmond) Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Monard Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Monasterevin Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Moneenroe Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Moneygall Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Monivea Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Mooncoin Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Moroe Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Mountbellew Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Mountcharles Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Mountcollins Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Mountmellick",
+    "county": "Laois"
+  },
+  {
+    "name": "Mountrath Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Mountshannon Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Moville Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Moylough Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Mucklagh Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Muff Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Muinebeag (Bagenalstown)",
+    "county": "Carlow"
+  },
+  {
+    "name": "Mullagh Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Mullaghmore Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Mullinahone Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Mullinavat Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Mullingar",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Mulranny Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Multyfarnham Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Mungret Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Murntown (Murrintown) Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Myrtleville (incl. Fountainstown) Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Myshall Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "{Naas Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Na Dúnaibh (Crocknamurleog, Cnoc na Muirleog) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Na Forbacha (Furbogh) Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Narraghmore Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Naul",
+    "county": "Dublin"
+  },
+  {
+    "name": "Navan (An Uaimh)",
+    "county": "Meath"
+  },
+  {
+    "name": "Nenagh",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Newbawn Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Newbliss Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Newbridge (Droichead Nua)",
+    "county": "Kildare"
+  },
+  {
+    "name": "Newcastle Town South",
+    "county": "Dublin"
+  },
+  {
+    "name": "Newcastle Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Newcastle Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Newcastle West Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Newmarket Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Newmarket-on-Fergus Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Newport Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Newport Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "New Ross",
+    "county": "Wexford"
+  },
+  {
+    "name": "Newtown Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Newtown (Newtownshandrum) Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Newtown Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Newtowncunningham Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Newtownforbes Town",
+    "county": "Longford"
+  },
+  {
+    "name": "Newtownmountkennedy Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Newtownsandes (Moyvane) Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Nobber Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Nurney Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "O'Briensbridge - Montpelier Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Oilgate (Oylegate) Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Oldcastle Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Oldtown Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Omeath Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Oola Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Oram Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Oranmore Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Oughterard Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Oulart Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Palatine Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Pallasgreen (Pallas Grean) Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Pallaskenry Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Parteen Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Passage East Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Passage West - Monkstown",
+    "county": "Cork"
+  },
+  {
+    "name": "Patrickswell Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Paulstown Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Pettigo (Irish part) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Piercetown Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Piltown Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Pollagh Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Portarlington Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Portlaoise",
+    "county": "Laois"
+  },
+  {
+    "name": "Portlaw Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Portmagee Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Portmarnock Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Portrane Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Portroe Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Portumna Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Prosperous Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Puckaun Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Quigleys Point Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Quilty Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Quin Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Raharney Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Ramelton Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Rann na Feirste (Ranafast) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Raphoe Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Rathangan Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Rathard - Aherla Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Rathcoffey Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Rathcoole Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Rathcoole Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Rathcormac Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Rathdowney Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Rathdrum Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Rathkeale Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Rathmolyon Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Rathmore Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Rathmullan (Rathmullen) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Rathnew Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Rathowen Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Rathtoe Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Rathvilly Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Ratoath Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Rear Cross (Reardnogy) Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Redcross Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Rhode Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Ringaskiddy - Loughbeg Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Rivermeade Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Riverstick Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Riverstown Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Robertstown Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Robinstown (Balbradagh) Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Rochfortbridge Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Rockcorry Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Roosky Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Roosky Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Roscommon Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Roscrea Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Rosegreen Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Rosscahill Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Rosscarbery Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Rosses Point Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Rosslare Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Rosslare Harbour Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Roundstone Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Roundwood Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Rush Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Saggart Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Saleen Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Sallins Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Scarriff - Tuamgraney Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Schull Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Scotshouse Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Scotstown Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Shanagarry Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Shanagolden Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Shanbally Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Shanballymore Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Shannon Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Shannonbridge Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Shercock Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Shillelagh Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Shinrone Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Shrule Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Silvermines Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Sixmilebridge Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Skerries Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Skibbereen",
+    "county": "Cork"
+  },
+  {
+    "name": "Slane Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Slieverue Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Sligo Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Smithborough Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Sneem Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Spa Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Spanish Point Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Stamullen Town",
+    "county": "Meath"
+  },
+  {
+    "name": "St. Johnston Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Stoneyford Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Stradbally Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Stradbally Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Straffan Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Strandhill Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Stratford (Stratford-on-Slaney) Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Strokestown Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Summerhill Town",
+    "county": "Meath"
+  },
+  {
+    "name": "Suncroft Town",
+    "county": "Kildare"
+  },
+  {
+    "name": "Swanlinbar Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Swinford Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Swords Town",
+    "county": "Dublin"
+  },
+  {
+    "name": "Taghmon Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Tagoat (Grahormac) Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "Tallanstown Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Tallow Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Tarbert Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Templemore",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Templetuohy Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Termonbarry (Tarmonbarry) Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Termonfeckin Town",
+    "county": "Louth"
+  },
+  {
+    "name": "The Ballagh Town",
+    "county": "Wexford"
+  },
+  {
+    "name": "The Commons Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "The Swan Town",
+    "county": "Laois"
+  },
+  {
+    "name": "Thomastown Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Three Mile House (Cabragh) Town",
+    "county": "Monaghan"
+  },
+  {
+    "name": "Thurles",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Tievebane (Tooban) Town",
+    "county": "Donegal"
+  },
+  {
+    "name": "Timoleague Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Tinahely Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Tinryland (Tinriland) Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Tinure Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Tipperary Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Toomevara Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Toornafulla Town",
+    "county": "Limerick"
+  },
+  {
+    "name": "Tower Village",
+    "county": "Cork"
+  },
+  {
+    "name": "Tralee",
+    "county": "Kerry"
+  },
+  {
+    "name": "Tramore",
+    "county": "Waterford"
+  },
+  {
+    "name": "Trim",
+    "county": "Meath"
+  },
+  {
+    "name": "Tuam",
+    "county": "Galway"
+  },
+  {
+    "name": "Tubbercurry Town",
+    "county": "Sligo"
+  },
+  {
+    "name": "Tulla Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Tullaghan Town",
+    "county": "Leitrim"
+  },
+  {
+    "name": "Tullamore",
+    "county": "Offaly"
+  },
+  {
+    "name": "Tullow Town",
+    "county": "Carlow"
+  },
+  {
+    "name": "Tullyallen Town",
+    "county": "Louth"
+  },
+  {
+    "name": "Tulsk Town",
+    "county": "Roscommon"
+  },
+  {
+    "name": "Turlough Town",
+    "county": "Mayo"
+  },
+  {
+    "name": "Turloughmore Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Twomileborris Town",
+    "county": "Tipperary"
+  },
+  {
+    "name": "Tyrrellspass Town",
+    "county": "Westmeath"
+  },
+  {
+    "name": "Unionhall Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Urlingford Town",
+    "county": "Kilkenny"
+  },
+  {
+    "name": "Villierstown Town",
+    "county": "Waterford"
+  },
+  {
+    "name": "Virginia Town",
+    "county": "Cavan"
+  },
+  {
+    "name": "Walsh Island (Coolagary) Town",
+    "county": "Offaly"
+  },
+  {
+    "name": "Waterford City",
+    "county": "Waterford"
+  },
+  {
+    "name": "Watergrasshill Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Waterville Town",
+    "county": "Kerry"
+  },
+  {
+    "name": "Westport",
+    "county": "Mayo"
+  },
+  {
+    "name": "Wexford City",
+    "county": "Wexford"
+  },
+  {
+    "name": "Whitechurch Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Whitegate Town",
+    "county": "Clare"
+  },
+  {
+    "name": "Whitegate Town",
+    "county": "Cork"
+  },
+  {
+    "name": "Wicklow Town",
+    "county": "Wicklow"
+  },
+  {
+    "name": "Williamstown Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Woodford Town",
+    "county": "Galway"
+  },
+  {
+    "name": "Youghal",
+    "county": "Cork"
+  }
+]
