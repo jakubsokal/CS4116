@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import "@/styles/Navbar.css";
 import Image from "next/image";
+import SearchBar from "@/components/Searchbar";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,6 +26,9 @@ const Navbar = () => {
       </div>
 
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
+        <div className="nav-search">
+          <SearchBar />
+        </div>
         <ul>
           <li><Link href="/explore" onClick={() => setMenuOpen(false)}>EXPLORE</Link></li>
           <li><Link href="/login" onClick={() => setMenuOpen(false)}>LOGIN</Link></li>
