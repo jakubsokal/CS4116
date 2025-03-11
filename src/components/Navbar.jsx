@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
+    <nav className="navbar-main">
       <Link href="/">
         <Image src="/images/logo.png" alt="Logo" width={100} height={50} className="logo" />
       </Link>

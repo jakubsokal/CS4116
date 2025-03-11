@@ -1,10 +1,10 @@
-.navbar {
+.navbar-main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 6%;
+  padding: 1% 6%;
   width: 100%;
-  position: fixed;
+  position: static;
   top: 0;
   left: 0;
   background: rgba(4, 9, 30, 0.85);
@@ -27,6 +27,7 @@
   list-style: none;
   display: flex;
   gap: 20px;
+  margin: 0;
 }
 
 .nav-links ul li {
