@@ -1,0 +1,77 @@
+/*Heading of table */
+.heading {
+  text-align: center;
+  font-weight: bold;
+  margin: 20px 0;
+  color: #ff5125;
+}
+
+/* Makes the table responsive */
+.table {
+  overflow-x: auto; /* Horizontal scrolling */
+  overflow-y: auto;
+  align-items: center;
+  align-content: center;
+  border: #414141;
+  
+}
+
+/*  wraps text */
+.table td {
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: center;
+  background-color: #f9e8e8;
+  
+  
+}
+.table th {
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: center ;
+  color: aliceblue;
+  background-color: rgb(40, 42, 52);
+}
+
+/* Styling the button container for responsive behavior */
+.buttons {
+  display: flex;
+  flex-direction: row; /* default = horizontal */
+
+}
+
+@media (min-width: 768px) {
+  .buttons {
+    flex-direction: row; 
+  }
+}
+
+
+.reject_button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+
+
+}
+
+.accept_button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-right: 0.5rem;
+
+}
+
+.reject_button:hover {
+  background-color: darkred;
+}
+
+.accept_button:hover {
+  background-color: darkgreen;
+}
+
