@@ -1,11 +1,11 @@
-.filterbar-main {
+.cs4116-filterbar-main {
 	position: absolute;
 	width: 300px;
 	min-height: 100%;
 	background: white;
 }
 
-.filterbar-main ul {
+.cs4116-filterbar-main ul {
 	color: #000;
 	display: flex;
 	flex-direction: column;
@@ -14,7 +14,7 @@
 	padding-left: 0 !important;
 }
 
-.filterbar-main li {
+.cs4116-filterbar-main li {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -52,7 +52,7 @@ input[type="checkbox"]:checked::before {
 	margin-top: 4%;
 }
 
-.rating {
+.cs4116-rating {
 	display: flex;
 	justify-content: space-evenly;
 }
