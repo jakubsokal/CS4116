@@ -9,7 +9,7 @@ import Rating from "@/components/ReviewRating";
 
 const FilterBar = () => {
 	return (
-		<div className="filterbar-main">
+		<div className="cs4116-filterbar-main">
 			<div className="accordion accordion-flush" id="accordionFlushExample">
 				<div className="accordion-item">
 					<h2 className="accordion-header">
@@ -107,7 +107,7 @@ const FilterBar = () => {
 						data-bs-parent="#accordionFlushExample"
 					>
 						<div className="accordion-body">
-							<div className="rating">
+							<div className="cs4116-rating">
 								<Rating />
 							</div>
 						</div>

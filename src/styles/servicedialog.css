@@ -1,0 +1,120 @@
+.cs4116-background-dialog {
+	left: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100% !important;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.cs4116-open {
+	left: 50%;
+}
+
+.cs4116-dialog-actions {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	padding: 1% 6%;
+	background: white;
+	border-radius: 0 0 20px 20px !important;
+}
+
+.cs41160-dialog-header {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border-radius: 20px 20px 0 0 !important;
+	align-items: center;
+	width: 100% !important;
+	padding: 0% 5% !important;
+	background: white;
+}
+
+.MuiDialog-paper {
+	width: 100% !important;
+	height: auto !important;
+	padding: 20px;
+	border-radius: 20px !important;
+	background-color: #7d7d7d !important;
+	color: black !important;
+}
+
+.cs4116-dialog-content {
+	padding: 0px 24px 24px !important;
+	border-radius: 0 0 20px 20px !important;
+	background: white;
+	display: flex;
+	flex-direction: column;
+}
+
+.cs4116-inq-btn {
+	text-transform: none !important;
+	padding: 10px 30px !important;
+	background: #ff5125 !important;
+	color: black !important;
+	border-radius: 8px !important;
+}
+
+.cs4116-viewpf-btn {
+	text-transform: none !important;
+	padding: 10px 25px !important;
+	border-radius: 8px !important;
+	background: black !important;
+	color: white !important;
+}
+
+.cs4116-dialog-data {
+	margin-left: 3% !important;
+	width: auto !important;
+}
+
+.cs4116-dialog-form {
+	width: 100% !important;
+	display: flex !important;
+	flex-direction: row !important;
+}
+
+.cs4116-dialog-select {
+	font-family: "Urbanist-Bold" !important;
+	font-size: 20px !important;
+	color: black !important;
+	width: 100% !important;
+	height: fit-content !important;
+}
+
+.cs4116-dialog-input {
+	left: 40% !important;
+}
+
+.cs4116-dialog-rating {
+	font-size: 35px !important;
+}
+
+img {
+	width: 40%;
+	height: auto;
+}
+
+.cs4116-dialog-body {
+	width: 100% !important;
+}
+
+.cs4116-dialog-reviews {
+	border-radius: 20px !important;
+	margin-top: 5px !important ;
+	position: relative !important;
+	height: auto !important;
+	background-color: #374544;
+	position: fixed;
+}
+
+.cs4116-dialog-info{
+    font-size: 20px !important;
+}
