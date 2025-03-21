@@ -10,31 +10,26 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const LocationSelection = () => {
-	const [countyData, setCountyData] = useState({});
+	const [countyData, setCountyData] = useState([]);
 	const [selectedCounty, setSelectedCounty] = useState("");
-	const [selectedArea, setSelectedArea] = useState("");
 	const [isCountyDisabled, setIsCountyDisabled] = useState(false);
-	const [isAreaDisabled, setIsAreaDisabled] = useState(false);
 
 	useEffect(() => {
-		fetch("/towns.json")
+		fetch("/county.json")
 			.then((response) => response.json())
 			.then((data) => {
-				const groupedByCounty = data.reduce((result, town) => {
-					const county = town.county;
-					if (!result[county]) result[county] = [];
-					result[county].push(town.name);
-					return result;
-				}, {});
-
-				setCountyData(groupedByCounty);
+				if (Array.isArray(data.counties)) {
+					setCountyData(data.counties);
+				} else {
+					throw new Error("Invalid JSON format");
+				}
 			})
 			.catch(() => {
 				throw new Error("Failed to load locations");
 			});
 	}, []);
 
-	if (Object.keys(countyData).length === 0) {
+	if (countyData.length === 0) {
 		return (
 			<Box
 				sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -58,19 +53,6 @@ const LocationSelection = () => {
 		}, 600);
 	};
 
-	const AreaChange = (event) => {
-		setSelectedArea(event.target.value);
-		setIsAreaDisabled(true);
-		setTimeout(() => {
-			setIsAreaDisabled(false);
-		}, 600);
-	};
-
-	const sortedCounties = Object.keys(countyData).sort();
-	const sortedTowns = selectedCounty
-		? [...countyData[selectedCounty]].sort()
-		: [];
-
 	return (
 		<Box sx={{ display: "flex", flexDirection: "column", fullWidth: "true" }}>
 			<FormControl fullWidth margin="normal">
@@ -82,41 +64,13 @@ const LocationSelection = () => {
 					onChange={CountyChange}
 					input={<OutlinedInput label="Select County" />}
 				>
-					{sortedCounties.map((selected) => (
-						<MenuItem
-							key={selected}
-							value={selected}
-							disabled={isCountyDisabled}
-						>
-							{selected}
+					{countyData.map((county, index) => (
+						<MenuItem key={index} value={county} disabled={isCountyDisabled}>
+							{county}
 						</MenuItem>
 					))}
 				</Select>
 			</FormControl>
-			{selectedCounty && (
-				<FormControl fullWidth margin="normal">
-					<InputLabel id="demo-multiple-name-label">
-						Select Town/City
-					</InputLabel>
-					<Select
-						labelId="demo-multiple-name-label"
-						id="demo-multiple-name"
-						value={selectedArea}
-						onChange={AreaChange}
-						input={<OutlinedInput label="Select Town/City" />}
-					>
-						{sortedTowns.map((selected) => (
-							<MenuItem
-								key={selected}
-								value={selected}
-								disabled={isAreaDisabled}
-							>
-								{selected}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
-			)}
 		</Box>
 	);
 };
