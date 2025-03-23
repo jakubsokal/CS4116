@@ -1,57 +1,47 @@
-"use client";
+"use client"
 
-import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import CircularProgress from "@mui/material/CircularProgress";
+import React, { useState, useEffect } from "react"
+import Box from "@mui/material/Box"
+import InputLabel from "@mui/material/InputLabel"
+import MenuItem from "@mui/material/MenuItem"
+import FormControl from "@mui/material/FormControl"
+import Select from "@mui/material/Select"
+import OutlinedInput from "@mui/material/OutlinedInput"
+import Loading from "@/components/Loading"
 
 const LocationSelection = () => {
-	const [countyData, setCountyData] = useState([]);
-	const [selectedCounty, setSelectedCounty] = useState("");
-	const [isCountyDisabled, setIsCountyDisabled] = useState(false);
+	const [countyData, setCountyData] = useState([])
+	const [selectedCounty, setSelectedCounty] = useState("")
+	const [isCountyDisabled, setIsCountyDisabled] = useState(false)
 
 	useEffect(() => {
 		fetch("/county.json")
 			.then((response) => response.json())
 			.then((data) => {
 				if (Array.isArray(data.counties)) {
-					setCountyData(data.counties);
+					setCountyData(data.counties)
 				} else {
-					throw new Error("Invalid JSON format");
+					throw new Error("Invalid JSON format")
 				}
 			})
 			.catch(() => {
-				throw new Error("Failed to load locations");
-			});
-	}, []);
+				throw new Error("Failed to load locations")
+			})
+	}, [])
 
 	if (countyData.length === 0) {
 		return (
-			<Box
-				sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-			>
-				<CircularProgress
-					sx={{
-						"& svg": {
-							color: "#ff5125",
-						},
-					}}
-				/>
-			</Box>
-		);
+			<Loading/>
+		)
 	}
 
 	const CountyChange = (event) => {
-		setSelectedCounty(event.target.value);
-		setIsCountyDisabled(true);
+		setSelectedCounty(event.target.value)
+		setIsCountyDisabled(true)
 		setTimeout(() => {
-			setIsCountyDisabled(false);
-		}, 600);
-	};
+			setIsCountyDisabled(false)
+		}, 600)
+	}
 
 	return (
 		<Box sx={{ display: "flex", flexDirection: "column", fullWidth: "true" }}>
@@ -72,7 +62,7 @@ const LocationSelection = () => {
 				</Select>
 			</FormControl>
 		</Box>
-	);
-};
+	)
+}
 
-export default LocationSelection;
+export default LocationSelection

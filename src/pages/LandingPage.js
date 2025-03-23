@@ -1,6 +1,16 @@
+"use client"
+
 import Navbar from "@/components/Navbar";
+import Loading from "@/components/Loading";
+import useSessionCheck from "@/utils/hooks/useSessionCheck";
 
 const LandingPage = () => {
+  const { loading } = useSessionCheck()
+  
+  if(loading) {
+    return <Loading/>
+  }
+
   return (
     <div>
       <Navbar />
@@ -28,7 +38,7 @@ const LandingPage = () => {
 
         <div className="suggestion">
           <h2>ProMotion Soccer</h2>
-          <p>Elevate your game with ProMotion Soccer's strength and conditioning—built for speed, power, and endurance. Enhance your performance now!</p>
+          <p>Elevate your game with ProMotion Soccer`s strength and conditioning—built for speed, power, and endurance. Enhance your performance now!</p>
           <a href="#" className="find-out-more">Find Out More</a>
         </div>
       </section>
