@@ -6,19 +6,20 @@ import Loading from "@/components/Loading"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
 import { redirect } from "next/navigation"
 import { useEffect } from "react"
-import { useSearchParams } from 'next/navigation'
 
 export default function Login() {
-	const { user, loading, status } = useSessionCheck()
-	 
+	const { session, loading, status } = useSessionCheck()
+
 	useEffect(() => {
-		if (user != null) {
-			console.info("Status:", status, "User is already logged in")
-			redirect("/")
-		} else {
-			console.info("Status:", status, "User is not logged in")
+		if (!loading) {
+			if (session != null) {
+				console.info("Status:", status, "User is already logged in")
+				redirect("/")
+			} else {
+				console.info("Status:", status, "User is not logged in")
+			}
 		}
-	}, [user, status])
+	}, [session, status, loading])
 
 	if (loading) {
 		return <Loading />

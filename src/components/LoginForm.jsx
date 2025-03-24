@@ -15,8 +15,8 @@ const LoginForm = () => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [user, setUser] = useState([])
-
 	const {loading} = useSessionCheck()
+
 	const handleOnSubmit = async (e) => {
 		e.preventDefault()
 		setLoading(true)

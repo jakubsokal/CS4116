@@ -4,7 +4,6 @@ import { createClient } from "@/utils/supabase/server"
 
 async function getUserDetails(email) {
 	const supabase = await createClient()
-
 	try {
 		const { data, error } = await supabase
 			.from('users')
@@ -16,12 +15,12 @@ async function getUserDetails(email) {
 			return { status: 400, error: error.message }
 		}
     
-    const combinedData = data.map(user => ({
-      email: user.email,
-      name: `${user.first_name} ${user.last_name}`,
-	}))
+    	const combinedData = data.map(user => ({
+      		email: user.email,
+      		name: `${user.first_name} ${user.last_name}`,
+		}))
 
-		return { user: combinedData[0], status: 200 }
+		return { userData: combinedData[0], status: 200 }
 
 	} catch (err) {
 		console.error("Exception fetching data:", err)

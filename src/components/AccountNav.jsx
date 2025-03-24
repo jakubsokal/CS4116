@@ -3,17 +3,17 @@
 import React, { useState, useMemo, useEffect } from "react"
 import { AppProvider } from "@toolpad/core/AppProvider"
 import { Account } from "@toolpad/core/Account"
-import userCheck from "@/api/user/userCheck"
 import signOut from "@/api/user/signOut"
 import { redirect } from "next/navigation"
 import Loading from "@/components/Loading"
 import getUserDetails from "@/api/user/getUserDetails"
+import useSessionCheck from "@/utils/hooks/useSessionCheck"
 
 const AccountNav = () => {
-	const [user, setUser] = useState([])
-	const [session, setSession] = useState(null)
+	const [users, setUser] = useState([])
+	const [currentSession, setSession] = useState(null)
 	const [userData, setUserData] = useState(null)
-	const [loading, setLoading] = useState(true)
+	const { session, loading, status} = useSessionCheck()
 
 	const authentication = useMemo(() => {
 		return {
@@ -28,40 +28,39 @@ const AccountNav = () => {
 				}
 			},
 		}
-	}, [session])
+	}, [currentSession])
 
 	useEffect(() => {
 		const checkSession = async () => {
 			try {
-				const session = await userCheck()
-				if (session.loggedIn === false) {
+				if(session != null) {
+				if (session.user == null && loading == false) {
 					redirect("/login")
 				} else {
 					setSession(session)
-					
 					setUser(session.user)
-					const fetch = await getUserDetails(session.session.user.email)
-					console.log("User data:", fetch.user)
+					const fetch = await getUserDetails(session.user.email)
 					if (fetch.error) {
 						console.error("Error fetching user data:", fetch.error)
 					} else {
-						setUserData(fetch.user)
+						setUserData(fetch.userData)
 						setSession((prevSession) => ({
 							...prevSession,
-							user: { ...prevSession.user, ...fetch.user },
+							user: {...fetch.userData },
 						}))
 					}
 				}
+			}
 			} catch (error) {
 				console.error("Error during session check:", error)
 				redirect("/login")
-			} finally {
-				setLoading(false)
 			}
 		}
 
-		checkSession()
-	}, [])
+		if(!loading){
+			checkSession()
+		}
+	}, [session])
 
 	if (loading) {
 		return <Loading />
@@ -69,7 +68,7 @@ const AccountNav = () => {
 
 	return (
 		<div style={{ padding: "0" }}>
-			<AppProvider authentication={authentication} session={session}>
+			<AppProvider authentication={authentication} session={currentSession}>
 				<Account
 					sx={{ padding: "0" }}
 					slotProps={{

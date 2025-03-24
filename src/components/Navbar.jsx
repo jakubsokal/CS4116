@@ -16,17 +16,19 @@ const Navbar = () => {
     setMenuOpen(!menuOpen)
   }
 
-  const { user, session, loading, status } = useSessionCheck()
+  const { session, loading, status } = useSessionCheck()
   const [loggedIn, setLoggedIn] = useState(false)
+
   useEffect(() => {
     const checkSession = async () => {
-        if (user != null) {
+        if (session != null) {
           setLoggedIn(true)
         }
     }
-
-    checkSession()
-  }, [user])
+    if(!loading){
+      checkSession()
+    }
+  }, [session])
 
   if (loading) {
     return <Loading />
