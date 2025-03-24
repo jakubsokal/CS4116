@@ -6,8 +6,7 @@ import "@/styles/Navbar.css"
 import Image from "next/image"
 import SearchBar from "@/components/Searchbar"
 import AccountNav from "@/components/AccountNav"
-import useSessionCheck from "@/utils/hooks/useSessionCheck"
-import Loading from "@/components/Loading"
+import useSessionCheck  from "@/utils/hooks/useSessionCheck"
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -29,10 +28,6 @@ const Navbar = () => {
       checkSession()
     }
   }, [session])
-
-  if (loading) {
-    return <Loading />
-  }
   
   return (
     <nav className="navbar-main">

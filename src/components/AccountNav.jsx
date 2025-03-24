@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useState, useMemo, useEffect } from "react"
+import React, { useState, useMemo, useEffect, useRef } from "react"
 import { AppProvider } from "@toolpad/core/AppProvider"
 import { Account } from "@toolpad/core/Account"
 import signOut from "@/api/user/signOut"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 import Loading from "@/components/Loading"
 import getUserDetails from "@/api/user/getUserDetails"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
@@ -14,6 +14,7 @@ const AccountNav = () => {
 	const [currentSession, setSession] = useState(null)
 	const [userData, setUserData] = useState(null)
 	const { session, loading, status} = useSessionCheck()
+	const router = useRouter()
 
 	const authentication = useMemo(() => {
 		return {
@@ -24,7 +25,7 @@ const AccountNav = () => {
 				const res = signOut()
 				if (res) {
 					console.log("Signed out")
-					redirect("/")
+					router.push("/login")
 				}
 			},
 		}
@@ -35,7 +36,7 @@ const AccountNav = () => {
 			try {
 				if(session != null) {
 				if (session.user == null && loading == false) {
-					redirect("/login")
+					router.push("/login")
 				} else {
 					setSession(session)
 					setUser(session.user)
@@ -53,14 +54,14 @@ const AccountNav = () => {
 			}
 			} catch (error) {
 				console.error("Error during session check:", error)
-				redirect("/login")
+				router.push("/login")
 			}
 		}
 
 		if(!loading){
 			checkSession()
 		}
-	}, [session])
+	}, [session, loading, router])
 
 	if (loading) {
 		return <Loading />

@@ -4,23 +4,24 @@ import Navbar from "@/components/Navbar";
 import RegisterForm from "@/components/RegisterForm"; 
 
 import React, { useEffect } from "react"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 import Loading from "@/components/Loading"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
 
 export default function Register() {
   const { session, loading, status } = useSessionCheck()
+  const router = useRouter()
 
 	useEffect(() => {
 		if (!loading) {
 			if (session != null) {
 				console.info("Status:", status, "User logged in")
-				redirect("/")
+				router.push("/")
 			} else {
 				console.info("Status:", status, "User is not logged in")
 			}
 		}
-	}, [session, status, loading])
+	}, [session, status, loading, router])
 
 	if (loading) {
 		return <Loading />

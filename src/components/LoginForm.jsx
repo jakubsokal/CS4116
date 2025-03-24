@@ -6,8 +6,7 @@ import "@/styles/LoginForm.css"
 import { FaUser, FaLock } from "react-icons/fa"
 import Loading from "@/components/Loading"
 import { login } from "@/api/login/login"
-import { redirect } from 'next/navigation'
-import useSessionCheck from "@/utils/hooks/useSessionCheck"
+import { useRouter } from 'next/navigation'
 
 const LoginForm = () => {
 	const [error, setError] = useState(null)
@@ -15,7 +14,7 @@ const LoginForm = () => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [user, setUser] = useState([])
-	const {loading} = useSessionCheck()
+	const router = useRouter()
 
 	const handleOnSubmit = async (e) => {
 		e.preventDefault()
@@ -24,16 +23,12 @@ const LoginForm = () => {
 		if (res.status == 200) {
 			setUser(res.data)
 			console.info("Status:", res.status, "Successfully login")
-			redirect("/")
+			router.push("/")
 		} else {
 			setError(res.error)
 			console.error("Status:", res.status, "Error logging in:", res.error)
 		}
 		setLoading(false)
-	}
-
-	if (loading) {
-		return <Loading />
 	}
 
 	return (
