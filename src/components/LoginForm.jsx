@@ -19,6 +19,7 @@ const LoginForm = () => {
 	const handleOnSubmit = async (e) => {
 		e.preventDefault()
 		setLoading(true)
+		setError(null)
 		const res = await login(email, password)
 		if (res.status == 200) {
 			setUser(res.data)
@@ -35,7 +36,7 @@ const LoginForm = () => {
 		<div className="wrapper">
 			<form onSubmit={handleOnSubmit}>
 				<h1>Login</h1>
-				{error && <p style={{ color: "red" }}>{error}</p>}
+				{error && <p style={{ color: "red", paddingTop: "8px" }}>{error}</p>}
 				<div className="input-box">
 					<input
 						type="text"

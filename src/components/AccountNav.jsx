@@ -1,19 +1,17 @@
 "use client"
 
-import React, { useState, useMemo, useEffect, useRef } from "react"
+import React, { useState, useMemo, useEffect } from "react"
 import { AppProvider } from "@toolpad/core/AppProvider"
 import { Account } from "@toolpad/core/Account"
 import signOut from "@/api/user/signOut"
 import { useRouter } from "next/navigation"
 import Loading from "@/components/Loading"
-import getUserDetails from "@/api/user/getUserDetails"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
 
 const AccountNav = () => {
 	const [users, setUser] = useState([])
 	const [currentSession, setSession] = useState(null)
-	const [userData, setUserData] = useState(null)
-	const { session, loading, status} = useSessionCheck()
+	const { session, loading, status } = useSessionCheck()
 	const router = useRouter()
 
 	const authentication = useMemo(() => {
@@ -21,7 +19,6 @@ const AccountNav = () => {
 			signOut: async () => {
 				setUser(null)
 				setSession(null)
-				setUserData(null)
 				const res = signOut()
 				if (res) {
 					console.log("Signed out")
@@ -34,31 +31,37 @@ const AccountNav = () => {
 	useEffect(() => {
 		const checkSession = async () => {
 			try {
-				if(session != null) {
-				if (session.user == null && loading == false) {
-					router.push("/login")
-				} else {
-					setSession(session)
-					setUser(session.user)
-					const fetch = await getUserDetails(session.user.email)
-					if (fetch.error) {
-						console.error("Error fetching user data:", fetch.error)
+				if (session != null) {
+					if (session.user == null && loading == false) {
+						router.push("/login")
 					} else {
-						setUserData(fetch.userData)
-						setSession((prevSession) => ({
-							...prevSession,
-							user: {...fetch.userData },
-						}))
+						setSession(session)
+						console.log("Session:", session.user.email)
+						const res = await fetch('/api/getUserDetails', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({ email: session.user.email }),
+						});
+
+						const result = await res.json();
+						console.log("Result:", result)
+						if (result.data) {
+							setSession((prevSession) => ({
+								...prevSession,
+								user: { ...result.data },
+							}))
+						}
 					}
 				}
-			}
 			} catch (error) {
 				console.error("Error during session check:", error)
 				router.push("/login")
 			}
 		}
 
-		if(!loading){
+		if (!loading) {
 			checkSession()
 		}
 	}, [session, loading, router])

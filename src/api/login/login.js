@@ -16,6 +16,3 @@ export async function login(email, password) {
   return { user: data.user, status: 200 }
 
 }
-
-
-
