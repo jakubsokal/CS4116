@@ -1,0 +1,83 @@
+.business-profile-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    min-height: 100vh;
+}
+
+.business-profile-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 700px;
+    width: 100%;
+    color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.business-profile-container h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 10px;
+}
+
+.business-form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.business-form-row label {
+    flex: 0 0 160px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: right;
+    margin-right: 20px;
+}
+
+.business-form-row input,
+.business-form-row textarea {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color:  white;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .business-form-row textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+  
+
+  .business-form-row input:focus,
+  .business-form-row textarea:focus {
+    border-color: #ff5125;
+    outline: none;
+  }
+  
+  .update-profile-button {
+    margin-top: 30px;
+    width: 100%;
+    padding: 14px;
+    background-color: #ff5125;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .update-profile-button:hover {
+    background-color: #d93d15;
+  }
+  
