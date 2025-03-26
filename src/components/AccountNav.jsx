@@ -36,8 +36,7 @@ const AccountNav = () => {
 						router.push("/login")
 					} else {
 						setSession(session)
-						console.log("Session:", session.user.email)
-						const res = await fetch('/api/getUserDetails', {
+						const res = await fetch('/api/user/getUserDetailsEmail', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
@@ -46,7 +45,6 @@ const AccountNav = () => {
 						});
 
 						const result = await res.json();
-						console.log("Result:", result)
 						if (result.data) {
 							setSession((prevSession) => ({
 								...prevSession,
