@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { supabase } from "@/lib/supabaseclient";
+
 import "@/styles/ReviewPopup.css";
 
 //takes the inquiry detials from inquiry Pop-Up
@@ -12,39 +12,30 @@ const handleSubmit = async () => {
     alert("Please fill in all fields!");
     return;
   }
-  
-  // Insert the review into the database
-  const { error } = await supabase.from("reviews").insert([{
-    review_id: inquiry.inquiry_id,
-    user_id: inquiry.sender_id,  // User ID
-    service_id: inquiry.reciever_id, // The service ID
-    description: description,
-    rating: rating,
-  }]);
+//updated to do
+  try {
+    const response = await fetch("/api/reviewPopup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        inquiry_id: inquiry.inquiry_id,  
+        description,
+        rating,
+      }),
+    });
 
-  if (error) {
-    console.error("Error submitting review:", error);
-    alert("Error submitting review!");
-  } else {
-    alert("Review submitted successfully!");
-    
-    // After submitting the review, inquiry gets deleted
-    const { error: deleteError } = await supabase
-      .from("inquiries")
-      .delete()
-      .eq("inquiry_id", inquiry.inquiry_id);
-
-    if (deleteError) {
-      console.error("Error deleting inquiry:", deleteError);
-      alert("Error deleting inquiry after review!");
-    } else {
-      alert("Inquiry deleted after review submission.");
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to submit review");
     }
 
-    setShowReviewPopup(false); 
+    alert("Review submitted successfully, and inquiry deleted.");
+    setShowReviewPopup(false);
+  } catch (error) {
+    console.error("Error:", error);
+    alert(error.message);
   }
 };
-
 
   return (
     <div className="popup-overlay">

@@ -3,7 +3,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import "@/styles/InquiryTable.css";
-import { supabase } from "@/lib/supabaseclient";
+
 import ReviewPopup from "./ReviewPopup"; 
 
 /*for now i have it that:
@@ -21,48 +21,50 @@ const AdminTable = () => {
   const [selectedInquiry, setSelectedInquiry] = useState(null);  
 
   useEffect(() => {
+    // Fetching inquiries from API instead of db
     const fetchData = async () => {
-      const { data, error } = await supabase
-        .from("inquiries")
-        .select(`
-          inquiry_id,
-          sender_id,
-          receiver_id,
-          created_at,
-          users:sender_id (first_name, last_name)
-        `);
-
-      if (error) {
-        console.error("Error fetching data:", error);
-      } else {
+      try {
+        const response = await fetch("/api/inquiries");
+        const data = await response.json();
         setInquiries(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
+  const handleAction = async (inquiry) => {
+    try {
+      // Call API insstead of supabase
+      const response = await fetch("/api/inquiries", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ inquiry_id: inquiry.inquiry_id, status: 1 }),
+      });
 
-  const handleAction = async (inquiry) => {  
-    const { data, error } = await supabase
-      .from("inquiries")
-      .update({ status: 1 })
-      .eq("inquiry_id", inquiry.inquiry_id)
-      .select()
-      .single();
+      if (!response.ok) throw new Error("Failed to update status");
 
-    if (error) {
+      setSelectedInquiry(inquiry);
+      setShowReviewPopup(true);
+    } catch (error) {
       console.error("Error updating status:", error);
-    } else {
-      setSelectedInquiry(inquiry);  
-      setShowReviewPopup(true);  // Show the review pop-up
     }
   };
 
   const handleDecline = async (inquiryId) => {
-    const { error } = await supabase.from("inquiries").delete().eq("inquiry_id", inquiryId);
-    if (!error) {
+    try {
+      // delete inquiry
+      const response = await fetch("/api/inquiries", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ inquiry_id: inquiryId }),
+      });
+
+      if (!response.ok) throw new Error("Failed to delete inquiry");
+
       setInquiries(inquiries.filter((inq) => inq.inquiry_id !== inquiryId));
-    } else {
+    } catch (error) {
       console.error("Error handling decline:", error);
     }
   };
