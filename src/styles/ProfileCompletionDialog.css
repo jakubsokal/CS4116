@@ -1,0 +1,92 @@
+.profile-dialog-paper {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  border-radius: 16px;
+}
+
+.profile-dialog-title {
+  color: #fff !important;
+  text-align: center;
+  font-size: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-dialog-content {
+  padding: 20px 30px !important;
+}
+
+.profile-text-field {
+  margin: 16px 0 !important;
+}
+
+.profile-input {
+  background: transparent !important;
+  color: #fff !important;
+}
+
+.profile-input input {
+  color: #fff !important;
+}
+
+.profile-input fieldset {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.profile-input:hover fieldset {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.profile-input.Mui-focused fieldset {
+  border-color: #fff !important;
+}
+
+.profile-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.profile-label.Mui-focused {
+  color: #fff !important;
+}
+
+.profile-error {
+  color: #ff4444;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.profile-dialog-actions {
+  padding: 16px 30px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-cancel-btn {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.profile-cancel-btn:hover {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.profile-submit-btn {
+  background: #fff !important;
+  color: #000 !important;
+  padding: 8px 24px !important;
+  border-radius: 20px !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+}
+
+.profile-submit-btn:hover {
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+.profile-submit-btn:disabled {
+  background: rgba(255, 255, 255, 0.5) !important;
+  color: rgba(0, 0, 0, 0.5) !important;
+} 

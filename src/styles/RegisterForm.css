@@ -1,170 +1,187 @@
 .register-wrapper {
-    width: 90%;
-    max-width: 420px;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, .2);
-    backdrop-filter: blur(30px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    width: 95%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     color: #fff;
-    min-height: 450px;
-    border-radius: 10px;
-    padding: 30px 40px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    border-radius: 16px;
+    padding: 30px 25px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
 }
 
-.register-wrapper h1 {
-    font-size: 32px;
+h1 {
+    font-size: 24px;
     text-align: center;
+    margin-bottom: 24px;
+}
+
+.toggle-registration-type {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+.toggle-registration-type label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.toggle-registration-type label:has(input:checked) {
+    background: #fff;
+    color: #000;
+}
+
+.toggle-registration-type input {
+    display: none;
+}
+
+.form-fields {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.customer-fields {
+    transform: translateX(0);
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+}
+
+.business-fields {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    opacity: 0;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-fields.business .customer-fields {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.form-fields.business .business-fields {
+    transform: translateX(-100%);
+    opacity: 1;
 }
 
 .input-box {
     position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 15px 0;
+    margin: 14px 0;
+    height: 48px;
 }
 
 .input-box input {
     width: 100%;
     height: 100%;
     background: transparent;
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    padding: 12px 42px 12px 16px;
+    color: white;
+    font-size: 15px;
     outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
-    border-radius: 40px;
-    font-size: 16px;
-    color: #fff;
-    padding: 15px 45px 15px 15px;
 }
 
 .input-box input::placeholder {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .input-box .icon {
     position: absolute;
-    right: 15px;
+    right: 16px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 14px;
-}
-
-.interests-section {
-    margin: 15px 0;
-}
-
-.interests-section h3 {
     font-size: 16px;
-    margin-bottom: 8px;
-    text-align: center;
 }
 
-.interests-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-}
-
-.interest-label {
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 6px 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.interest-label input {
-    margin-right: 6px;
-}
-
-button {
+button[type="submit"] {
+    margin-top: 18px;
     width: 100%;
     height: 45px;
-    background: #fff;
     border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    border-radius: 25px;
     cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    font-weight: 700;
-    margin-top: 20px;
+    transition: background 0.3s;
 }
 
-button:hover {
+button[type="submit"]:hover {
     background: #ddd;
 }
 
-/* For Tablets (768px and below) */
+.county-select {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 10px 15px;
+    font-size: 15px;
+    appearance: none;
+    outline: none;
+}
+
+.county-select option {
+    background-color: #333;
+    color: #fff;
+}
+
+.county-select:focus {
+    color: #fff;
+}
+
+.county-select:not(:focus):not(:has(option:checked)) {
+    color: rgba(255, 255, 255, 0.7);
+}
+
 @media (max-width: 768px) {
     .register-wrapper {
-        width: 80%;
-        max-width: 400px;
-        padding: 25px 30px;
+        padding: 20px;
+        width: 90%;
     }
-    
-    .register-wrapper h1 {
-        font-size: 28px;
+
+    h1 {
+        font-size: 20px;
     }
 
     .input-box input {
         font-size: 14px;
     }
 
-    .interests-section h3 {
-        font-size: 15px;
-    }
-
-    .interest-label {
-        font-size: 13px;
-        padding: 5px 8px;
+    button[type="submit"] {
+        font-size: 14px;
+        height: 42px;
     }
 }
 
-/* For Mobile Devices (480px and below) */
 @media (max-width: 480px) {
-    .register-wrapper {
-        width: 95%;
-        max-width: 350px;
-        padding: 20px 25px;
+    .toggle-registration-type {
+        flex-direction: column;
+        gap: 10px;
     }
 
-    .register-wrapper h1 {
-        font-size: 24px;
+    .toggle-registration-type label {
+        justify-content: center;
+        width: 100%;
     }
 
     .input-box {
-        height: 45px;
-    }
-
-    .input-box input {
-        font-size: 14px;
-        padding: 12px 40px 12px 12px;
-    }
-
-    .input-box .icon {
-        font-size: 12px;
-        right: 10px;
-    }
-
-    .interests-section h3 {
-        font-size: 14px;
-    }
-
-    .interest-label {
-        font-size: 12px;
-        padding: 5px 7px;
-    }
-
-    button {
-        height: 40px;
-        font-size: 14px;
+        height: 44px;
     }
 }
