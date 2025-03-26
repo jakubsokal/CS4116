@@ -1,18 +1,34 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Link from "next/link";
-import "@/styles/Navbar.css";
-import Image from "next/image";
-import SearchBar from "@/components/Searchbar";
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import "@/styles/Navbar.css"
+import Image from "next/image"
+import SearchBar from "@/components/Searchbar"
+import AccountNav from "@/components/AccountNav"
+import useSessionCheck  from "@/utils/hooks/useSessionCheck"
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+    setMenuOpen(!menuOpen)
+  }
 
+  const { session, loading, status } = useSessionCheck()
+  const [loggedIn, setLoggedIn] = useState(false)
+
+  useEffect(() => {
+    const checkSession = async () => {
+        if (session != null) {
+          setLoggedIn(true)
+        }
+    }
+    if(!loading){
+      checkSession()
+    }
+  }, [session])
+  
   return (
     <nav className="navbar-main">
       <Link href="/">
@@ -31,12 +47,13 @@ const Navbar = () => {
         </div>
         <ul>
           <li><Link href="/explore" onClick={() => setMenuOpen(false)}>EXPLORE</Link></li>
-          <li><Link href="/login" onClick={() => setMenuOpen(false)}>LOGIN</Link></li>
-          <li><Link href="/register" onClick={() => setMenuOpen(false)}>REGISTER</Link></li>
+          {!loggedIn && (<li><Link href="/login" onClick={() => setMenuOpen(false)}>LOGIN</Link></li>)}
+          {!loggedIn && (<li><Link href="/register" onClick={() => setMenuOpen(false)}>REGISTER</Link></li>)}
+          {loggedIn && (<li className="cs4116-account"><AccountNav/></li>)}
         </ul>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
