@@ -1,59 +1,216 @@
-"use client";
-import React, { useState } from "react";
-import { Fragment } from "react";
-import "@/styles/servicedialog.css";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import Typography from "@mui/material/Typography";
-import DialogTitle from "@mui/material/DialogTitle";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import Rating from "@mui/material/Rating";
+"use client"
 
-const ServiceDialog = () => {
-	const [open, setOpen] = React.useState(false);
-	const theme = useTheme();
-	const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-	const desc = "This is a description of the service";
+import React, { useState, useEffect } from "react"
+import "@/styles/servicedialog.css"
+import Button from "@mui/material/Button"
+import Dialog from "@mui/material/Dialog"
+import DialogActions from "@mui/material/DialogActions"
+import DialogContent from "@mui/material/DialogContent"
+import Typography from "@mui/material/Typography"
+import DialogTitle from "@mui/material/DialogTitle"
+import useMediaQuery from "@mui/material/useMediaQuery"
+import { useTheme } from "@mui/material/styles"
+import InputLabel from "@mui/material/InputLabel"
+import MenuItem from "@mui/material/MenuItem"
+import FormControl from "@mui/material/FormControl"
+import Select from "@mui/material/Select"
+import OutlinedInput from "@mui/material/OutlinedInput"
+import Rating from "@mui/material/Rating"
+import Loading from "@/components/Loading"
 
-	const handleClickOpen = () => {
-		setOpen(true);
-	};
+const ServiceDialog = (service) => {
+	const [open, setOpen] = React.useState(false)
+	const theme = useTheme()
+	const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+	const [loading, setLoading] = useState(false)
+	const [listofTiers, setListofTiers] = useState([])
+	const [isTierDisabled, setIsTierDisabled] = useState(false)
+	const [selectedTier, setTier] = useState("")
+	const [business, setBusiness] = useState([])
+	const [reviews, setReviews] = useState([])
+	const [userReviews, setUserReviews] = useState([])
+
+	const businessApi = async () => {
+		setLoading(true)
+		try {
+			const res = await fetch('/api/business/getBusinessDetails', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ businessId: service.service.business_id }),
+			})
+
+			if (!res.ok) {
+				throw new Error(res.error)
+			}
+
+			const result = await res.json()
+			if (result.data) {
+				setBusiness(result.data)
+			}
+		} catch (error) {
+			console.error("Error fetching business details:", error)
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	const reviewsApi = async () => {
+		setLoading(true)
+		try {
+			const res = await fetch('/api/reviews/getReview', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ serviceId: service.service.service_id }),
+			})
+
+			if (!res.ok) {
+				throw new Error(res.error)
+			}
+
+			const result = await res.json()
+			if (result.data) {
+				setReviews(result.data)
+			}
+		} catch (error) {
+			console.error("Error fetching reviews:", error)
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	const userReviewApi = async () => {
+		setLoading(true)
+		try {
+			const userDataPromises = reviews.map(async (review) => {
+				const res = await fetch('/api/user/getUserDetailsId', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ userId: review.user_id }),
+				})
+
+				if (!res.ok) {
+					throw new Error(res.error)
+				}
+
+				const jsonData = await res.json()
+				return { ...jsonData, review }
+			})
+
+			const result = await Promise.all(userDataPromises)
+
+			if (result.length > 0) {
+				setUserReviews(result)
+			}
+		} catch (error) {
+			console.error("Error fetching user reviews:", error)
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	const serviceTierApi = async () => {
+		setLoading(true)
+		try {
+			const res = await fetch('/api/tier/getTierByServiceId', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ serviceId: service.service.service_id }),
+			})
+
+			if (!res.ok) {
+				throw new Error(res.error)
+			}
+
+
+			const result = await res.json()
+			console.log("RESULT:", result.length)
+			if (result.data.length > 0) {
+
+				setListofTiers(result.data)
+			}
+		} catch (error) {
+			console.error("Error fetching user reviews:", error)
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	useEffect(() => {
+		businessApi()
+		reviewsApi()
+	}, [service.service.business_id, service.service.service_id])
+
+	useEffect(() => {
+		const reviewContainer = document.querySelector('.cs4116-dialog-reviews')
+		if (reviewContainer) {
+			reviewContainer.scrollTop = 0
+		}
+	}, [userReviews])
+
+	const handleClickOpen = async () => {
+		setLoading(true)
+		try {
+			await userReviewApi()
+			await serviceTierApi()
+			setTimeout(() => {
+				const reviewContainer = document.querySelector('.cs4116-dialog-reviews')
+				if (reviewContainer) {
+					reviewContainer.scrollTop = 0
+				}
+			}, 0)
+		} catch (error) {
+			console.error("Error fetching user reviews:", error)
+		} finally {
+			setLoading(false)
+			setOpen(true)
+		}
+	}
 
 	const handleClose = () => {
-		setOpen(false);
-	};
+		setOpen(false)
+		setTier("")
+		setListofTiers([])
+	}
 
-	const tiers = ["Tier 1", "Tier 2", "Tier 3", "Tier 4", "Tier 5"];
+	const handleContact = () => {
+		console.log("Contacting User")
+	}
 
-	const [listofTiers, setListofTiers] = useState(tiers);
-	const [isTierDisabled, setIsTierDisabled] = useState(false);
-	const [selectedTier, setTier] = useState("");
+	const handleInquire = () => {
+		console.log("Contacting Business")
+	}
 
 	const TierSelect = (event) => {
-		setTier(event.target.value);
-		setIsTierDisabled(true);
+		setTier(event.target.value)
+		setIsTierDisabled(true)
 		setTimeout(() => {
-			setIsTierDisabled(false);
-		}, 600);
-	};
+			setIsTierDisabled(false)
+		}, 600)
+	}
+
+	if (loading) {
+		return <Loading />
+	}
 
 	return (
 		<div className="cs4116-dialog-main">
-			<Button
-				className="cs4116-open"
-				variant="outlined"
-				onClick={handleClickOpen}
-			>
-				Open responsive dialog
-			</Button>
+			{!loading && (
+				<Button
+					className="cs4116-open"
+					variant="outlined"
+					onClick={handleClickOpen}
+				>
+					View Business
+				</Button>
+			)}
 			{open && (
 				<Dialog
 					className="cs4116-background-dialog"
@@ -64,13 +221,13 @@ const ServiceDialog = () => {
 				>
 					<div className="cs41160-dialog-header">
 						<DialogTitle id="responsive-dialog-title">
-							{"Name of the servicessssssssssssssssssss"}
+							<div>{business.business_name}</div>
 						</DialogTitle>
 						<DialogActions className="cs4116-dialog-actions">
 							<Button
 								className="cs4116-inq-btn"
 								autoFocus
-								onClick={handleClose}
+								onClick={handleInquire}
 							>
 								Inquire
 							</Button>
@@ -90,7 +247,11 @@ const ServiceDialog = () => {
 								fullWidth
 								margin="normal"
 							>
-								<img src="https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png"></img>
+								{business.profile_picture ? (
+									<img className="cs4116-business-profile-pic" src={business.profile_picture}></img>
+								) : (
+									<img src="https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png"></img>
+								)}
 								<InputLabel className="cs4116-dialog-input">
 									Select Tier
 								</InputLabel>
@@ -102,13 +263,14 @@ const ServiceDialog = () => {
 									onChange={TierSelect}
 									input={<OutlinedInput label="Select Tier" />}
 								>
-									{listofTiers.map((selected) => (
+									{listofTiers.map((tier) => (
+										console.log("TIER:", selectedTier),
 										<MenuItem
-											key={selected}
-											value={selected}
+											key={tier.tier_id}
+											value={tier.name}
 											disabled={isTierDisabled}
 										>
-											{selected}
+											{tier.name}
 										</MenuItem>
 									))}
 								</Select>
@@ -118,23 +280,78 @@ const ServiceDialog = () => {
 								variant="body1"
 								component="div"
 							>
-								<Rating className="cs4116-dialog-rating" value={2} readOnly />
-								<div className="cs4116-dialog-info">
-									<div>Business Name: </div>
-									<div>Description: {desc}</div>
-									<div>Location: {desc}</div>
-									<div>Phone Number: {desc}</div>
-									<div>Open Hour: 10:00</div>
-									<div>Close Hour: 10:00</div>
+								<div className="cs4116-dialog-text-container">
+									<p style={{ marginBottom: "0", marginTop: "5px", fontSize: "20px"}}>Business Rating:&nbsp;</p>
+								<Rating className="cs4116-dialog-rating" value={business.avg_rating} precision={0.1} readOnly />
 								</div>
+								{selectedTier && (
+									<div className="cs4116-dialog-info">
+
+										<div className="cs4116-dialog-text-container">Tier Price:
+											<p className="cs4116-dialog-text">
+												&nbsp;€{listofTiers.find((tier) => tier.name === selectedTier)?.price}
+											</p>
+										</div>
+										<div className="">Tier Description:
+											<p className="cs4116-dialog-text">
+												{listofTiers.find((tier) => tier.name === selectedTier)?.description}
+											</p>
+
+										</div>
+									</div>
+								)}
 							</Typography>
 						</DialogContent>
-						<div className="cs4116-dialog-reviews">Reviews</div>
+						<div className="cs4116-dialog-reviews">
+							{loading ? (
+								<Loading />
+							) :
+								userReviews.length > 0 ? (
+									<div className="cs4116-grid-review">
+										{userReviews.map((userReview) => (
+											<div
+												key={`${userReview.data.user_id}${userReview.review.review_id}`}
+												className="cs4116-grid-review-item"
+											>
+												<div className="cs4116-grid-splitter">
+													<div>
+														<p>{userReview.data.name}</p>
+														<h3>{userReview.review.service_name}</h3>
+														<p>{userReview.review.description}</p>
+														<div
+															style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}
+														>
+															<p className="cs4116-rating-grid">{userReview.review.rating}</p>
+															<Rating
+																value={userReview.review.rating}
+																precision={0.1}
+																readOnly
+															/>
+														</div>
+													</div>
+													<div>
+														<Button
+															className="cs4116-inq-btn"
+															autoFocus
+															onClick={handleContact}
+														>
+															Contact
+														</Button>
+													</div>
+												</div>
+											</div>
+										))}
+
+									</div>
+								) : (
+									<p style={{ color: "red", position: "relative" }}>This Service Has No Reviews</p>
+								)}
+						</div>
 					</div>
 				</Dialog>
 			)}
 		</div>
-	);
-};
+	)
+}
 
-export default ServiceDialog;
+export default ServiceDialog
