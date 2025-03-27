@@ -114,7 +114,6 @@ const ServiceDialog = (service) => {
 	const serviceTierApi = async () => {
 		setLoading(true)
 		try {
-			console.log(service.service.service_id)
 			const res = await fetch(`/api/tier/getTierByServiceId?serviceId=${service.service.service_id}`, {
 				method: 'GET',
 				headers: {
@@ -261,7 +260,6 @@ const ServiceDialog = (service) => {
 									input={<OutlinedInput label="Select Tier" />}
 								>
 									{listofTiers.map((tier) => (
-										console.log("TIER:", selectedTier),
 										<MenuItem
 											key={tier.tier_id}
 											value={tier.name}

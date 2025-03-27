@@ -5,8 +5,6 @@ export default async function handler(req, res) {
         try {
             const { serviceId } = req.query
 
-            console.log("Service ID:", serviceId)
-
             const { data } = await supabase
                 .from("tiers")
                 .select("*")
