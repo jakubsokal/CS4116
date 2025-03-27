@@ -1,22 +1,15 @@
-import { supabase } from "@/utils/supabase/client";
-
 export const isBusinessProfileIncomplete = async (businessId) => {
-  console.log("Checking business profile for ID:", businessId);
-  const { data, error } = await supabase
-    .from('business')
-    .select('description, open_hour, close_hour, profile_picture')
-    .eq('business_id', businessId)
-    .single();
+  try {
+    const response = await fetch(`/api/business-profile/check?businessId=${businessId}`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to check business profile');
+    }
 
-  console.log("Business profile data:", data);
-  console.log("Business profile error:", error);
-
-  if (error) {
+    const data = await response.json();
+    return data.isIncomplete;
+  } catch (error) {
     console.error('Error checking business profile:', error);
-    return true;
+    return true; // Assume incomplete on error
   }
-
-  const isIncomplete = !data.description || !data.open_hour || !data.close_hour;
-  console.log("Is profile incomplete:", isIncomplete);
-  return isIncomplete;
 }; 

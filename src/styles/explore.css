@@ -1,0 +1,60 @@
+.cs4116-grid-explore {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(60%, 400px));
+	gap: 20px;
+	justify-content: center;
+	margin: 100px auto;
+	max-width: fit-content;
+}
+
+.cs4116-grid-item-explore {
+	background-color: white;
+	border-radius: 8px;
+	padding: 15px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cs4116-rating-grid {
+	margin: 0;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	background-color: #374544;
+}
+
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: #374544;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #ff5125;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: #cc310a;
+}
+
+@media (max-width: 2000px) {
+	.cs4116-grid-explore {
+		grid-template-columns: repeat(2, minmax(300px, 350px));
+	}
+}
+
+@media (max-width: 1750px) {
+	.container {
+        margin-left: 15%;
+    }
+}
+
+@media (max-width: 1200px) {
+	.cs4116-grid-explore {
+		grid-template-columns: minmax(280px, 350px);
+	}
+
+    .container {
+        margin-left: 10%;
+    }
+}

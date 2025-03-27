@@ -30,7 +30,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	border-radius: 20px 20px 0 0 !important;
+	border-radius: 12px 12px 0 0 !important;
 	align-items: center;
 	width: 100% !important;
 	padding: 0% 5% !important;
@@ -41,6 +41,7 @@
 	width: 100% !important;
 	height: auto !important;
 	padding: 20px;
+	overflow: hidden;
 	border-radius: 20px !important;
 	background-color: #7d7d7d !important;
 	color: black !important;
@@ -48,7 +49,7 @@
 
 .cs4116-dialog-content {
 	padding: 0px 24px 24px !important;
-	border-radius: 0 0 20px 20px !important;
+	border-radius: 0 !important;
 	background: white;
 	display: flex;
 	flex-direction: column;
@@ -90,15 +91,15 @@
 }
 
 .cs4116-dialog-input {
-	left: 40% !important;
+	left: 32% !important;
 }
 
 .cs4116-dialog-rating {
 	font-size: 35px !important;
 }
 
-img {
-	width: 40%;
+.cs4116-business-profile-pic {
+	width: 30%;
 	height: auto;
 }
 
@@ -107,14 +108,62 @@ img {
 }
 
 .cs4116-dialog-reviews {
-	border-radius: 20px !important;
+	padding: 15px;
+	border-radius: 0px 0px 12px 12px !important;
 	margin-top: 5px !important ;
 	position: relative !important;
-	height: auto !important;
+	height: 175px !important;
 	background-color: #374544;
 	position: fixed;
+	max-height: 300px;
+	overflow-y: auto;
+	scroll-behavior: smooth;
 }
 
-.cs4116-dialog-info{
-    font-size: 20px !important;
+.cs4116-dialog-info {
+	font-size: 20px !important;
+}
+
+.container {
+	padding-left: 300px;
+	display: flex;
+	margin-left: 25%;
+	justify-content: space-around;
+	align-items: center;
+	min-height: 60vh;
+	width: 100%;
+	box-sizing: border-box;
+	flex-direction: column;
+	padding-right: 300px;
+	padding-top: 0;
+}
+
+.cs4116-grid-review {
+	display: grid;
+	grid-template-columns: repeat(1, minmax(60%, 600px));
+	gap: 20px;
+	justify-content: center;
+	max-width: fit-content;
+}
+
+.cs4116-grid-review-item {
+	background-color: white;
+	border-radius: 8px;
+	padding: 15px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cs4116-grid-splitter {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.cs4116-dialog-text {
+	margin: 0 !important;
+	font-family: "Urbanist-Regular" !important;
+}
+
+.cs4116-dialog-text-container {
+	display: flex;
 }
