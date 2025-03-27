@@ -7,7 +7,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { supabase } from "@/utils/supabase/client";
 import "@/styles/ProfileCompletionDialog.css";
 
 const ProfileCompletionDialog = ({ open, onClose, businessId }) => {
@@ -15,6 +14,7 @@ const ProfileCompletionDialog = ({ open, onClose, businessId }) => {
     description: "",
     open_hour: "",
     close_hour: "",
+    phone_number: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -33,16 +33,21 @@ const ProfileCompletionDialog = ({ open, onClose, businessId }) => {
     setError(null);
 
     try {
-      const { error: updateError } = await supabase
-        .from('business')
-        .update({
-          description: formData.description,
-          open_hour: formData.open_hour,
-          close_hour: formData.close_hour
-        })
-        .eq('business_id', businessId);
+      const response = await fetch('/api/business-profile/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          businessId,
+          ...formData
+        }),
+      });
 
-      if (updateError) throw updateError;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update profile');
+      }
 
       onClose();
     } catch (err) {
@@ -89,6 +94,24 @@ const ProfileCompletionDialog = ({ open, onClose, businessId }) => {
           />
           <TextField
             margin="dense"
+            name="phone_number"
+            label="Phone Number"
+            type="tel"
+            fullWidth
+            value={formData.phone_number}
+            onChange={handleChange}
+            required
+            className="profile-text-field"
+            InputProps={{
+              className: 'profile-input'
+            }}
+            InputLabelProps={{
+              className: 'profile-label'
+            }}
+            placeholder="e.g., +353 123 456 789"
+          />
+          <TextField
+            margin="dense"
             name="open_hour"
             label="Opening Hours"
             type="time"
@@ -125,19 +148,25 @@ const ProfileCompletionDialog = ({ open, onClose, businessId }) => {
             }}
             inputProps={{ step: 60 }}
           />
-          {error && <p className="profile-error">{error}</p>}
+          {error && (
+            <div className="error-message">
+              {error}
+            </div>
+          )}
         </DialogContent>
         <DialogActions className="profile-dialog-actions">
-          <Button onClick={onClose} className="profile-cancel-btn">
+          <Button 
+            onClick={onClose} 
+            className="profile-cancel-button"
+          >
             Cancel
           </Button>
           <Button 
             type="submit" 
-            variant="contained" 
+            className="profile-submit-button"
             disabled={loading}
-            className="profile-submit-btn"
           >
-            {loading ? "Saving..." : "Save Profile"}
+            {loading ? 'Saving...' : 'Save Profile'}
           </Button>
         </DialogActions>
       </form>

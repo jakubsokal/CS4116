@@ -4,9 +4,12 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import "@/styles/RegisterForm.css";
 import { FaUser, FaLock, FaBuilding, FaEnvelope } from "react-icons/fa";
+import { register } from "@/app/actions/register";
 
 const RegisterForm = () => {
     const router = useRouter();
+    const [message, setMessage] = useState({ type: '', text: '' });
+    const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -29,19 +32,93 @@ const RegisterForm = () => {
         setFormData({ ...formData, location });
     };
 
-    const handleSubmit = (e) => {
+    const validateForm = () => {
+        if (formData.password !== formData.confirmPassword) {
+            setMessage({ type: 'error', text: 'Passwords do not match' });
+            return false;
+        }
+        if (isBusiness && (!formData.businessName || !formData.location)) {
+            setMessage({ type: 'error', text: 'Please fill in all business details' });
+            return false;
+        }
+        if (!isBusiness && (!formData.firstName || !formData.lastName)) {
+            setMessage({ type: 'error', text: 'Please fill in all personal details' });
+            return false;
+        }
+        return true;
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("User Data Submitted:", formData);
-        router.push("/");
+        if (!validateForm()) return;
+
+        setIsLoading(true);
+        try {
+            const result = await register({
+                email: formData.email,
+                password: formData.password,
+                isBusiness: isBusiness,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                businessName: formData.businessName,
+                location: formData.location
+            });
+
+            if (result.status === 400) {
+                throw new Error(result.error);
+            }
+
+            setMessage({ 
+                type: 'success', 
+                text: 'Registration successful! Please check your email to verify your account before logging in.' 
+            });
+
+            // Clear form
+            setFormData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+                businessName: "",
+                location: "",
+            });
+
+            // Redirect to login after 3 seconds
+            setTimeout(() => {
+                router.push('/login');
+            }, 3000);
+
+        } catch (error) {
+            setMessage({ type: 'error', text: error.message });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const toggleRegistrationType = () => {
         setIsBusiness(!isBusiness);
+        // Clear form when switching types
+        setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            businessName: "",
+            location: "",
+        });
     };
 
     return (
         <div className="register-wrapper">
             <h1>Create Account</h1>
+
+            {message.text && (
+                <div className={`message ${message.type}`}>
+                    {message.text}
+                </div>
+            )}
 
             <div className={`toggle-registration-type ${isBusiness ? "business" : ""}`}>
                 <label>
@@ -73,7 +150,7 @@ const RegisterForm = () => {
                                 name="firstName"
                                 placeholder="First Name"
                                 value={formData.firstName}
-                                required
+                                required={!isBusiness}
                                 onChange={handleChange}
                             />
                             <FaUser className="icon" />
@@ -84,7 +161,7 @@ const RegisterForm = () => {
                                 name="lastName"
                                 placeholder="Last Name"
                                 value={formData.lastName}
-                                required
+                                required={!isBusiness}
                                 onChange={handleChange}
                             />
                             <FaUser className="icon" />
@@ -131,7 +208,7 @@ const RegisterForm = () => {
                                 name="businessName"
                                 placeholder="Business Name"
                                 value={formData.businessName}
-                                required
+                                required={isBusiness}
                                 onChange={handleChange}
                             />
                             <FaBuilding className="icon" />
@@ -141,7 +218,7 @@ const RegisterForm = () => {
                                 name="location"
                                 value={formData.location}
                                 onChange={handleChange}
-                                required
+                                required={isBusiness}
                                 className="county-select"
                             >
                                 <option value="">Select County</option>
@@ -195,7 +272,9 @@ const RegisterForm = () => {
                     </div>
                 </div>
 
-                <button type="submit">Register</button>
+                <button type="submit" className="submit-button" disabled={isLoading}>
+                    {isLoading ? 'Creating Account...' : 'Create Account'}
+                </button>
             </form>
         </div>
     );
