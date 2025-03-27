@@ -33,12 +33,11 @@ const ServiceDialog = (service) => {
 	const businessApi = async () => {
 		setLoading(true)
 		try {
-			const res = await fetch('/api/business/getBusinessDetails', {
+			const res = await fetch(`/api/business/getBusinessDetails?businessId=${service.service.business_id}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ businessId: service.service.business_id }),
 			})
 
 			if (!res.ok) {
@@ -59,12 +58,11 @@ const ServiceDialog = (service) => {
 	const reviewsApi = async () => {
 		setLoading(true)
 		try {
-			const res = await fetch('/api/reviews/getReview', {
+			const res = await fetch(`/api/reviews/getReview?serviceId=${service.service.service_id}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ serviceId: service.service.service_id }),
 			})
 
 			if (!res.ok) {
@@ -86,12 +84,11 @@ const ServiceDialog = (service) => {
 		setLoading(true)
 		try {
 			const userDataPromises = reviews.map(async (review) => {
-				const res = await fetch('/api/user/getUserDetailsId', {
+				const res = await fetch(`/api/user/getUserDetailsId?userId=${review.user_id}`, {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify({ userId: review.user_id }),
 				})
 
 				if (!res.ok) {
@@ -117,12 +114,12 @@ const ServiceDialog = (service) => {
 	const serviceTierApi = async () => {
 		setLoading(true)
 		try {
-			const res = await fetch('/api/tier/getTierByServiceId', {
+			console.log(service.service.service_id)
+			const res = await fetch(`/api/tier/getTierByServiceId?serviceId=${service.service.service_id}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ serviceId: service.service.service_id }),
 			})
 
 			if (!res.ok) {
