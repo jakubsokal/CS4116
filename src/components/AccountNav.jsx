@@ -37,7 +37,7 @@ const AccountNav = () => {
 					} else {
 						setSession(session)
 						const res = await fetch('/api/user/getUserDetailsEmail', {
-							method: 'POST',
+							method: 'GET',
 							headers: {
 								'Content-Type': 'application/json',
 							},

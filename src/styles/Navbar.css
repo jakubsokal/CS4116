@@ -4,10 +4,10 @@
   align-items: center;
   padding: 1% 6%;
   width: 100%;
-  position: static;
+  position: fixed;
   top: 0;
   left: 0;
-  background: rgba(4, 9, 30, 0.85);
+  background: rgb(4, 9, 30);
   z-index: 1000;
 }
 
