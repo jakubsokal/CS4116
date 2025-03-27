@@ -34,7 +34,7 @@ const ServiceDialog = (service) => {
 		setLoading(true)
 		try {
 			const res = await fetch('/api/business/getBusinessDetails', {
-				method: 'POST',
+				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -60,7 +60,7 @@ const ServiceDialog = (service) => {
 		setLoading(true)
 		try {
 			const res = await fetch('/api/reviews/getReview', {
-				method: 'POST',
+				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -87,7 +87,7 @@ const ServiceDialog = (service) => {
 		try {
 			const userDataPromises = reviews.map(async (review) => {
 				const res = await fetch('/api/user/getUserDetailsId', {
-					method: 'POST',
+					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',
 					},
@@ -118,7 +118,7 @@ const ServiceDialog = (service) => {
 		setLoading(true)
 		try {
 			const res = await fetch('/api/tier/getTierByServiceId', {
-				method: 'POST',
+				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 				},

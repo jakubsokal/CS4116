@@ -1,7 +1,7 @@
 import { supabase } from '@/utils/supabase/client'
 
 export default async function handler(req, res) {
-    if (req.method === 'POST') {
+    if (req.method === 'GET') {
         const { serviceId } = req.body
 
         try {
