@@ -36,12 +36,11 @@ const AccountNav = () => {
 						router.push("/login")
 					} else {
 						setSession(session)
-						const res = await fetch('/api/user/getUserDetailsEmail', {
+						const res = await fetch(`/api/user/getUserDetailsEmail?email=${session.user.email}`, {
 							method: 'GET',
 							headers: {
 								'Content-Type': 'application/json',
 							},
-							body: JSON.stringify({ email: session.user.email }),
 						});
 
 						const result = await res.json();
