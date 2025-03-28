@@ -56,7 +56,7 @@ const RegisterForm = () => {
                     <input type="password" name="password" placeholder="Confirm Password" required onChange={handleChange} />
                     <FaLock className="icon" />
                 </div>
-                <button type="submit">Register</button>
+                <button className="register-btn"type="submit">Register</button>
             </form>
         </div>
     );

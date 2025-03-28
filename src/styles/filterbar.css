@@ -1,8 +1,9 @@
 .cs4116-filterbar-main {
-	position: absolute;
+	position: fixed;
 	width: 300px;
 	min-height: 100%;
 	background: white;
+	top: 90px;
 }
 
 .cs4116-filterbar-main ul {
@@ -34,6 +35,10 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked {
 	background-color: #ff5125;
+}
+
+.accordion-button{
+	margin: 0 !important;
 }
 
 input[type="checkbox"]:checked::before {
