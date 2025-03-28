@@ -246,7 +246,7 @@ const ServiceDialog = (service) => {
 								{business.profile_picture ? (
 									<img className="cs4116-business-profile-pic" src={business.profile_picture}></img>
 								) : (
-									<img src="https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png"></img>
+									<img className="cs4116-business-profile-pic" src="https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png"></img>
 								)}
 								<InputLabel className="cs4116-dialog-input">
 									Select Tier
@@ -310,7 +310,10 @@ const ServiceDialog = (service) => {
 											>
 												<div className="cs4116-grid-splitter">
 													<div>
+														<div style={{ display: "flex", alignItems: "center" }}>
 														<p>{userReview.data.name}</p>
+														<p>&nbsp;{new Date(userReview.review.created_at).toLocaleDateString('en-GB')}</p>
+														</div>
 														<h3>{userReview.review.service_name}</h3>
 														<p>{userReview.review.description}</p>
 														<div

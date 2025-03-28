@@ -2,7 +2,7 @@ import { supabase } from '@/utils/supabase/client';
 
 export default async function handler(req, res) {
 	if (req.method === 'GET') {
-		const { email } = req.body;
+		const { email } = req.query;
 
 		try {
 			const { data } = await supabase
