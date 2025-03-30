@@ -6,14 +6,6 @@ import "@/styles/InquiryTable.css";
 
 import ReviewPopup from "./ReviewPopup"; 
 
-/*for now i have it that:
-1)business accpepts inquiry = status cahnges to 1, pop up is generated asking for a review 
-2)once a user submits a reviw added to reviews table (now they are verified) and the inquiry is removed from inquiries
-3)if bsuiness declines the inquiry is deleted
-future changes:
-1)the pop up will have to be on client side rn its on same page as inquiry
-2)view inquiry detials will open the chat page 
-3)the review should be linked to a service not the business will have to change that once added*/
 
 const AdminTable = () => {
   const [inquiries, setInquiries] = useState([]);
@@ -68,6 +60,7 @@ const AdminTable = () => {
       console.error("Error handling decline:", error);
     }
   };
+
 
   return (
     <div className="container mx-auto">

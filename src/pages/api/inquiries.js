@@ -1,6 +1,7 @@
 
 
-import { supabase } from "@/lib/supabaseclient";
+import { supabase } from "@/utils/supabase/client";
+
 //fetches inquiries
 export default async function handler(req, res) {
   if (req.method === "GET") {
