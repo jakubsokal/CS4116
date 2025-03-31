@@ -22,11 +22,8 @@ const SearchBar = () => {
     const params = new URLSearchParams(searchParams.toString())
     params.set("query", query);
     
-    if(pathname === "/explore") {
-      window.location.replace(`/explore?${params.toString()}`)
-    }
-
-    router.push(`/explore?${params.toString()}`);
+    if(pathname === "/explore") window.location.replace(`/explore?${params.toString()}`)
+    else router.push(`/explore?${params.toString()}`);
   }
 
   return (
