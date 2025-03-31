@@ -28,9 +28,11 @@ export default function Register() {
 	}
   
   return (
-    <div>
+    <div className="min-h-screen">
       <Navbar /> 
-      <RegisterForm />
+      <div className="pt-20 pb-10">
+        <RegisterForm />
+      </div>
     </div>
   );
 }
