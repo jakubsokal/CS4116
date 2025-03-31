@@ -2,7 +2,7 @@ import { supabase } from '@/utils/supabase/client'
 
 export default async function handler(req, res) {
     if (req.method === 'GET') {
-        const { userId } = req.body
+        const { userId } = req.query
         try {
             const { data } = await supabase
                 .from('users')

@@ -37,19 +37,19 @@
 	background-color: #cc310a;
 }
 
-@media (max-width: 2000px) {
+@media (max-width: 1750px ) {
 	.cs4116-grid-explore {
 		grid-template-columns: repeat(2, minmax(300px, 350px));
 	}
 }
 
-@media (max-width: 1750px) {
+@media (max-width: 1350px) {
 	.container {
         margin-left: 15%;
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
 	.cs4116-grid-explore {
 		grid-template-columns: minmax(280px, 350px);
 	}

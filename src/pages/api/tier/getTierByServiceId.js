@@ -3,10 +3,12 @@ import { supabase } from "@/utils/supabase/client"
 export default async function handler(req, res) {
     if (req.method === "GET") {
         try {
+            const { serviceId } = req.query
+
             const { data } = await supabase
                 .from("tiers")
                 .select("*")
-                .eq("service_id", req.body.serviceId)
+                .eq("service_id", serviceId)
                 .order("price", { ascending: true })
 
             return res.status(200).json({ message: "Successful Search", data: data })
