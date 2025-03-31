@@ -127,7 +127,6 @@ const ServiceDialog = (service) => {
 
 
 			const result = await res.json()
-			console.log("RESULT:", result.length)
 			if (result.data.length > 0) {
 
 				setListofTiers(result.data)
@@ -291,7 +290,6 @@ const ServiceDialog = (service) => {
 											<p className="cs4116-dialog-text">
 												{listofTiers.find((tier) => tier.name === selectedTier)?.description}
 											</p>
-
 										</div>
 									</div>
 								)}

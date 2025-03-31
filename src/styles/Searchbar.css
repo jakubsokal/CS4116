@@ -51,9 +51,13 @@
 	font-size: 20px;
 	padding-left: 10px;
 	border-radius: 20px;
+	color: black;
+	background: white;
 }
 
-
+.input-error::placeholder {
+	color: red;
+  }
 
 @media screen and (max-width: 1650px) {
     .search-bar {
