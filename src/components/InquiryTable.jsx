@@ -1,7 +1,5 @@
 "use client";
 
-
-import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import "@/styles/InquiryTable.css"
 /*The reports will be replaced with db data when its created */
