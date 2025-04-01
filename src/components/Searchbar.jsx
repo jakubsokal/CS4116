@@ -1,17 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { usePathname } from 'next/navigation'
 import "@/styles/Searchbar.css";
 
 const SearchBar = () => {
-  const [query, setQuery] = useState(() => localStorage.getItem("searchQuery") || "");
+  const [query, setQuery] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams()
   const pathname = usePathname()
+
+  useEffect(() => {
+    const storedQuery = localStorage.getItem("searchQuery") || "";
+    setQuery(storedQuery);
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
