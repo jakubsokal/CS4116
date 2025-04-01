@@ -1,12 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import Link from "next/link"
 import "@/styles/Navbar.css"
 import Image from "next/image"
 import SearchBar from "@/components/Searchbar"
 import AccountNav from "@/components/AccountNav"
 import useSessionCheck  from "@/utils/hooks/useSessionCheck"
+import Loading from "@/components/Loading"
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -30,6 +31,7 @@ const Navbar = () => {
   }, [session])
   
   return (
+    <Suspense fallback={<Loading />}>
     <nav className="navbar-main">
       <Link href="/">
         <Image src="/images/logo.png" alt="Logo" width={100} height={50} className="logo" />
@@ -43,7 +45,9 @@ const Navbar = () => {
 
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
         <div className="nav-search">
+        
           <SearchBar />
+        
         </div>
         <ul>
           <li><Link href="/explore" onClick={() => setMenuOpen(false)}>EXPLORE</Link></li>
@@ -53,6 +57,7 @@ const Navbar = () => {
         </ul>
       </div>
     </nav>
+    </Suspense>
   )
 }
 
