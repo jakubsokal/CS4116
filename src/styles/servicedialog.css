@@ -105,6 +105,7 @@
 
 .cs4116-dialog-body {
 	width: 100% !important;
+	overflow-y: hidden;
 }
 
 .cs4116-dialog-reviews {
