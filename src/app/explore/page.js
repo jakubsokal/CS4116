@@ -1,13 +1,15 @@
 "use client"
 
 import Navbar from "@/components/Navbar"
-import Filterbar from "@/components/FilterBar"
 import Loading from "@/components/Loading"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
 import { useEffect, useState, useCallback, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import ServiceDialog from "@/components/ServiceDialog"
 import Rating from "@mui/material/Rating"
+import dynamic from "next/dynamic";
+const Filterbar = dynamic(() => import("@/components/FilterBar"), { ssr: false });
+
 import "@/styles/explore.css"
 
 export default function Explore() {
@@ -85,7 +87,7 @@ export default function Explore() {
       setLoading(true)
 
       await serviceApi()
-      
+
       setLoading(false)
     }
 
@@ -106,10 +108,8 @@ export default function Explore() {
 
   return (
     <div>
-      <Suspense fallback={<Loading />}>
       <Navbar />
       <Filterbar />
-      </Suspense>
       <div className="container">
         {loading || load ? (
           <Loading />
@@ -134,23 +134,23 @@ export default function Explore() {
                 </div>
                 <p>Location: {service.location}</p>
                 <div>
-                  <div style={{display: "flex"}}>Price:&nbsp;
-                  {tiers[service.service_id] ? (
-                    <>
-                      {tiers[service.service_id].length > 0 && (
-                        <p key={tiers[service.service_id][0].id}>
-                          €{tiers[service.service_id][0].price}
-                        </p>
-                      )}
-                      {tiers[service.service_id].length > 1 && (
-                        <p key={tiers[service.service_id][tiers[service.service_id].length - 1].id}>
-                          -€{tiers[service.service_id][tiers[service.service_id].length - 1].price}
-                        </p>
-                      )}
-                    </>
-                  ) : (
-                    <Loading />
-                  )}
+                  <div style={{ display: "flex" }}>Price:&nbsp;
+                    {tiers[service.service_id] ? (
+                      <>
+                        {tiers[service.service_id].length > 0 && (
+                          <p key={tiers[service.service_id][0].id}>
+                            €{tiers[service.service_id][0].price}
+                          </p>
+                        )}
+                        {tiers[service.service_id].length > 1 && (
+                          <p key={tiers[service.service_id][tiers[service.service_id].length - 1].id}>
+                            -€{tiers[service.service_id][tiers[service.service_id].length - 1].price}
+                          </p>
+                        )}
+                      </>
+                    ) : (
+                      <Loading />
+                    )}
                   </div>
                 </div>
                 <ServiceDialog service={service} />
