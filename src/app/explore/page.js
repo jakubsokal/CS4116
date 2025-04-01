@@ -1,15 +1,13 @@
 "use client"
 
 import Navbar from "@/components/Navbar"
+import Filterbar from "@/components/FilterBar"
 import Loading from "@/components/Loading"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
 import { useEffect, useState, useCallback, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import ServiceDialog from "@/components/ServiceDialog"
 import Rating from "@mui/material/Rating"
-import dynamic from "next/dynamic";
-const Filterbar = dynamic(() => import("@/components/FilterBar"), { ssr: false });
-
 import "@/styles/explore.css"
 
 export default function Explore() {
@@ -107,62 +105,64 @@ export default function Explore() {
   }
 
   return (
-    <div>
-      <Navbar />
-      <Filterbar />
-      <div className="container">
-        {loading || load ? (
-          <Loading />
-        ) : serviceList.length > 0 ? (
-          <div className="cs4116-grid-explore">
-            {serviceList.map((service) => (
-              <div
-                key={service.service_id}
-                className="cs4116-grid-item-explore"
-              >
-                <h3>{service.service_name}</h3>
-                <p>{service.description}</p>
+    <Suspense fallback={<Loading />}> 
+      <div>
+        <Navbar />
+        <Filterbar />
+        <div className="container">
+          {loading || load ? (
+            <Loading />
+          ) : serviceList.length > 0 ? (
+            <div className="cs4116-grid-explore">
+              {serviceList.map((service) => (
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "10px",
-                  }}
+                  key={service.service_id}
+                  className="cs4116-grid-item-explore"
                 >
-                  <p className="cs4116-rating-grid">{service.avg_rating}</p>
-                  <Rating value={service.avg_rating} precision={0.1} readOnly />
-                </div>
-                <p>Location: {service.location}</p>
-                <div>
-                  <div style={{ display: "flex" }}>Price:&nbsp;
-                    {tiers[service.service_id] ? (
-                      <>
-                        {tiers[service.service_id].length > 0 && (
-                          <p key={tiers[service.service_id][0].id}>
-                            €{tiers[service.service_id][0].price}
-                          </p>
-                        )}
-                        {tiers[service.service_id].length > 1 && (
-                          <p key={tiers[service.service_id][tiers[service.service_id].length - 1].id}>
-                            -€{tiers[service.service_id][tiers[service.service_id].length - 1].price}
-                          </p>
-                        )}
-                      </>
-                    ) : (
-                      <Loading />
-                    )}
+                  <h3>{service.service_name}</h3>
+                  <p>{service.description}</p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <p className="cs4116-rating-grid">{service.avg_rating}</p>
+                    <Rating value={service.avg_rating} precision={0.1} readOnly />
                   </div>
+                  <p>Location: {service.location}</p>
+                  <div>
+                    <div style={{ display: "flex" }}>Price:&nbsp;
+                      {tiers[service.service_id] ? (
+                        <>
+                          {tiers[service.service_id].length > 0 && (
+                            <p key={tiers[service.service_id][0].id}>
+                              €{tiers[service.service_id][0].price}
+                            </p>
+                          )}
+                          {tiers[service.service_id].length > 1 && (
+                            <p key={tiers[service.service_id][tiers[service.service_id].length - 1].id}>
+                              -€{tiers[service.service_id][tiers[service.service_id].length - 1].price}
+                            </p>
+                          )}
+                        </>
+                      ) : (
+                        <Loading />
+                      )}
+                    </div>
+                  </div>
+                  <ServiceDialog service={service} />
                 </div>
-                <ServiceDialog service={service} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p style={{ color: "red", position: "relative" }}>
-            No services found
-          </p>
-        )}
+              ))}
+            </div>
+          ) : (
+            <p style={{ color: "red", position: "relative" }}>
+              No services found
+            </p>
+          )}
+        </div>
       </div>
-    </div>
+    </Suspense>
   )
 }

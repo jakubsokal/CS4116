@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useRouter, useSearchParams } from "next/navigation";
-import { usePathname } from 'next/navigation'
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import Loading from "@/components/Loading"
 import "@/styles/Searchbar.css";
 
 const SearchBar = () => {
@@ -31,6 +31,7 @@ const SearchBar = () => {
   }
 
   return (
+    <Suspense fallback={<Loading />}> 
     <div className="search-bar">
       <div className="search-icon-container" onClick={(e) => {
           localStorage.setItem("searchQuery", query);
@@ -47,6 +48,7 @@ const SearchBar = () => {
         placeholder="Search..."
       />
     </div>
+  </Suspense>
   );
 };
 

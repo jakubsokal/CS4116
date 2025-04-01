@@ -7,22 +7,25 @@ import signOut from "@/api/user/signOut"
 import { useRouter } from "next/navigation"
 import Loading from "@/components/Loading"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
+import { usePathname } from "next/navigation"
 
 const AccountNav = () => {
 	const [users, setUser] = useState([])
 	const [currentSession, setSession] = useState(null)
 	const { session, loading, status } = useSessionCheck()
 	const router = useRouter()
+	const pathname = usePathname()
 
 	const authentication = useMemo(() => {
 		return {
 			signOut: async () => {
-				setUser(null)
-				setSession(null)
-				const res = signOut()
+				const res = await signOut()
 				if (res) {
 					console.log("Signed out")
-					router.push("/login")
+					setUser(null)
+					setSession(null)
+					if(pathname == "/")	window.location.replace("/")
+					else router.push("/")
 				}
 			},
 		}
