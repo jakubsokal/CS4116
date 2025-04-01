@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, {Suspense} from "react";
 import "@/styles/filterbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Slider from "@/components/PriceSlider";

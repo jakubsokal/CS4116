@@ -215,6 +215,11 @@ const ServiceDialog = (service) => {
 					aria-labelledby="responsive-dialog-title"
 				>
 					<div className="cs41160-dialog-header">
+					{business.profile_picture ? (
+									<img className="cs4116-business-profile-pic" src={business.profile_picture}></img>
+								) : (
+									<img className="cs4116-business-profile-pic" src="https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png"></img>
+								)}
 						<DialogTitle id="responsive-dialog-title">
 							<div>{business.business_name}</div>
 						</DialogTitle>
@@ -242,11 +247,6 @@ const ServiceDialog = (service) => {
 								fullWidth
 								margin="normal"
 							>
-								{business.profile_picture ? (
-									<img className="cs4116-business-profile-pic" src={business.profile_picture}></img>
-								) : (
-									<img className="cs4116-business-profile-pic" src="https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png"></img>
-								)}
 								<InputLabel className="cs4116-dialog-input">
 									Select Tier
 								</InputLabel>
@@ -275,7 +275,7 @@ const ServiceDialog = (service) => {
 								component="div"
 							>
 								<div className="cs4116-dialog-text-container">
-									<p style={{ marginBottom: "0", marginTop: "5px", fontSize: "20px"}}>Business Rating:&nbsp;</p>
+									<p style={{ marginBottom: "0", marginTop: "15px", fontSize: "20px"}}>Business Rating:&nbsp;</p>
 								<Rating className="cs4116-dialog-rating" value={business.avg_rating} precision={0.1} readOnly />
 								</div>
 								{selectedTier && (

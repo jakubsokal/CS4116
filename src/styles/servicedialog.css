@@ -13,7 +13,11 @@
 }
 
 .cs4116-open {
-	left: 50%;
+	left: 60%;
+	font-size: 14px !important;
+	color: black !important;
+	border-color: #ff5125 !important;
+	background: #ff5125 !important; ;
 }
 
 .cs4116-dialog-actions {
@@ -38,7 +42,7 @@
 }
 
 .MuiDialog-paper {
-	width: 100% !important;
+	width: 600px !important;
 	height: auto !important;
 	padding: 20px;
 	overflow: hidden;
@@ -80,27 +84,34 @@
 	width: 100% !important;
 	display: flex !important;
 	flex-direction: row !important;
+	justify-content: flex-end !important;
 }
 
 .cs4116-dialog-select {
 	font-family: "Urbanist-Bold" !important;
 	font-size: 20px !important;
 	color: black !important;
-	width: 100% !important;
+	width: 50% !important;
 	height: fit-content !important;
 }
 
 .cs4116-dialog-input {
-	left: 32% !important;
+	left: 51%  !important;
+	padding-top: 20px;
 }
 
 .cs4116-dialog-rating {
+	margin-top: 10px;
 	font-size: 35px !important;
 }
 
 .cs4116-business-profile-pic {
-	width: 30%;
-	height: auto;
+	width: 180px;
+    height: 180px;
+    position: absolute;
+    left: 10%;
+    top: 8%;
+    border-radius: 90px;
 }
 
 .cs4116-dialog-body {
@@ -166,5 +177,5 @@
 }
 
 .cs4116-dialog-text-container {
-	display: flex;
+	display: flex
 }
