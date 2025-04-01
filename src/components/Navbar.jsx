@@ -51,7 +51,9 @@ const Navbar = () => {
             <li><Link href="/explore" onClick={() => setMenuOpen(false)}>EXPLORE</Link></li>
             {!loggedIn && (<li><Link href="/login" onClick={() => setMenuOpen(false)}>LOGIN</Link></li>)}
             {!loggedIn && (<li><Link href="/register" onClick={() => setMenuOpen(false)}>REGISTER</Link></li>)}
-            {loggedIn && (<li className="cs4116-account"><AccountNav /></li>)}
+            {loggedIn && <li><Link href="/inquiry" onClick={() => setMenuOpen(false)}>INQUIRY</Link></li>}
+            {loggedIn && <li><Link href="/messages" onClick={() => setMenuOpen(false)}>MESSAGES</Link></li>}
+            {loggedIn && <li className="cs4116-account"><AccountNav /></li>}
           </ul>
         </div>
       </nav>
