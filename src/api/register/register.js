@@ -29,7 +29,7 @@ export async function register(userData) {
           first_name: userData.isBusiness ? userData.businessName : userData.firstName,
           last_name: userData.isBusiness ? '' : userData.lastName,
           email: userData.email,
-          permission: userData.isBusiness ? 2 : 1, 
+          permission: userData.isBusiness ? 1 : 0, 
           status: userData.isBusiness ? 0 : 1, 
           uuid: authData.user.id,
           created_at: new Date().toISOString()
