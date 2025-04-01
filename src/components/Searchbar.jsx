@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useRouter, useSearchParams, usePathname, Suspense } from "next/navigation";
 import Loading from "@/components/Loading"
 import "@/styles/Searchbar.css";
 
