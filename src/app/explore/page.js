@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar"
 import Filterbar from "@/components/FilterBar"
 import Loading from "@/components/Loading"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import ServiceDialog from "@/components/ServiceDialog"
 import Rating from "@mui/material/Rating"
@@ -83,7 +83,9 @@ export default function Explore() {
   useEffect(() => {
     const fetchListings = async () => {
       setLoading(true)
+
       await serviceApi()
+      
       setLoading(false)
     }
 
@@ -104,8 +106,10 @@ export default function Explore() {
 
   return (
     <div>
+      <Suspense fallback={<Loading />}>
       <Navbar />
       <Filterbar />
+      </Suspense>
       <div className="container">
         {loading || load ? (
           <Loading />
