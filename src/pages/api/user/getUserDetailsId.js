@@ -9,7 +9,6 @@ export default async function handler(req, res) {
                 .select('user_id, first_name, last_name')
                 .eq('user_id', userId)
             
-            
             const combinedData = data.map(user => ({
                 user_id: userId,
                 name: `${user.first_name} ${user.last_name}`,

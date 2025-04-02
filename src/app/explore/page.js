@@ -115,7 +115,7 @@ function ExplorePage() {
     <div>
       <Navbar />
       <Filterbar />
-      <div className="container">
+      <div className="explore container">
         {loading || load ? (
           <Loading />
         ) : serviceList.length > 0 ? (

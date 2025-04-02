@@ -1,92 +1,93 @@
 .cs4116-messages-container {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-.cs4116-messages-container h1 {
-  color: #fff;
-  margin-bottom: 30px;
-  font-size: 2rem;
+	max-width: 50%;
+	margin: 115px auto;
+	padding: 0 20px;
 }
 
 .cs4116-messages-list {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
 }
 
 .cs4116-message-item {
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #eee;
-  transition: background-color 0.2s;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px;
+	border-bottom: 1px solid #eee;
+	transition: background-color 0.2s;
 }
 
 .cs4116-message-item:last-child {
-  border-bottom: none;
+	border-bottom: none;
 }
 
 .cs4116-message-item:hover {
-  background-color: #f8f9fa;
+	background-color: #f8f9fa;
 }
 
 .cs4116-message-item.unread {
-  background-color: #fff5f2;
+	background-color: #fff5f2;
 }
 
 .cs4116-message-type {
-  background: #ff5125;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  margin-right: 20px;
-  min-width: 80px;
-  text-align: center;
+	background: #ff5125;
+	color: white;
+	padding: 6px 12px;
+	border-radius: 20px;
+	font-size: 0.8rem;
+	margin-right: 20px;
+	min-width: 80px;
+	text-align: center;
 }
 
 .cs4116-message-content {
-  flex: 1;
+	flex: 1;
 }
 
 .cs4116-message-content h3 {
-  margin: 0;
-  color: #333;
-  font-size: 1.1rem;
+	margin: 0;
+	color: #333;
+	font-size: 1.1rem;
 }
 
 .cs4116-message-content p {
-  margin: 5px 0 0;
-  color: #666;
-  font-size: 0.9rem;
+	margin: 5px 0 0;
+	color: #666;
+	font-size: 0.9rem;
 }
 
 .cs4116-message-timestamp {
-  color: #999;
-  font-size: 0.8rem;
-  margin-left: 20px;
+	color: #999;
+	font-size: 0.8rem;
+	margin-left: 20px;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .cs4116-messages-container {
-    margin: 20px auto;
-  }
+.cs4116-message-button {
+	padding: 15px;
+	background-color: #ff5125;
+	color: white;
+	border-radius: 10px;
+	border: none;
+}
 
-  .cs4116-message-type {
-    min-width: 60px;
-    padding: 4px 8px;
-    font-size: 0.75rem;
-  }
+.cs4116-unread-messages {
+	background-color: #ff5125;
+	color: #fff;
+	padding: 8px;
+	border-radius: 24px;
+	font-size: 0.8rem;
+	margin-right: 20px;
+	min-width: 35px;
+	text-align: center;
+}
 
-  .cs4116-message-content h3 {
-    font-size: 1rem;
-  }
+.cs4116-message-sender {
+	display: flex;
+}
 
-  .cs4116-message-content p {
-    font-size: 0.85rem;
-  }
-} 
+.cs4116-message-sender-name{
+  margin-top: 7px
+}
