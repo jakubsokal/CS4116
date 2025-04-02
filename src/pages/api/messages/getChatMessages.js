@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     if (req.method === "GET") {
         try {
             const { chatId } = req.query;
-            const userId = req.headers['x-user-id']; // Get user ID from headers
+            const userId = req.headers['x-user-id']; 
             console.log('Received request for chat ID:', chatId);
             console.log('User ID:', userId);
 
@@ -18,7 +18,6 @@ export default async function handler(req, res) {
                 return res.status(401).json({ error: "User ID is required" });
             }
 
-            // First verify the conversation exists and user has access
             const { data: conversation, error: convoError } = await supabase
                 .from("conversations")
                 .select("*")
@@ -33,7 +32,6 @@ export default async function handler(req, res) {
 
             console.log('Found conversation:', conversation);
 
-            // Then fetch the messages
             const { data: messages, error: messageError } = await supabase
                 .from("message")
                 .select("*")
@@ -47,7 +45,6 @@ export default async function handler(req, res) {
 
             console.log('Found messages:', messages);
 
-            // Update messages as read
             if (messages && messages.length > 0) {
                 const { error: updateError } = await supabase
                     .from("message")
