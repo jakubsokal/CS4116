@@ -21,19 +21,20 @@ const Navbar = () => {
     setMenuOpen(!menuOpen)
   }
 
-
   useEffect(() => {
     const checkSession = async () => {
       if (session != null) {
         setLoggedIn(true)
         setSession(session)
-        console.log(session.user)
+      } else {
+        setLoggedIn(false)
+        setSession(null)
       }
     }
     if (!loading) {
       checkSession()
     }
-  }, [session])
+  }, [session, loading])
 
   if (loading) {
     return <Loading />
@@ -60,7 +61,7 @@ const Navbar = () => {
             <li><Link href="/explore" onClick={() => setMenuOpen(false)}>EXPLORE</Link></li>
             {!loggedIn && (<li><Link href="/login" onClick={() => setMenuOpen(false)}>LOGIN</Link></li>)}
             {!loggedIn && (<li><Link href="/register" onClick={() => setMenuOpen(false)}>REGISTER</Link></li>)}
-            {session.user.permission == 1 && <li><Link href="/inquiry" onClick={() => setMenuOpen(false)}>INQUIRY</Link></li>}
+            {session?.user?.permission === 1 && <li><Link href="/inquiry" onClick={() => setMenuOpen(false)}>INQUIRY</Link></li>}
             {loggedIn && <li><Link href="/messages" onClick={() => setMenuOpen(false)}>MESSAGES</Link></li>}
             {loggedIn && <li className="cs4116-account"><AccountNav /></li>}
           </ul>
