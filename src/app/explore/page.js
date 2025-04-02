@@ -4,13 +4,21 @@ import Navbar from "@/components/Navbar"
 import Filterbar from "@/components/FilterBar"
 import Loading from "@/components/Loading"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import ServiceDialog from "@/components/ServiceDialog"
 import Rating from "@mui/material/Rating"
 import "@/styles/explore.css"
 
 export default function Explore() {
+  return(
+    <Suspense fallback={<Loading />}>
+      <ExplorePage />
+    </Suspense>
+  )
+}
+
+function ExplorePage() {
   const [serviceList, setListings] = useState([])
   const [load, setLoading] = useState(true)
   const searchParams = useSearchParams()
@@ -103,6 +111,7 @@ export default function Explore() {
   }
 
   return (
+    <Suspense fallback={<Loading />}>
     <div>
       <Navbar />
       <Filterbar />
@@ -160,5 +169,6 @@ export default function Explore() {
         )}
       </div>
     </div>
+    </Suspense>
   )
 }
