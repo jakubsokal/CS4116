@@ -8,27 +8,36 @@ import SearchBar from "@/components/Searchbar"
 import AccountNav from "@/components/AccountNav"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
 import Loading from "@/components/Loading"
+import { useRouter } from "next/navigation"
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [currentSession, setSession] = useState(null)
+  const { session, loading, status } = useSessionCheck()
+  const [loggedIn, setLoggedIn] = useState(false)
+  const router = useRouter()
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
   }
 
-  const { session, loading, status } = useSessionCheck()
-  const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
     const checkSession = async () => {
       if (session != null) {
         setLoggedIn(true)
+        setSession(session)
+        console.log(session.user)
       }
     }
     if (!loading) {
       checkSession()
     }
   }, [session])
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <Suspense fallback={<Loading />}>
@@ -51,7 +60,7 @@ const Navbar = () => {
             <li><Link href="/explore" onClick={() => setMenuOpen(false)}>EXPLORE</Link></li>
             {!loggedIn && (<li><Link href="/login" onClick={() => setMenuOpen(false)}>LOGIN</Link></li>)}
             {!loggedIn && (<li><Link href="/register" onClick={() => setMenuOpen(false)}>REGISTER</Link></li>)}
-            {loggedIn && <li><Link href="/inquiry" onClick={() => setMenuOpen(false)}>INQUIRY</Link></li>}
+            {session.user.permission == 1 && <li><Link href="/inquiry" onClick={() => setMenuOpen(false)}>INQUIRY</Link></li>}
             {loggedIn && <li><Link href="/messages" onClick={() => setMenuOpen(false)}>MESSAGES</Link></li>}
             {loggedIn && <li className="cs4116-account"><AccountNav /></li>}
           </ul>
