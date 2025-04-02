@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, use } from "react"
 import userCheck from "@/api/user/userCheck"
 
 const useSessionCheck = () => {
 	const [loading, setLoading] = useState(true)
-	const [session, setSession] = useState(null)
+	const [currentSession, setSession] = useState(null)
 	const [status, setStatus] = useState(null)
 
 	useEffect(() => {
@@ -12,17 +12,37 @@ const useSessionCheck = () => {
 			if (session.loggedIn === false) {
 				setStatus(401)
 				setLoading(false)
-			}else {
+			} else {
 				setStatus(200)
 				setSession(session.session)
-				setLoading(false)
+				try {
+					const res = await fetch(`/api/user/getUserDetailsEmail?email=${session.session.user.email}`, {
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					});
+
+					const result = await res.json();
+
+					if (result.data) {
+						setSession((prevSession) => ({
+							...prevSession,
+							user: { ...result.data },
+						}))
+					}
+					setLoading(false)
+				} catch (error) {
+					console.error("Error during session check:", error)
+					setLoading(false)
+				}
 			}
 		}
 
 		checkSession()
 	}, [])
 
-	return { session, loading, status}
+	return { session: currentSession, loading, status }
 }
 
 export default useSessionCheck

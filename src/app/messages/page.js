@@ -59,46 +59,16 @@ export default function Messages() {
     } finally {
       setLoading(false)
     }
-  }, [userDetails, getUserDetails, currentSession.user?.user_id])
+  }, [userDetails, getUserDetails, currentSession?.user?.user_id])
 
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        if (session == null && loading == false) {
-          router.push("/login")
-        } else {
-          setSession(session)
-          const res = await fetch(`/api/user/getUserDetailsEmail?email=${session.user.email}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-
-          const result = await res.json();
-          if (result.data) {
-            setSession((prevSession) => ({
-              ...prevSession,
-              user: { ...result.data },
-            }))
-          }
-        }
-      } catch (error) {
-        console.error("Error during session check:", error)
-        router.push("/login")
-      }
+    if (session != null) {
+      setSession(session)
     }
-
-    if (!loading) {
-      checkSession()
-    }
-  }, [session, loading, router])
-
-  useEffect(() => {
     if (currentSession.user?.user_id) {
       getMessages()
     }
-  }, [currentSession.user?.user_id, getMessages])
+  }, [currentSession?.user?.user_id, getMessages, session])
 
   if (loading) {
     return <Loading />
