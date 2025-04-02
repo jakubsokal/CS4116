@@ -7,10 +7,11 @@ export default async function handler(req, res) {
 		try {
 			const { data } = await supabase
 				.from('users')
-				.select('email, first_name, last_name')
+				.select('user_id, email, first_name, last_name')
 				.eq('email', email)
 
 			const combinedData = data.map(user => ({
+				user_id: user.user_id,
 				email: user.email,
 				name: `${user.first_name} ${user.last_name}`,
 			}))

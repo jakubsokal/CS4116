@@ -45,7 +45,7 @@
 }
 
 @media (max-width: 1350px) {
-	.container {
+	.cs4116-explore-container {
         margin-left: 15%;
     }
 }
@@ -55,7 +55,7 @@
 		grid-template-columns: minmax(280px, 350px);
 	}
 
-    .container {
+    .cs4116-explore-container {
         margin-left: 10%;
     }
 }
