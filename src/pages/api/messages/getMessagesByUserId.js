@@ -31,14 +31,12 @@ export default async function handler(req, res) {
                 const convoMessages = messages.find(message => message.convoId === conversation.convo_id)?.messages || [];
                 const unreadCount = convoMessages.filter(message => message.read === 0).length;
                 return { 
-                    convoId: conversation.convo_id,
+                    convo_id: conversation.convo_id,
                     unreadMessages: unreadCount,  
                     participantId 
                 };
             });
             
-            
-
             return res.status(200).json({ message: "Successful Search", data: convoDetails })
         } catch (error) {
             return res.status(500).json({ error: error.message })

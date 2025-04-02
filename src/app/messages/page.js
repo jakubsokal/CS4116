@@ -81,7 +81,10 @@ export default function Messages() {
         <div className="cs4116-messages-list" style={{ padding: "0", top: "50%" }}>
           {messages && messages.length > 0 ? (
             messages.map((message, index) => (
-              <div key={`${message.convo_id}-${index}`} className="cs4116-message-item">
+              <div 
+                key={`${message.convo_id}-${index}`} 
+                className={`cs4116-message-item ${message.unreadMessages > 0 ? 'unread' : ''}`}
+              >
                 <div className="cs4116-message-sender" style={{ color: "black" }}>
                   {message.unreadMessages > 0 && (
                     <div className="cs4116-unread-messages">{message.unreadMessages}</div>
