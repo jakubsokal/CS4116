@@ -1,5 +1,7 @@
 
+
 import AdminTable from "@/components/InquiryTable";  
+import Navbar from "@/components/Navbar";
 
 async function fetchInquiries() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"; 
@@ -18,8 +20,9 @@ export default async function Page() {
 
   return (
     <div>
-      <h2>View Inquiries</h2>
-      <AdminTable reports={reports} />  {}
+      <Navbar />
+      <AdminTable/>
+      
     </div>
   );
 }
