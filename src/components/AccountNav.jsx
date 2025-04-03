@@ -17,9 +17,8 @@ const AccountNav = () => {
 	const authentication = useMemo(() => {
 		return {
 			signOut: async () => {
-				setUser(null)
 				setSession(null)
-				const res = signOut()
+				const res = await signOut()
 				if (res) {
 					console.log("Signed out")
 					router.push("/login")
