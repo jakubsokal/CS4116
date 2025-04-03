@@ -71,7 +71,14 @@
 	color: white;
 	border-radius: 10px;
 	border: none;
-}
+	cursor: pointer;
+	transition: 0.3s ease;
+  }
+  
+  .cs4116-message-button:hover {
+	background-color: #e64520;
+	cursor: pointer;
+  }
 
 .cs4116-unread-messages {
 	background-color: #ff5125;
