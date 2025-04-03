@@ -33,12 +33,11 @@ const ServiceDialog = (service) => {
 	const businessApi = async () => {
 		setLoading(true)
 		try {
-			const res = await fetch('/api/business/getBusinessDetails', {
+			const res = await fetch(`/api/business/getBusinessDetails?businessId=${service.service.business_id}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ businessId: service.service.business_id }),
 			})
 
 			if (!res.ok) {
@@ -59,12 +58,11 @@ const ServiceDialog = (service) => {
 	const reviewsApi = async () => {
 		setLoading(true)
 		try {
-			const res = await fetch('/api/reviews/getReview', {
+			const res = await fetch(`/api/reviews/getReview?serviceId=${service.service.service_id}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ serviceId: service.service.service_id }),
 			})
 
 			if (!res.ok) {
@@ -86,12 +84,11 @@ const ServiceDialog = (service) => {
 		setLoading(true)
 		try {
 			const userDataPromises = reviews.map(async (review) => {
-				const res = await fetch('/api/user/getUserDetailsId', {
+				const res = await fetch(`/api/user/getUserDetailsId?userId=${review.user_id}`, {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify({ userId: review.user_id }),
 				})
 
 				if (!res.ok) {
@@ -117,12 +114,11 @@ const ServiceDialog = (service) => {
 	const serviceTierApi = async () => {
 		setLoading(true)
 		try {
-			const res = await fetch('/api/tier/getTierByServiceId', {
+			const res = await fetch(`/api/tier/getTierByServiceId?serviceId=${service.service.service_id}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ serviceId: service.service.service_id }),
 			})
 
 			if (!res.ok) {
@@ -131,7 +127,6 @@ const ServiceDialog = (service) => {
 
 
 			const result = await res.json()
-			console.log("RESULT:", result.length)
 			if (result.data.length > 0) {
 
 				setListofTiers(result.data)
@@ -220,6 +215,11 @@ const ServiceDialog = (service) => {
 					aria-labelledby="responsive-dialog-title"
 				>
 					<div className="cs41160-dialog-header">
+					{business.profile_picture ? (
+									<img className="cs4116-business-profile-pic" src={business.profile_picture}></img>
+								) : (
+									<img className="cs4116-business-profile-pic" src="https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png"></img>
+								)}
 						<DialogTitle id="responsive-dialog-title">
 							<div>{business.business_name}</div>
 						</DialogTitle>
@@ -247,11 +247,6 @@ const ServiceDialog = (service) => {
 								fullWidth
 								margin="normal"
 							>
-								{business.profile_picture ? (
-									<img className="cs4116-business-profile-pic" src={business.profile_picture}></img>
-								) : (
-									<img src="https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png"></img>
-								)}
 								<InputLabel className="cs4116-dialog-input">
 									Select Tier
 								</InputLabel>
@@ -264,7 +259,6 @@ const ServiceDialog = (service) => {
 									input={<OutlinedInput label="Select Tier" />}
 								>
 									{listofTiers.map((tier) => (
-										console.log("TIER:", selectedTier),
 										<MenuItem
 											key={tier.tier_id}
 											value={tier.name}
@@ -281,7 +275,7 @@ const ServiceDialog = (service) => {
 								component="div"
 							>
 								<div className="cs4116-dialog-text-container">
-									<p style={{ marginBottom: "0", marginTop: "5px", fontSize: "20px"}}>Business Rating:&nbsp;</p>
+									<p style={{ marginBottom: "0", marginTop: "15px", fontSize: "20px"}}>Business Rating:&nbsp;</p>
 								<Rating className="cs4116-dialog-rating" value={business.avg_rating} precision={0.1} readOnly />
 								</div>
 								{selectedTier && (
@@ -296,7 +290,6 @@ const ServiceDialog = (service) => {
 											<p className="cs4116-dialog-text">
 												{listofTiers.find((tier) => tier.name === selectedTier)?.description}
 											</p>
-
 										</div>
 									</div>
 								)}
@@ -315,7 +308,10 @@ const ServiceDialog = (service) => {
 											>
 												<div className="cs4116-grid-splitter">
 													<div>
+														<div style={{ display: "flex", alignItems: "center" }}>
 														<p>{userReview.data.name}</p>
+														<p>&nbsp;{new Date(userReview.review.created_at).toLocaleDateString('en-GB')}</p>
+														</div>
 														<h3>{userReview.review.service_name}</h3>
 														<p>{userReview.review.description}</p>
 														<div

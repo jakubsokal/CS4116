@@ -3,7 +3,7 @@
 	grid-template-columns: repeat(3, minmax(60%, 400px));
 	gap: 20px;
 	justify-content: center;
-	margin: 100px auto;
+	margin-top: 25%;
 	max-width: fit-content;
 }
 
@@ -11,6 +11,7 @@
 	background-color: white;
 	border-radius: 8px;
 	padding: 15px;
+	color: black;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -37,24 +38,24 @@
 	background-color: #cc310a;
 }
 
-@media (max-width: 2000px) {
+@media (max-width: 1750px ) {
 	.cs4116-grid-explore {
 		grid-template-columns: repeat(2, minmax(300px, 350px));
 	}
 }
 
-@media (max-width: 1750px) {
-	.container {
+@media (max-width: 1350px) {
+	.cs4116-explore-container {
         margin-left: 15%;
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
 	.cs4116-grid-explore {
 		grid-template-columns: minmax(280px, 350px);
 	}
 
-    .container {
+    .cs4116-explore-container {
         margin-left: 10%;
     }
 }

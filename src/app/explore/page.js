@@ -4,41 +4,89 @@ import Navbar from "@/components/Navbar"
 import Filterbar from "@/components/FilterBar"
 import Loading from "@/components/Loading"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback, Suspense } from "react"
+import { useSearchParams } from "next/navigation"
 import ServiceDialog from "@/components/ServiceDialog"
 import Rating from "@mui/material/Rating"
 import "@/styles/explore.css"
 
 export default function Explore() {
-  const [filters, setFilters] = useState({})
+  return(
+    <Suspense fallback={<Loading />}>
+      <ExplorePage />
+    </Suspense>
+  )
+}
+
+function ExplorePage() {
   const [serviceList, setListings] = useState([])
   const [load, setLoading] = useState(true)
+  const searchParams = useSearchParams()
+  const [tiers, setTiers] = useState({})
 
-  const serviceApi = async () => {
+  const serviceApi = useCallback(async () => {
     setLoading(true)
+    const query = searchParams.get("query")
+    const sendTo = (!query)
+      ? `/api/service/getAllServices`
+      : `/api/service/getFilteredServices?words=${query}`
+
     try {
-      const res = await fetch("/api/service/getAllServices", {
+      const res = await fetch(sendTo, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       })
 
-      if (!res.ok) {
-        throw new Error(res.error)
-      }
-
       const result = await res.json()
+
+      if (!res.ok) {
+        throw new Error(result.error || "An unknown error occurred while fetching services")
+      }
 
       if (result.data) {
         setListings(result.data)
       }
+
     } catch (error) {
       console.error("Error fetching services:", error)
     } finally {
       setLoading(false)
     }
-  }
+  }, [searchParams])
+
+  const getTiers = useCallback(async () => {
+    try {
+      const tierData = await Promise.all(
+        serviceList.map(async (service) => {
+          const res = await fetch(`/api/tier/getTierByServiceId?serviceId=${service.service_id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+
+          const result = await res.json()
+
+          if (!res.ok) {
+            throw new Error(result.error || `Failed to fetch tiers for service ID: ${service.service_id}`)
+          }
+          return { service_id: service.service_id, tiers: result.data }
+        })
+      )
+
+
+      const tierMap = tierData.reduce((acc, { service_id, tiers }) => {
+        acc[service_id] = tiers
+        return acc
+      }, {})
+
+      setTiers(tierMap)
+    } catch (error) {
+      console.error("Error fetching tiers:", error)
+    }
+  }, [serviceList])
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -48,7 +96,13 @@ export default function Explore() {
     }
 
     fetchListings()
-  }, [filters])
+  }, [serviceApi])
+
+  useEffect(() => {
+    if (serviceList.length > 0) {
+      getTiers()
+    }
+  }, [serviceList, getTiers])
 
   const { loading } = useSessionCheck()
 
@@ -57,10 +111,11 @@ export default function Explore() {
   }
 
   return (
+    <Suspense fallback={<Loading />}>
     <div>
       <Navbar />
       <Filterbar />
-      <div className="container">
+      <div className="explore container">
         {loading || load ? (
           <Loading />
         ) : serviceList.length > 0 ? (
@@ -71,7 +126,6 @@ export default function Explore() {
                 className="cs4116-grid-item-explore"
               >
                 <h3>{service.service_name}</h3>
-                <p>{service.category}</p>
                 <p>{service.description}</p>
                 <div
                   style={{
@@ -84,7 +138,27 @@ export default function Explore() {
                   <Rating value={service.avg_rating} precision={0.1} readOnly />
                 </div>
                 <p>Location: {service.location}</p>
-                <ServiceDialog service={service}/>
+                <div>
+                  <div style={{display: "flex"}}>Price:&nbsp;
+                  {tiers[service.service_id] ? (
+                    <>
+                      {tiers[service.service_id].length > 0 && (
+                        <p key={tiers[service.service_id][0].id}>
+                          €{tiers[service.service_id][0].price}
+                        </p>
+                      )}
+                      {tiers[service.service_id].length > 1 && (
+                        <p key={tiers[service.service_id][tiers[service.service_id].length - 1].id}>
+                          -€{tiers[service.service_id][tiers[service.service_id].length - 1].price}
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <Loading />
+                  )}
+                  </div>
+                </div>
+                <ServiceDialog service={service} />
               </div>
             ))}
           </div>
@@ -95,5 +169,6 @@ export default function Explore() {
         )}
       </div>
     </div>
+    </Suspense>
   )
 }

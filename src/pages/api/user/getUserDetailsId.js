@@ -2,13 +2,12 @@ import { supabase } from '@/utils/supabase/client'
 
 export default async function handler(req, res) {
     if (req.method === 'GET') {
-        const { userId } = req.body
+        const { userId } = req.query
         try {
             const { data } = await supabase
                 .from('users')
                 .select('user_id, first_name, last_name')
                 .eq('user_id', userId)
-            
             
             const combinedData = data.map(user => ({
                 user_id: userId,

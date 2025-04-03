@@ -17,9 +17,8 @@ const AccountNav = () => {
 	const authentication = useMemo(() => {
 		return {
 			signOut: async () => {
-				setUser(null)
 				setSession(null)
-				const res = signOut()
+				const res = await signOut()
 				if (res) {
 					console.log("Signed out")
 					router.push("/login")
@@ -29,40 +28,10 @@ const AccountNav = () => {
 	}, [currentSession])
 
 	useEffect(() => {
-		const checkSession = async () => {
-			try {
-				if (session != null) {
-					if (session.user == null && loading == false) {
-						router.push("/login")
-					} else {
-						setSession(session)
-						const res = await fetch('/api/user/getUserDetailsEmail', {
-							method: 'GET',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify({ email: session.user.email }),
-						});
-
-						const result = await res.json();
-						if (result.data) {
-							setSession((prevSession) => ({
-								...prevSession,
-								user: { ...result.data },
-							}))
-						}
-					}
-				}
-			} catch (error) {
-				console.error("Error during session check:", error)
-				router.push("/login")
-			}
+		if (session != null) {
+			setSession(session)
 		}
-
-		if (!loading) {
-			checkSession()
-		}
-	}, [session, loading, router])
+	}, [session])
 
 	if (loading) {
 		return <Loading />

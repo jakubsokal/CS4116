@@ -1,5 +1,4 @@
 
-
 import AdminTable from "@/components/InquiryTable";  
 import Navbar from "@/components/Navbar";
 

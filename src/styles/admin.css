@@ -1,0 +1,57 @@
+.cs4116-admin-container {
+	margin: 200px;
+}
+
+.cs4116-admin-controls {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+.cs4116-admin-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+	padding: 50px;
+	border-radius: 25px;
+    min-height: 250px;
+	background: white;
+    min-width: 500px;
+}
+
+.cs4116-admin-button {
+	font-size: 14px;
+	width: 175px;
+	height: 40px;
+	padding: 10px;
+	background: #ff5125;
+	border: none;
+	border-radius: 8px;
+}
+
+.cs4116-admin-text {
+	color: #000;
+    font-size: 20px;
+}
+.cs4116-admin-logs{
+    margin-top: 40px;
+}
+.cs4116-admin-logs-table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    width: 100%;
+}
+.cs4116-admin-logs-table th, .cs4116-admin-logs-table td {
+    padding: 10px 15px;
+    text-align: left;
+}
+.cs4116-admin-logs-table th {
+    background-color: #ff5125;
+    color: white;
+}
+.cs4116-admin-logs-table tr {
+    background: white;
+    color: #000;
+    border-bottom: 1px solid #000;
+}
