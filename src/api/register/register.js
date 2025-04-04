@@ -15,7 +15,6 @@ export async function register(userData) {
       return { status: 400, error: "An account with this email already exists." }
     }
 
-    
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email: userData.email,
       password: userData.password,
