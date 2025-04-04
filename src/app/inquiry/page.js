@@ -1,16 +1,27 @@
-import InquiryTable from "@/components/InquiryTable";
+
+import AdminTable from "@/components/InquiryTable";  
 import Navbar from "@/components/Navbar";
 
-export default function Page() {
-  const reports = [
-    { business: "Bob Ryan", service: "Personal Training", date: "2025-03-10", reviewLink: "/review/1" },
-    { business: "Sinead O'Boyle", service: "Yoga Class", date: "2025-03-08", reviewLink: "/review/2" },
-    { business: "Hannah Montanna", service: "Smoothie Making", date: "2025-03-09", reviewLink: "/review/2" },
-    { business: "Ryan Renaults", service: "Sports Massage", date: "2025-04-14", reviewLink: "/review/2" }
-  ];
+async function fetchInquiries() {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"; 
 
-  return (<div>
-    <Navbar />
-    <InquiryTable reports={reports} />
-  </div>);
+  const res = await fetch(`${baseUrl}/api/inquiries`, {
+    cache: "no-store", 
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch inquiries");
+
+  return res.json(); 
+}
+
+export default async function Page() {
+  const reports = await fetchInquiries(); 
+
+  return (
+    <div>
+      <Navbar />
+      <AdminTable/>
+      
+    </div>
+  );
 }

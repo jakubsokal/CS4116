@@ -8,6 +8,7 @@
 
 /* Makes the table responsive */
 .table {
+  margin-top: 20px;
   overflow-x: auto; /* Horizontal scrolling */
   overflow-y: auto;
   align-items: center;
