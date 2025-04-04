@@ -1,10 +1,19 @@
 "use client"
 
-import React from "react"
+import React, { Suspense } from "react"
 import "@/styles/confirmed.css"
 import { useSearchParams } from "next/navigation"
+import Loading from "@/components/Loading"
 
 export default function ConfirmationNeeded() {
+    return (
+        <Suspense fallback={<Loading />}>
+            <ConfirmationNeededPage />
+        </Suspense>
+    )
+}
+
+const ConfirmationNeededPage = () => {
     const searchParams = useSearchParams()
     const handleResendEmail = async () => { 
         const email = searchParams.get("email").replace(/%40/g, "@");

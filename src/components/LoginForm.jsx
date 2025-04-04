@@ -14,15 +14,18 @@ const LoginForm = () => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [user, setUser] = useState([])
+	const [incorrectDetials, setIncorrectDetials] = useState(false)
 	const router = useRouter()
 
 	const handleOnSubmit = async (e) => {
 		e.preventDefault()
 		setLoading(true)
 		setError(null)
+		setIncorrectDetials(true)
 		const res = await login(email, password)
 		if (res.status == 200) {
 			setUser(res.data)
+			setIncorrectDetials(false)
 			console.info("Status:", res.status, "Successfully login")
 			router.push("/")
 		} else {
@@ -36,13 +39,16 @@ const LoginForm = () => {
 		<div className="wrapper">
 			<form onSubmit={handleOnSubmit}>
 				<h1>Login</h1>
-				{error && <p style={{ color: "red", paddingTop: "8px" }}>{error}</p>}
+				{error && <p className="cs4116-login-error">{error}</p>}
 				<div className="input-box">
 					<input
 						type="text"
 						placeholder="Email"
 						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						onChange={(e) => {
+							setEmail(e.target.value);
+							setIncorrectDetials(false)
+						}}
 						required
 					/>
 					<FaUser className="icon" />
@@ -52,7 +58,11 @@ const LoginForm = () => {
 						type="password"
 						placeholder="Password"
 						value={password}
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={(e) => {
+							setPassword(e.target.value)
+							setIncorrectDetials(false)
+						}
+						}
 						required
 					/>
 					<FaLock className="icon" />
@@ -65,9 +75,9 @@ const LoginForm = () => {
 					</label>
 					<a href="#">Forgot password?</a>
 				</div>
-				<button type="submit">
+				<button type="submit" disabled={incorrectDetials}>
 					{load ? (
-						<Loading/>
+						<Loading />
 					) : (
 						"Login"
 					)}

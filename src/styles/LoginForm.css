@@ -20,6 +20,17 @@
     text-align: center;
 }
 
+.cs4116-login-error{
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
 .wrapper .input-box {
     position: relative;
     width: 100%;
