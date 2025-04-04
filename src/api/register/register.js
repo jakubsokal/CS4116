@@ -15,6 +15,25 @@ export async function register(userData) {
       return { status: 400, error: "An account with this email already exists." }
     }
 
+    
+    const { data: authData, error: authError } = await supabase.auth.signUp({
+      email: userData.email,
+      password: userData.password,
+      options: {
+        data: {
+          first_name: userData.isBusiness ? userData.businessName : userData.firstName,
+          last_name: userData.isBusiness ? '' : userData.lastName,
+          is_business: userData.isBusiness,
+          business_name: userData.isBusiness ? userData.businessName : null
+        },
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
+      }
+    })
+
+    if (authError) {
+      return { status: 400, error: authError.message }
+    }
+
     const { data: insertedUser, error: userError } = await supabase
       .from('users')
       .insert([
@@ -50,24 +69,6 @@ export async function register(userData) {
         await supabase.from('users').delete().eq('id', insertedUser.id)
         return { status: 400, error: businessError.message }
       }
-    }
-
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: userData.email,
-      password: userData.password,
-      options: {
-        data: {
-          first_name: userData.isBusiness ? userData.businessName : userData.firstName,
-          last_name: userData.isBusiness ? '' : userData.lastName,
-          is_business: userData.isBusiness,
-          business_name: userData.isBusiness ? userData.businessName : null
-        },
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
-      }
-    })
-
-    if (authError) {
-      return { status: 400, error: authError.message }
     }
 
     return { status: 200, data: authData.user }
