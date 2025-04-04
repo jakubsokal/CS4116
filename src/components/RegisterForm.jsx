@@ -30,10 +30,6 @@ const RegisterForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleLocationChange = (location) => {
-        setFormData({ ...formData, location });
-    };
-
     const validateForm = () => {
         if (formData.password !== formData.confirmPassword) {
             setMessage({ type: 'error', text: 'Passwords do not match' });
@@ -90,7 +86,7 @@ const RegisterForm = () => {
             });
 
             setTimeout(() => {
-                router.push('/login');
+                router.push(`/register/confirmation-needed?email=${encodeURIComponent(formData.email)}`);
             }, 3000);
 
         } catch (error) {
