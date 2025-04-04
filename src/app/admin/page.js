@@ -23,8 +23,6 @@ export default function AdminDashboard() {
 
             const result = await res.json();
 
-            console.log("Admin logs:", result.data)
-
             if (result.data) {
                 setLogs(result.data);
             }
