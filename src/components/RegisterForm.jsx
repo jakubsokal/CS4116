@@ -9,6 +9,7 @@ import { register } from "@/api/register/register";
 const RegisterForm = () => {
     const router = useRouter();
     const [message, setMessage] = useState({ type: '', text: '' });
+    const [edited, setEdited] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
@@ -25,6 +26,7 @@ const RegisterForm = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        setEdited(true);
         setFormData({ ...formData, [name]: value });
     };
 
@@ -35,14 +37,17 @@ const RegisterForm = () => {
     const validateForm = () => {
         if (formData.password !== formData.confirmPassword) {
             setMessage({ type: 'error', text: 'Passwords do not match' });
+            setEdited(false)
             return false;
         }
         if (isBusiness && (!formData.businessName || !formData.location)) {
             setMessage({ type: 'error', text: 'Please fill in all business details' });
+            setEdited(false)
             return false;
         }
         if (!isBusiness && (!formData.firstName || !formData.lastName)) {
             setMessage({ type: 'error', text: 'Please fill in all personal details' });
+            setEdited(false)
             return false;
         }
         return true;
@@ -50,6 +55,7 @@ const RegisterForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setMessage({ type: '', text: '' });
         if (!validateForm()) return;
 
         setIsLoading(true);
@@ -64,13 +70,13 @@ const RegisterForm = () => {
                 location: formData.location
             });
 
-            if (result.status === 400) {
+            if (result.status === 400 || result.status === 500) {
                 throw new Error(result.error);
             }
 
-            setMessage({ 
-                type: 'success', 
-                text: 'Registration successful! Please check your email to verify your account before logging in.' 
+            setMessage({
+                type: 'success',
+                text: 'Registration successful! Please check your email to verify your account before logging in.'
             });
 
             setFormData({
@@ -89,6 +95,7 @@ const RegisterForm = () => {
 
         } catch (error) {
             setMessage({ type: 'error', text: error.message });
+            setEdited(false)
         } finally {
             setIsLoading(false);
         }
@@ -269,7 +276,19 @@ const RegisterForm = () => {
                     </div>
                 </div>
 
-                <button type="submit" className="submit-button" disabled={isLoading}>
+                <button
+                    type="submit"
+                    className="submit-button"
+                    disabled={isLoading || !edited || JSON.stringify(formData) === JSON.stringify({
+                        firstName: "",
+                        lastName: "",
+                        email: "",
+                        password: "",
+                        confirmPassword: "",
+                        businessName: "",
+                        location: "",
+                    })}
+                >
                     {isLoading ? 'Creating Account...' : 'Create Account'}
                 </button>
             </form>
