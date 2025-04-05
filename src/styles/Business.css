@@ -10,6 +10,10 @@
     max-width: 1200px;
 }
 
+.cs-text-box h1 {
+    font-size: 5rem;
+}
+
 .action {
     flex: 1;
     margin: 0 10px;
@@ -37,6 +41,12 @@
 
 .business-buttons:hover {
     background-color: #d93d15;
+}
+
+.cs-no-services {
+    text-align: center;
+    font-style: italic;
+    color: #888;
 }
 
 .form-container {

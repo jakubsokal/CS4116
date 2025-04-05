@@ -10,7 +10,7 @@ export default function BusinessPage() {
 
       <section className="header">
         <div className="hero-content">
-          <div className="text-box">
+          <div className="cs-text-box">
             <h1>Manage Your Business</h1>
           </div>
         </div>
