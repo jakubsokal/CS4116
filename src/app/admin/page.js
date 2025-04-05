@@ -23,7 +23,7 @@ export default function AdminDashboard() {
             const checkSession = async () => {
                 if (session == null) {
                     router.push("/login")
-                } else if (session.permission !== 2) {
+                } else if (session.user.permission !== 2) {
                     router.push("/")
                 }
             }

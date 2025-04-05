@@ -1,5 +1,5 @@
 .cs4116-admin-container {
-	margin: 200px auto 25px auto;
+	margin: 120px auto 25px auto;
 	max-width: 1200px;
 	padding: 0 20px;
 }
@@ -169,7 +169,7 @@
     .cs4116-admin-container {
         font-size: 10px !important;
 		max-width: 800px;
-		margin: 150px auto 25px auto !important;
+		margin: 110px auto 25px auto !important;
     }
 
     .cs4116-admin-text {
