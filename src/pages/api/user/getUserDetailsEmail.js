@@ -11,17 +11,15 @@ export default async function handler(req, res) {
 				.select('*')
 				.eq('email', email)
 
-				console.log(data)
-
 			const combinedData = data.map(user => ({
 				user_id: user.user_id,
-                name: `${user.first_name} ${user.last_name}`,
-                email: email,
-                permission: user.permission,
-                last_used: user.last_used,
-                status: user.status,
+				name: `${user.first_name} ${user.last_name}`,
+				email: email,
+				permission: user.permission,
+				last_used: user.last_used,
+				status: user.status,
 				warnings: user.warnings,
-                created_at: user.created_at,
+				created_at: user.created_at,
 			}))
 
 			return res.status(200).json({ message: "Successful Search", data: combinedData[0] });
@@ -30,6 +28,6 @@ export default async function handler(req, res) {
 			return res.status(500).json({ error: error.message });
 		}
 	}
-	
+
 	return res.status(400).json({ error: 'Invalid request' });
 }

@@ -8,7 +8,7 @@ export default async function handler(req, res) {
                 .from('users')
                 .select('*')
                 .eq('user_id', userId)
-            
+
             const combinedData = data.map(user => ({
                 user_id: userId,
                 name: `${user.first_name} ${user.last_name}`,
@@ -25,6 +25,6 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: error.message })
         }
     }
-    
+
     return res.status(400).json({ error: 'Invalid request' })
 }

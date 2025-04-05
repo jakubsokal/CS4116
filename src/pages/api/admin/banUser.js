@@ -4,7 +4,6 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         const { adminId, userDetails, reason } = req.body
         const type = userDetails.includes('@') ? 'email' : 'user_id'
-        console.log("Admin ID:", adminId, "User Details:", userDetails, "Reason:", reason)
         try {
             const { data } = await supabase
                 .from('users')

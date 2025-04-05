@@ -54,7 +54,7 @@ export default function AdminDashboard() {
 
     const handleWarnUser = async (e) => {
         e.preventDefault()
-        const res = await fetch(`/api/user/warnUser`, {
+        const res = await fetch(`/api/admin/warnUser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ export default function AdminDashboard() {
 
     const handleBanUser = async (e) => {
         e.preventDefault()
-        const res = await fetch(`/api/user/banUser`, {
+        const res = await fetch(`/api/admin/banUser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -139,34 +139,34 @@ export default function AdminDashboard() {
                             </button>
                         </form>
                         <div className="cs4116-admin-logs">
-                        <table className="cs4116-admin-search-table">
-                            <thead>
-                                <tr>
-                                    <th>User ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>Warnings</th>
-                                    <th>Last Used</th>
-                                    <th>Created At</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {details ? (
+                            <table className="cs4116-admin-search-table">
+                                <thead>
                                     <tr>
-                                        <td>{details.user_id}</td>
-                                        <td>{details.name.trim()}</td>
-                                        <td>{details.email}</td>
-                                        <td>{details.permission === 0 ? "Customer" : details.permission === 1 ? "Business" : "Admin"}</td>
-                                        <td>{details.status === 1 ? "Active" : "Banned"}</td>
-                                        <td>{details.warnings}</td>
-                                        <td>{new Date(details.last_used).toLocaleString()}</td>
-                                        <td>{new Date(details.created_at).toLocaleString()}</td>
+                                        <th>User ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Warnings</th>
+                                        <th>Last Used</th>
+                                        <th>Created At</th>
                                     </tr>
-                                ) : null}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {details ? (
+                                        <tr>
+                                            <td>{details.user_id}</td>
+                                            <td>{details.name.trim()}</td>
+                                            <td>{details.email}</td>
+                                            <td>{details.permission === 0 ? "Customer" : details.permission === 1 ? "Business" : "Admin"}</td>
+                                            <td>{details.status === 1 ? "Active" : "Banned"}</td>
+                                            <td>{details.warnings}</td>
+                                            <td>{new Date(details.last_used).toLocaleString()}</td>
+                                            <td>{new Date(details.created_at).toLocaleString()}</td>
+                                        </tr>
+                                    ) : null}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
