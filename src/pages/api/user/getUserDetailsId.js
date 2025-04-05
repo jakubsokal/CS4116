@@ -17,7 +17,7 @@ export default async function handler(req, res) {
                 last_used: user.last_used,
                 status: user.status,
                 warnings: user.warnings,
-                createdAt: user.created_at,
+                created_at: user.created_at,
             }))
 
             return res.status(200).json({ message: "Successful Search", data: combinedData[0] })
