@@ -3,22 +3,30 @@ import { supabase } from '@/utils/supabase/client';
 export default async function handler(req, res) {
 	if (req.method === 'GET') {
 		const { email } = req.query;
+		console.log(email)
 
 		try {
 			const { data } = await supabase
 				.from('users')
-				.select('user_id, email, first_name, last_name, permission')
+				.select('*')
 				.eq('email', email)
+
+				console.log(data)
 
 			const combinedData = data.map(user => ({
 				user_id: user.user_id,
-				email: user.email,
-				permission: user.permission,
-				name: `${user.first_name} ${user.last_name}`,
+                name: `${user.first_name} ${user.last_name}`,
+                email: email,
+                permission: user.permission,
+                last_used: user.last_used,
+                status: user.status,
+				warnings: user.warnings,
+                created_at: user.created_at,
 			}))
 
 			return res.status(200).json({ message: "Successful Search", data: combinedData[0] });
 		} catch (error) {
+			console.error('Error fetching user details:', error);
 			return res.status(500).json({ error: error.message });
 		}
 	}
