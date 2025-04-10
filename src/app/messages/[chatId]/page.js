@@ -48,6 +48,7 @@ export default function ChatPage() {
 
     try {
       const response = await fetch(`/api/messages/getChatMessages?chatId=${chatId}`, {
+        method: 'GET',
         headers: {
           'x-user-id': session.user.user_id,
           'Content-Type': 'application/json'
@@ -68,10 +69,13 @@ export default function ChatPage() {
         ).length;
         setUnreadCount(unreadMessages);
         
-        const uniqueUserIds = [...new Set(data.data.map(msg => [msg.sender_id, msg.receiver_id]).flat())];
-        uniqueUserIds.forEach(userId => {
-          fetchUserDetails(userId);
-        });
+        const otherUserId = data.data[0]?.sender_id === session.user.user_id 
+          ? data.data[0]?.receiver_id 
+          : data.data[0]?.sender_id;
+        
+        if (otherUserId) {
+          fetchUserDetails(otherUserId);
+        }
       }
     } catch (error) {
       setError(error.message);
