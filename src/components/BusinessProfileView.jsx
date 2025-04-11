@@ -1,6 +1,5 @@
 "use client";
 
-import useBusinessSessionCheck from "@/api/business/useBusinessDetails";
 import BusinessNavbar from "@/components/BusinessNavbar";
 import "@/styles/Business.css";
 import { useRouter } from "next/navigation";
@@ -8,7 +7,6 @@ import { useRouter } from "next/navigation";
 
 const BusinessProfileView = () => {
     const router = useRouter();
-    const { business, loading } = useBusinessSessionCheck();
 
 
     if (loading || !business) {

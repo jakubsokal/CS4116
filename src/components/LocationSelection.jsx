@@ -9,7 +9,7 @@ import Select from "@mui/material/Select"
 import OutlinedInput from "@mui/material/OutlinedInput"
 import Loading from "@/components/Loading"
 
-const LocationSelection = () => {
+const LocationSelection = ({ onCountyChange, isCustomStyle = false, value = "" }) => {
 	const [countyData, setCountyData] = useState([])
 	const [selectedCounty, setSelectedCounty] = useState("")
 	const [isCountyDisabled, setIsCountyDisabled] = useState(false)
@@ -29,9 +29,15 @@ const LocationSelection = () => {
 			})
 	}, [])
 
+	useEffect(() => {
+		if (value === "Select County") {
+			setSelectedCounty("")
+		}
+	}, [value])
+
 	if (countyData.length === 0) {
 		return (
-			<Loading/>
+			<Loading />
 		)
 	}
 
@@ -41,21 +47,79 @@ const LocationSelection = () => {
 		setTimeout(() => {
 			setIsCountyDisabled(false)
 		}, 600)
+
+		if (onCountyChange) {
+			onCountyChange(event.target.value)
+		}
+
 	}
 
 	return (
-		<Box sx={{ display: "flex", flexDirection: "column", fullWidth: "true" }}>
-			<FormControl fullWidth margin="normal">
-				<InputLabel id="demo-multiple-name-label">Select County</InputLabel>
+		<Box
+			sx={{
+				display: "flex",
+				flexDirection: "column",
+				width: "100%",
+			}}
+		>
+			<FormControl
+				fullWidth
+				margin="normal"
+				sx={{
+					backgroundColor: "transparent",
+					borderRadius: "5px",
+					boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+				}}
+			>
+				<InputLabel
+					id="demo-multiple-name-label"
+					sx={{
+						fontWeight: "500",
+						fontSize: "0.9rem",
+						fontStyle: "normal",
+						color: isCustomStyle ? "white" : "black",
+						borderColor: isCustomStyle ? "white" : "black",
+					}}
+				>
+					Select County
+				</InputLabel>
 				<Select
 					labelId="demo-multiple-name-label"
 					id="demo-multiple-name"
 					value={selectedCounty}
 					onChange={CountyChange}
 					input={<OutlinedInput label="Select County" />}
+					sx={{
+						background: isCustomStyle ? "#ffffff1a" : "transparent",
+						color: isCustomStyle ? "white" : "black",
+						borderRadius: "8px",
+						"& .MuiOutlinedInput-notchedOutline": {
+							borderColor: isCustomStyle ? "#fff3" : "black",
+						},
+						"&:hover .MuiOutlinedInput-notchedOutline": {
+							borderColor: isCustomStyle ? "#fff3" : "black",
+						},
+						"&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+							borderColor: isCustomStyle ? "#fff3" : "black",
+						},
+						"& .MuiSelect-icon": {
+							color: isCustomStyle ? "white" : "black",
+						},
+					}}
 				>
 					{countyData.map((county, index) => (
-						<MenuItem key={index} value={county} disabled={isCountyDisabled}>
+						<MenuItem
+							key={index}
+							value={county}
+							disabled={isCountyDisabled}
+							sx={{
+								fontSize: "0.9rem",
+								color: "#333",
+								"&:hover": {
+									backgroundColor: "#f0f0f0",
+								},
+							}}
+						>
 							{county}
 						</MenuItem>
 					))}

@@ -51,7 +51,7 @@
 
 .form-container {
     max-width: 800px;
-    margin: 40px auto;
+    margin: 110px auto;
     padding: 20px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
@@ -67,6 +67,54 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+.tier-group{
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-tier-button
+{
+    width: 15%;
+    height: 30px;
+    border-radius: 5px;
+    background: green;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+.form-description{
+     max-width: 100%;
+     box-sizing: border-box
+}
+
+.add-tier-button:hover {
+	background-color: rgb(1, 86, 1);
+	cursor: pointer;
+}
+
+.remove-tier-button{
+    width: 15%;
+    height: 30px;
+    border-radius: 5px;
+    background: #ff5125;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+    margin-bottom: 10px;
+}
+
+.remove-tier-button:hover {
+	background-color: #cf3714;
+	cursor: pointer;
+}
+
+.form-group option {
+    color: black;
+    font-weight: normal;
+    background: white;    
 }
 
 .form-group label {

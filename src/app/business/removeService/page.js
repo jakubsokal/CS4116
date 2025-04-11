@@ -1,22 +1,17 @@
 "use client";
 
-import useBusinessSessionCheck from "@/api/business/useBusinessSessionCheck";
 import BusinessNavbar from "@/components/BusinessNavbar";
 import Loading from "@/components/Loading";
 import LocationSelection from "@/components/LocationSelection";
-import "@/components/ServiceCard";
-import "@/components/ServiceCard.css";
-import "@/components/ServiceCardList.css";
-import "@/components/ServiceCardList.jsx";
 import "@/styles/Business.css";
 import "@/styles/style.css";
 import { supabase } from "@/utils/supabase/client";
 import { useEffect, useRef, useState } from "react";
+import useSessionCheck from "@/utils/hooks/useSessionCheck";
 
 
 const RemoveServicePage = () => {
-
-  const { business, loading } = useBusinessSessionCheck();
+  const { session, loading } = useSessionCheck();
   const [services, setServices] = useState([]);
   const [editing, setEditing] = useState(null);
   const [editData, setEditData] = useState({});
@@ -35,10 +30,10 @@ const RemoveServicePage = () => {
   };
 
   useEffect(() => {
-    if (!business?.business_id) return;
-    
+    if (session?.user?.permission !== 1) return;
+
     const fetchServices = async () => {
-      const res = await fetch(`/api/business/getBusinessServices?business_id=${business.business_id}`);
+      const res = await fetch(`/api/business/getBusinessServices?business_id=1`);
       const result = await res.json();
       if (result.data) {
         setServices(result.data);
@@ -47,7 +42,7 @@ const RemoveServicePage = () => {
       }
     };
     fetchServices();
-  }, [business]);
+  }, [session]);
 
   // location dropdown
   useEffect(() => {
@@ -71,7 +66,7 @@ const RemoveServicePage = () => {
   const handleRemove = async (id) => {
 
     const res = await fetch(`/api/service/getServiceDetails?service_id=${id}`, {
-    method: "DELETE",
+      method: "DELETE",
     });
     const result = await res.json();
 
@@ -121,7 +116,7 @@ const RemoveServicePage = () => {
     }
   };
 
-  if (loading || !business) {
+  if (loading) {
     return (
       <div>
         <BusinessNavbar />
@@ -141,7 +136,7 @@ const RemoveServicePage = () => {
         ) : (
           <div className="services-list">
             {services.map((service) => (
-              <div key={service.service.id} className="service-item">
+              <div key={service.service_id} className="service-item">
                 <div className="service-info">
                   {editing === service.service_id ? (
                     <>
@@ -181,7 +176,7 @@ const RemoveServicePage = () => {
                         <span className="cs-label">Location:</span>
                         <div ref={locationRef}>
                           <div className="cs-location-service">
-                          <LocationSelection />
+                            <LocationSelection />
                           </div>
                         </div>
                       </div>

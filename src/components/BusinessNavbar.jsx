@@ -1,6 +1,5 @@
 "use client";
 
-import useBusinessSessionCheck from "@/api/business/useBusinessSessionCheck";
 import "@/styles/Navbar.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +8,6 @@ import { useState } from "react";
 
 const BusinessNavbar = () => {
   const router = useRouter();
-  const { business, loading } = useBusinessSessionCheck();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -37,7 +35,7 @@ const BusinessNavbar = () => {
             <Link href="/business/messages" onClick={() => setMenuOpen(false)}> MESSAGES</Link>
           </li>
           <li>
-            <Link href="/business/profile" onClick={() => setMenuOpen(false)}> PROFILE</Link>
+            <Link href="/business/editProfile" onClick={() => setMenuOpen(false)}> PROFILE</Link>
           </li>
         </ul>
       </div>

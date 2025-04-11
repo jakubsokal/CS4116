@@ -9,16 +9,16 @@ export default async function handler(req, res) {
 
     try {
 
-    await supabase.from("reviews").delete().eq("service_id", service_id);
+        await supabase.from("reviews").delete().eq("service_id", service_id);
 
-    await supabase.from("tiers").delete().eq("service_id", service_id);
+        await supabase.from("tiers").delete().eq("service_id", service_id);
 
-    const { error } = await supabase.from("services").delete().eq("service_id", service_id);
+        const { error } = await supabase.from("services").delete().eq("service_id", service_id);
 
-    if (error) throw error;
+        if (error) throw error;
 
-    return res.status(200).json({ message: "Service and related data deleted" });
-} catch (err) {
-    return res.status(500).json({ error: err.message });
-}
+        return res.status(200).json({ message: "Service and related data deleted" });
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
 }

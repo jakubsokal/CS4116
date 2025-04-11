@@ -1,16 +1,16 @@
 "use client";
 
-import useBusinessSessionCheck from "@/api/business/useBusinessSessionCheck";
 import "@/styles/Business.css";
 import "@/styles/BusinessProfile.css";
 import "@/styles/style.css";
 import { supabase } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import useSessionCheck from "@/utils/hooks/useSessionCheck";
 
 const BusinessProfileEdit = () => {
+  const { session, loading } = useSessionCheck();
   const router = useRouter();
-  const { business, loading } = useBusinessSessionCheck();
 
   const[formData, setFormData] = useState({
     business_name: "",
@@ -31,24 +31,25 @@ const BusinessProfileEdit = () => {
   }
 
   useEffect(() => {
-    if (business) {
+   
+    if (session?.user?.permission !== 1) return;{
         setFormData({
-          business_name: business.business_name || "",
-          description: business.description || "",
-          location: business.location || "",
-          phone_number: business.phone_number || "",
-          avg_rating: business.avg_rating?.toString() ?? "",
-          open_hour: business.open_hour?.toString() ?? "",
-          close_hour: business.close_hour?.toString() ?? "",
+          business_name: session.business.business_name || "",
+          description: session.business.description || "",
+          location: session.business.location || "",
+          phone_number: session.business.phone_number || "",
+          avg_rating: session.business.avg_rating?.toString() ?? "",
+          open_hour: session.business.open_hour?.toString() ?? "",
+          close_hour: session.business.close_hour?.toString() ?? "",
         });
       }
-    }, [business]);
+    }, [session]);
 
   
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!business?.businessId) return;
+    if (!session.business?.businessId) return;
 
     const { error } = await supabase
       .from("business")
@@ -69,7 +70,7 @@ const BusinessProfileEdit = () => {
     }
   };
 
-  if (loading || !business) {
+  if (loading) {
     return (
       <div className="business-profile-wrapper">
         <div className="business-profile-container">
