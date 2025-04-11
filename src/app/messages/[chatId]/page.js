@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Loading from '@/components/Loading';
@@ -11,94 +11,127 @@ export default function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userDetails, setUserDetails] = useState({});
+  const [chatPartnerDetails, setChatPartnerDetails] = useState({});
   const [unreadCount, setUnreadCount] = useState(0);
+  const [newMessage, setNewMessage] = useState('');
   const params = useParams();
   const router = useRouter();
   const { session, loading: sessionLoading } = useSessionCheck();
   const chatId = params.chatId;
 
+  const fetchChatPartnerDetails = useCallback(async (chatPartnerId) => {
+    try {
+      const response = await fetch(`/api/user/getUserDetailsId?userId=${chatPartnerId}`);
+      const chatPartnerData = await response.json();
+      
+      if (chatPartnerData.data) {
+        setChatPartnerDetails(prev => ({
+          ...prev,
+          [chatPartnerId]: chatPartnerData.data
+        }));
+      }
+    } catch (error) {
+      console.error('Error fetching chat partner details:', error);
+    }
+  }, []);
+
+  const fetchMessages = useCallback(async () => {
+    if (!chatId) {
+      setError('Invalid chat ID');
+      return;
+    }
+
+    if (!session?.user?.user_id) {
+      setError('Please log in to view messages');
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/messages/getChatMessages?chatId=${chatId}`, {
+        method: 'GET',
+        headers: {
+          'x-user-id': session.user.user_id,
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      if (data.data) {
+        setMessages(data.data);
+        const unreadMessages = data.data.filter(msg => 
+          msg.receiver_id === session.user.user_id && 
+          msg.chat_id === parseInt(chatId) && 
+          msg.read === 0
+        ).length;
+        setUnreadCount(unreadMessages);
+        
+        const chatPartnerId = data.data[0]?.sender_id === session.user.user_id 
+          ? data.data[0]?.receiver_id 
+          : data.data[0]?.sender_id;
+        
+        if (chatPartnerId) {
+          fetchChatPartnerDetails(chatPartnerId);
+        }
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [chatId, session, fetchChatPartnerDetails]);
+
   useEffect(() => {
-    console.log('Chat ID:', chatId);
-    console.log('Session:', session);
-    console.log('Session Loading:', sessionLoading);
-    
-    const fetchMessages = async () => {
-      if (!chatId) {
-        console.log('No chat ID provided');
-        setError('Invalid chat ID');
-        return;
-      }
-
-      if (!session?.user?.user_id) {
-        console.log('No user session:', session);
-        setError('Please log in to view messages');
-        return;
-      }
-
-      try {
-        console.log('Fetching messages for chat:', chatId);
-        console.log('User ID:', session.user.user_id);
-        const response = await fetch(`/api/messages/getChatMessages?chatId=${chatId}`, {
-          headers: {
-            'x-user-id': session.user.user_id,
-            'Content-Type': 'application/json'
-          }
-        });
-        const data = await response.json();
-        
-        console.log('Response data:', data);
-        
-        if (data.error) {
-          throw new Error(data.error);
-        }
-
-        if (data.data) {
-          setMessages(data.data);
-          const unreadMessages = data.data.filter(msg => 
-            msg.receiver_id === session.user.user_id && 
-            msg.chat_id === parseInt(chatId) && 
-            msg.read === 0
-          ).length;
-          console.log('Unread messages count:', unreadMessages);
-          setUnreadCount(unreadMessages);
-          
-          const uniqueUserIds = [...new Set(data.data.map(msg => [msg.sender_id, msg.receiver_id]).flat())];
-          console.log('Unique user IDs:', uniqueUserIds);
-          uniqueUserIds.forEach(userId => {
-            fetchUserDetails(userId);
-          });
-        }
-      } catch (error) {
-        console.error('Error fetching messages:', error);
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const fetchUserDetails = async (userId) => {
-      try {
-        console.log('Fetching user details for:', userId);
-        const response = await fetch(`/api/user/getUserDetailsId?userId=${userId}`);
-        const data = await response.json();
-        console.log('User details response:', data);
-        
-        if (data.data) {
-          setUserDetails(prev => ({
-            ...prev,
-            [userId]: data.data
-          }));
-        }
-      } catch (error) {
-        console.error('Error fetching user details:', error);
-      }
-    };
-
     if (!sessionLoading && session?.user?.user_id) {
       fetchMessages();
     }
-  }, [chatId, session, sessionLoading]);
+  }, [chatId, session, sessionLoading, fetchMessages]);
+
+  useEffect(() => {
+    const pollInterval = setInterval(() => {
+      if (session?.user?.user_id && chatId) {
+        fetchMessages();
+      }
+    }, 3000);
+
+    return () => clearInterval(pollInterval);
+  }, [session?.user?.user_id, chatId, fetchMessages]);
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!newMessage.trim() || !session?.user?.user_id) return;
+
+    try {
+      const response = await fetch('/api/messages/sendMessage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message_text: newMessage.trim(),
+          sender_id: session.user.user_id,
+          receiver_id: messages[0]?.sender_id === session.user.user_id 
+            ? messages[0]?.receiver_id 
+            : messages[0]?.sender_id,
+          chat_id: chatId
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      setNewMessage('');
+      fetchMessages();
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   if (sessionLoading || loading) {
     return (
@@ -162,22 +195,24 @@ export default function ChatPage() {
                   </span>
                 </div>
                 <div className="message-sender">
-                  {userDetails[message.sender_id]?.name || 'User'}
+                  {chatPartnerDetails[message.sender_id]?.name || 'User'}
                 </div>
               </div>
             ))
           )}
         </div>
-        <div className="chat-input-container">
+        <form onSubmit={handleSendMessage} className="chat-input-container">
           <input
             type="text"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type a message..."
             className="chat-input"
           />
-          <button className="send-button">
+          <button type="submit" className="send-button">
             Send
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
