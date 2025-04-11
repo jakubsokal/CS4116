@@ -11,7 +11,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userDetails, setUserDetails] = useState({});
+  const [chatPartnerDetails, setChatPartnerDetails] = useState({});
   const [unreadCount, setUnreadCount] = useState(0);
   const [newMessage, setNewMessage] = useState('');
   const params = useParams();
@@ -19,19 +19,19 @@ export default function ChatPage() {
   const { session, loading: sessionLoading } = useSessionCheck();
   const chatId = params.chatId;
 
-  const fetchUserDetails = useCallback(async (userId) => {
+  const fetchChatPartnerDetails = useCallback(async (chatPartnerId) => {
     try {
-      const response = await fetch(`/api/user/getUserDetailsId?userId=${userId}`);
-      const data = await response.json();
+      const response = await fetch(`/api/user/getUserDetailsId?userId=${chatPartnerId}`);
+      const chatPartnerData = await response.json();
       
-      if (data.data) {
-        setUserDetails(prev => ({
+      if (chatPartnerData.data) {
+        setChatPartnerDetails(prev => ({
           ...prev,
-          [userId]: data.data
+          [chatPartnerId]: chatPartnerData.data
         }));
       }
     } catch (error) {
-      console.error('Error fetching user details:', error);
+      console.error('Error fetching chat partner details:', error);
     }
   }, []);
 
@@ -69,12 +69,12 @@ export default function ChatPage() {
         ).length;
         setUnreadCount(unreadMessages);
         
-        const otherUserId = data.data[0]?.sender_id === session.user.user_id 
+        const chatPartnerId = data.data[0]?.sender_id === session.user.user_id 
           ? data.data[0]?.receiver_id 
           : data.data[0]?.sender_id;
         
-        if (otherUserId) {
-          fetchUserDetails(otherUserId);
+        if (chatPartnerId) {
+          fetchChatPartnerDetails(chatPartnerId);
         }
       }
     } catch (error) {
@@ -82,7 +82,7 @@ export default function ChatPage() {
     } finally {
       setLoading(false);
     }
-  }, [chatId, session, fetchUserDetails]);
+  }, [chatId, session, fetchChatPartnerDetails]);
 
   useEffect(() => {
     if (!sessionLoading && session?.user?.user_id) {
@@ -195,7 +195,7 @@ export default function ChatPage() {
                   </span>
                 </div>
                 <div className="message-sender">
-                  {userDetails[message.sender_id]?.name || 'User'}
+                  {chatPartnerDetails[message.sender_id]?.name || 'User'}
                 </div>
               </div>
             ))
