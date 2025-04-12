@@ -12,7 +12,7 @@
 
 .service-info h3 {
     font-size: 2rem;
-    color: #ff4d4f;
+    color: white;
     margin-bottom: 1rem;
     border-bottom: 1px solid #ddd;
     padding-bottom: 0.5rem;
@@ -27,30 +27,18 @@
 .cs-label {
     font-weight: bolder;
     font-size: large;
-    color: #ff4d4f ;
+    color: white ;
     min-width: 100px;
 }
 
 .cs-value {
     color: white;
+    font-family: 'Urbanist-Regular';
     word-break: break-word;
 }
 
-.cs-location-service  .MuiInputBase-root {
-    background-color: white;
-    border-radius: 12px;
-    padding: 10px 16px;
-    border: 1px solid grey;
-    }
-    
-    .cs-location-service .MuiSelect-select {
-    font-weight: 500;
-    color: #333;
-    }
-
-
-    /*service buttons*/
-    .cs-service-buttons {
+/*service buttons*/
+.cs-service-buttons {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;

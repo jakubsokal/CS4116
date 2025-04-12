@@ -7,11 +7,38 @@ import signOut from "@/api/user/signOut"
 import { useRouter } from "next/navigation"
 import Loading from "@/components/Loading"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
+import { Button, Stack } from '@mui/material';
+import { AccountPreview, SignOutButton, AccountPopoverFooter } from '@toolpad/core/Account';
+import { FaEdit } from 'react-icons/fa';
+
+
+function CustomMenu() {
+	const router = useRouter();
+	return (
+		<Stack direction="column">
+			<AccountPreview variant="expanded" />
+			<Button
+				variant="text"
+				sx={{ textTransform: 'capitalize', display: 'flex', mx: 'auto', left: 0 }}
+				size="small"
+				startIcon={<FaEdit />}
+				disableElevation
+				onClick={() => {
+					router.push("/business/editProfile");
+				}}
+			>
+				Edit Profile
+			</Button>
+			<AccountPopoverFooter>
+				<SignOutButton />
+			</AccountPopoverFooter>
+		</Stack>
+	);
+}
 
 const AccountNav = () => {
-	const [users, setUser] = useState([])
 	const [currentSession, setSession] = useState(null)
-	const { session, loading, status } = useSessionCheck()
+	const { session, loading } = useSessionCheck()
 	const router = useRouter()
 
 	const authentication = useMemo(() => {
@@ -43,9 +70,7 @@ const AccountNav = () => {
 				<Account
 					sx={{ padding: "0" }}
 					slotProps={{
-						signInButton: {
-							style: { display: "none" },
-						},
+						popoverContent: currentSession.business ? { component: CustomMenu } : {},
 					}}
 				/>
 			</AppProvider>

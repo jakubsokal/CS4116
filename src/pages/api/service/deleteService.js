@@ -5,17 +5,21 @@ export default async function handler(req, res) {
 
     const { service_id } = req.query;
 
-    if (!serviceId) return res.status(400).json({ error: "Missing serviceId" });
+    if (!service_id) return res.status(400).json({ error: "Missing serviceId" });
 
     try {
 
-        await supabase.from("reviews").delete().eq("service_id", service_id);
+        const { error: reviewsError } = await supabase.from("reviews").delete().eq("service_id", service_id);
+        if (reviewsError) throw reviewsError;
 
-        await supabase.from("tiers").delete().eq("service_id", service_id);
+        const { error: tiersError } = await supabase.from("tiers").delete().eq("service_id", service_id);
+        if (tiersError) throw tiersError;
 
-        const { error } = await supabase.from("services").delete().eq("service_id", service_id);
+        const { error: inquiriesError } = await supabase.from("inquiries").delete().eq("service_id", service_id);
+        if (inquiriesError) throw inquiriesError;
 
-        if (error) throw error;
+        const { error: servicesError } = await supabase.from("services").delete().eq("service_id", service_id);
+        if (servicesError) throw servicesError;
 
         return res.status(200).json({ message: "Service and related data deleted" });
     } catch (err) {

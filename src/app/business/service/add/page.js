@@ -20,7 +20,7 @@ export default function AddServicePage() {
   const [business, setBusiness] = useState(null);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCateogry] = useState("");
-  const [isCountyDisabled, setIsCountyDisabled] = useState(false);
+  const [isCategoryDisabled, setIsCategoryDisabled] = useState(false);
   const [onSubmit, setOnSubmit] = useState("")
   const router = useRouter();
 
@@ -43,6 +43,7 @@ export default function AddServicePage() {
         });
 
         const result = await res.json();
+
         if (result.data) {
           setCategories(result.data);
         } else {
@@ -115,7 +116,6 @@ export default function AddServicePage() {
       tiers: tierDetails,
     };
 
-    console.log(newService)
     const res = await fetch(`/api/service/addService`, {
       method: 'POST',
       headers: {
@@ -146,7 +146,6 @@ export default function AddServicePage() {
         }
       ])
 
-
       setOnSubmit("Select County")
     } else {
       alert(result.error)
@@ -154,11 +153,10 @@ export default function AddServicePage() {
   };
 
   const CategoryChange = (event) => {
-    console.log(event.target.value)
     setSelectedCateogry(event.target.value)
-    setIsCountyDisabled(true)
+    setIsCategoryDisabled(true)
     setTimeout(() => {
-      setIsCountyDisabled(false)
+      setIsCategoryDisabled(false)
     }, 600)
   }
 
@@ -275,7 +273,7 @@ export default function AddServicePage() {
                     <MenuItem
                       key={category.category_id}
                       value={category.category_id}
-                      disabled={isCountyDisabled}
+                      disabled={isCategoryDisabled}
                       sx={{
                         fontSize: "0.9rem",
                         color: "#333",

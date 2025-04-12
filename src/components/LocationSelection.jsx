@@ -32,6 +32,8 @@ const LocationSelection = ({ onCountyChange, isCustomStyle = false, value = "" }
 	useEffect(() => {
 		if (value === "Select County") {
 			setSelectedCounty("")
+		} else {
+			setSelectedCounty(value)
 		}
 	}, [value])
 

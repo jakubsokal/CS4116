@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import AccountNav from "@/components/AccountNav";
 
 const BusinessNavbar = () => {
   const router = useRouter();
@@ -34,9 +35,7 @@ const BusinessNavbar = () => {
           <li>
             <Link href="/business/messages" onClick={() => setMenuOpen(false)}> MESSAGES</Link>
           </li>
-          <li>
-            <Link href="/business/editProfile" onClick={() => setMenuOpen(false)}> PROFILE</Link>
-          </li>
+          <li className="cs4116-account"><AccountNav /></li>
         </ul>
       </div>
     </nav>

@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         try {
             const service = combined.service;
             const tiers = combined.tiers;
-        
+
             await supabase
                 .from("services")
                 .insert(service);
