@@ -3,17 +3,17 @@
 import BusinessNavbar from "@/components/BusinessNavbar";
 import "@/styles/Business.css";
 import { useRouter } from "next/navigation";
-
+import useSessionCheck from "@/utils/hooks/useSessionCheck";
+import Loading from "@/components/Loading";
 
 const BusinessProfileView = () => {
     const router = useRouter();
+    const { session, loading } = useSessionCheck();
 
-
-    if (loading || !business) {
+    if (loading || !session) {
     return (
     <div>
-        <BusinessNavbar />
-        <p>Loading business profile...</p>
+        <Loading />
     </div>
     );
 }

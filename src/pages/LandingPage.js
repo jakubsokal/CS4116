@@ -3,9 +3,23 @@
 import Navbar from "@/components/Navbar";
 import Loading from "@/components/Loading";
 import useSessionCheck from "@/utils/hooks/useSessionCheck";
+import { useRouter } from "next/navigation"
+import { useEffect } from "react";
 
 const LandingPage = () => {
-  const { loading } = useSessionCheck()
+  const { session, loading } = useSessionCheck()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (loading) return;
+    if (session?.user?.permission === 1) {
+      router.push("/business")
+    }
+    else if (session?.user?.permission === 2) {
+      router.push("/admin")
+    }
+  }, [session, loading, router]);
+  
   
   if(loading) {
     return <Loading/>
