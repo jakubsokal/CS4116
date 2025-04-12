@@ -67,6 +67,28 @@
 	border-radius: 8px !important;
 }
 
+.cs4116-report-icon{
+	width: 30px !important;
+	height: 30px !important;
+	text-transform: none !important;
+	color: rgb(232, 0, 0) !important;
+	border-radius: 8px !important;
+	margin-left: 10px !important;
+	transition: all 0.3s ease-in-out !important;
+	cursor: pointer !important;
+}
+
+.cs4116-report-icon:hover{
+	color: rgb(198, 2, 2) !important;
+}
+
+.cs4116-review-btns{
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+	align-items: flex-end !important; 
+}
+
 .cs4116-viewpf-btn {
 	text-transform: none !important;
 	padding: 10px 25px !important;
