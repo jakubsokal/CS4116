@@ -1,5 +1,4 @@
 import { supabase } from '@/utils/supabase/client'
-import { COMPILER_NAMES } from 'next/dist/shared/lib/constants';
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {

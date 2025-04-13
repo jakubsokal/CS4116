@@ -7,13 +7,13 @@ import { FaUser, FaLock } from "react-icons/fa"
 import Loading from "@/components/Loading"
 import { login } from "@/api/login/login"
 import { useRouter } from 'next/navigation'
+import useSessionCheck from "@/utils/hooks/useSessionCheck"
 
 const LoginForm = () => {
 	const [error, setError] = useState(null)
 	const [load, setLoading] = useState(false)
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
-	const [user, setUser] = useState([])
 	const [incorrectDetials, setIncorrectDetials] = useState(false)
 	const router = useRouter()
 
@@ -23,14 +23,12 @@ const LoginForm = () => {
 		setError(null)
 		setIncorrectDetials(true)
 		const res = await login(email, password)
+
 		if (res.status == 200) {
-			setUser(res.data)
 			setIncorrectDetials(false)
-			console.info("Status:", res.status, "Successfully login")
 			router.push("/")
 		} else {
 			setError(res.error)
-			console.error("Status:", res.status, "Error logging in:", res.error)
 		}
 		setLoading(false)
 	}

@@ -138,7 +138,7 @@
 
 .cs4116-admin-logs-table {
 	border-collapse: separate;
-	border-spacing: 0 10px;
+	border-spacing: 0 0;
 	width: 100%;
 	table-layout: fixed;
 	overflow-x: auto;
@@ -146,15 +146,23 @@
 
 .cs4116-admin-logs-table th,
 .cs4116-admin-logs-table td,
+.cs4116-buttons,
 .cs4116-admin-search-table td,
 .cs4116-admin-search-table th {
 	padding: 10px 15px;
 	text-align: left;
+	word-wrap: break-word;
+    white-space: normal;
+}
+
+.cs4116-admin-logs-table td{
+	border-bottom: 2px black solid
 }
 
 .cs4116-admin-logs-table th,
 .cs4116-admin-search-table th {
 	background-color: #ff5125;
+	overflow-x: auto;
 	color: white;
 }
 
@@ -162,7 +170,52 @@
 .cs4116-admin-search-table tr {
 	background: white;
 	color: #000;
-	border-bottom: 1px solid #000;
+}
+
+.cs4116-admin-search-table tbody tr:hover,
+.cs4116-admin-logs-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.cs4116-review-decline-btn{
+	background-color: #1a9003;
+	color: white;
+	font-size: 14px;
+	width: 80%;
+	padding: 10px 20px;
+	border-radius: 8px;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.cs4116-review-decline-btn:hover{
+	background-color: #0f6b01;
+}
+
+.cs4116-review-ban-btn {
+	background-color: #e51519;
+	color: white;
+	font-size: 14px;
+	padding: 12px 20px;
+	border-radius: 8px;
+	border: none;
+	width: 80%;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.cs4116-review-ban-btn:hover {
+	background-color: #c40f0f;
+}
+
+.cs4116-buttons{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+	gap: 20px;
+	width: 100%;
 }
 
 @media screen and (max-width: 1200px) {
