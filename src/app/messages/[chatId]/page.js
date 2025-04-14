@@ -11,27 +11,41 @@ export default function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userDetails, setUserDetails] = useState({});
+  const [chatPartnerDetails, setChatPartnerDetails] = useState({});
   const [unreadCount, setUnreadCount] = useState(0);
   const [newMessage, setNewMessage] = useState('');
+  const [reportModalOpen, setReportModalOpen] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [reportReason, setReportReason] = useState('');
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+  const [showErrorNotification, setShowErrorNotification] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const params = useParams();
   const router = useRouter();
   const { session, loading: sessionLoading } = useSessionCheck();
   const chatId = params.chatId;
 
-  const fetchUserDetails = useCallback(async (userId) => {
+  const reportReasons = [
+    "Inappropriate Content",
+    "Spam",
+    "Harassment",
+    "Offensive Language"
+  ];
+
+  const fetchChatPartnerDetails = useCallback(async (chatPartnerId) => {
     try {
-      const response = await fetch(`/api/user/getUserDetailsId?userId=${userId}`);
-      const data = await response.json();
+      const response = await fetch(`/api/user/getUserDetailsId?userId=${chatPartnerId}`);
+      const chatPartnerData = await response.json();
       
-      if (data.data) {
-        setUserDetails(prev => ({
+      if (chatPartnerData.data) {
+        setChatPartnerDetails(prev => ({
           ...prev,
-          [userId]: data.data
+          [chatPartnerId]: chatPartnerData.data
         }));
       }
     } catch (error) {
-      console.error('Error fetching user details:', error);
+      console.error('Error fetching chat partner details:', error);
     }
   }, []);
 
@@ -69,12 +83,12 @@ export default function ChatPage() {
         ).length;
         setUnreadCount(unreadMessages);
         
-        const otherUserId = data.data[0]?.sender_id === session.user.user_id 
+        const chatPartnerId = data.data[0]?.sender_id === session.user.user_id 
           ? data.data[0]?.receiver_id 
           : data.data[0]?.sender_id;
         
-        if (otherUserId) {
-          fetchUserDetails(otherUserId);
+        if (chatPartnerId) {
+          fetchChatPartnerDetails(chatPartnerId);
         }
       }
     } catch (error) {
@@ -82,7 +96,7 @@ export default function ChatPage() {
     } finally {
       setLoading(false);
     }
-  }, [chatId, session, fetchUserDetails]);
+  }, [chatId, session, fetchChatPartnerDetails]);
 
   useEffect(() => {
     if (!sessionLoading && session?.user?.user_id) {
@@ -133,6 +147,72 @@ export default function ChatPage() {
     }
   };
 
+  const handleReportMessage = async (messageId) => {
+    if (!reportReason) {
+      setErrorMessage('Please select a reason for reporting');
+      setShowErrorNotification(true);
+      setTimeout(() => setShowErrorNotification(false), 3000);
+      return;
+    }
+
+    if (!session?.user?.user_id) {
+      setErrorMessage('You must be logged in to report messages');
+      setShowErrorNotification(true);
+      setTimeout(() => setShowErrorNotification(false), 3000);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/reports/createReport', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-user-id': session.user.user_id
+        },
+        body: JSON.stringify({
+          message_id: messageId,
+          user_id: selectedMessage.sender_id,
+          reported_by: session.user.user_id,
+          contents: selectedMessage.message_text,
+          reason: reportReason,
+          reviewed: 0
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.error) {
+        if (data.error.includes('table may not exist')) {
+          setErrorMessage('The reporting system is not yet set up. Please try again later.');
+        } else {
+          setErrorMessage(data.error);
+        }
+        setShowErrorNotification(true);
+        setTimeout(() => setShowErrorNotification(false), 3000);
+        return;
+      }
+
+      setReportModalOpen(false);
+      setReportReason('');
+      setSelectedMessage(null);
+      setShowSuccessNotification(true);
+      
+      setTimeout(() => {
+        setShowSuccessNotification(false);
+      }, 3000);
+    } catch (error) {
+      console.error('Error reporting message:', error);
+      setErrorMessage(error.message);
+      setShowErrorNotification(true);
+      setTimeout(() => setShowErrorNotification(false), 3000);
+    }
+  };
+
+  const openReportModal = (message) => {
+    setSelectedMessage(message);
+    setReportModalOpen(true);
+  };
+
   if (sessionLoading || loading) {
     return (
       <div className="chat-page">
@@ -169,11 +249,6 @@ export default function ChatPage() {
             <button onClick={() => router.push('/messages')} className="back-button">
               Back to Messages
             </button>
-            {unreadCount > 0 && (
-              <div className="unread-messages-indicator">
-                {unreadCount}
-              </div>
-            )}
           </div>
         </div>
         <div className="chat-messages">
@@ -193,9 +268,19 @@ export default function ChatPage() {
                       minute: '2-digit' 
                     })}
                   </span>
+                  {message.sender_id !== session?.user?.user_id && (
+                    <button 
+                      className="report-button"
+                      onClick={() => openReportModal(message)}
+                    >
+                      Report
+                    </button>
+                  )}
                 </div>
                 <div className="message-sender">
-                  {userDetails[message.sender_id]?.name || 'User'}
+                  {message.sender_id === session?.user?.user_id 
+                    ? "Me" 
+                    : chatPartnerDetails[message.sender_id]?.name || 'User'}
                 </div>
               </div>
             ))
@@ -213,7 +298,47 @@ export default function ChatPage() {
             Send
           </button>
         </form>
+
+        {reportModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h3>Report Message</h3>
+              <div className="report-reasons">
+                {reportReasons.map((reason) => (
+                  <label key={reason} className="report-reason-option">
+                    <input
+                      type="radio"
+                      name="reportReason"
+                      value={reason}
+                      checked={reportReason === reason}
+                      onChange={(e) => setReportReason(e.target.value)}
+                    />
+                    {reason}
+                  </label>
+                ))}
+              </div>
+              <div className="modal-buttons">
+                <button onClick={() => setReportModalOpen(false)}>Cancel</button>
+                <button onClick={() => handleReportMessage(selectedMessage.message_id)}>
+                  Submit Report
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showSuccessNotification && (
+          <div className="success-notification">
+            Message successfully reported
+          </div>
+        )}
+
+        {showErrorNotification && (
+          <div className="error-notification">
+            {errorMessage}
+          </div>
+        )}
       </div>
     </div>
   );
-} 
+}
