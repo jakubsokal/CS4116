@@ -17,6 +17,8 @@ import Select from "@mui/material/Select"
 import OutlinedInput from "@mui/material/OutlinedInput"
 import Rating from "@mui/material/Rating"
 import Loading from "@/components/Loading"
+import InquiryPopup from "./InquiryPopup"
+import { supabase } from "@/utils/supabase/client"
 
 const ServiceDialog = (service) => {
 	const [open, setOpen] = React.useState(false)
@@ -29,6 +31,7 @@ const ServiceDialog = (service) => {
 	const [business, setBusiness] = useState([])
 	const [reviews, setReviews] = useState([])
 	const [userReviews, setUserReviews] = useState([])
+	const [showPopup, setShowPopup] = useState(false);
 
 	const businessApi = async () => {
 		setLoading(true)
@@ -224,13 +227,22 @@ const ServiceDialog = (service) => {
 							<div>{business.business_name}</div>
 						</DialogTitle>
 						<DialogActions className="cs4116-dialog-actions">
-							<Button
-								className="cs4116-inq-btn"
-								autoFocus
-								onClick={handleInquire}
+						<Button
+							className="cs4116-inq-btn"
+							autoFocus
+							onClick={() => setShowPopup(true)}
 							>
-								Inquire
+							Inquire
 							</Button>
+
+							{showPopup && (
+							<InquiryPopup
+								serviceId={service.service.service_id}
+								receiver_id={service.service.business_id}
+								onClose={() => setShowPopup(false)}
+							/>
+							)}
+
 							<Button
 								className="cs4116-viewpf-btn"
 								autoFocus
