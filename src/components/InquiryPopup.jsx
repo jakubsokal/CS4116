@@ -10,12 +10,6 @@ const InquiryPopup = ({ serviceId,receiver_id, onClose }) => {
   const handleSendInquiry = async () => {
     const sender_id = session?.user?.user_id;
 
-    // logs to confirm the values exist can check in browser console
-    console.log("Sending Inquiry:");
-    console.log("Sender ID:", sender_id);
-    console.log("Receiver ID:", receiver_id);
-    console.log("Service ID:", serviceId);
-
     if (!sender_id || !serviceId || !receiver_id) {
       console.error("Missing sender, service, or receiver info");
       return;
@@ -43,7 +37,7 @@ const InquiryPopup = ({ serviceId,receiver_id, onClose }) => {
         throw new Error(result?.error || "Failed to send inquiry.");
       }
   
-      console.log("Inquiry success", result);
+      console.log("Inquiry success");
       onClose();
     } catch (err) {
       console.error("Inquiry error", err.message);
