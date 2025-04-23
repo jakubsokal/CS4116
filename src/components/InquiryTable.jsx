@@ -4,49 +4,65 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import "@/styles/InquiryTable.css";
 
-import ReviewPopup from "./ReviewPopup"; 
-
+import ReviewPopup from "./ReviewPopup";
+import useSessionCheck from "@/utils/hooks/useSessionCheck";
 
 const AdminTable = () => {
   const [inquiries, setInquiries] = useState([]);
   const [showReviewPopup, setShowReviewPopup] = useState(false);
-  const [selectedInquiry, setSelectedInquiry] = useState(null);  
+  const [selectedInquiry, setSelectedInquiry] = useState(null);
+  const { session } = useSessionCheck();
 
   useEffect(() => {
-    // Fetching inquiries from API instead of db
     const fetchData = async () => {
       try {
         const response = await fetch("/api/inquiries");
         const data = await response.json();
-        setInquiries(data);
+
+        if (session?.user?.user_id) {
+          const filtered = data.filter(inq => inq.receiver_id === session.user.user_id);
+          setInquiries(filtered);
+        }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching inquiries:", error);
       }
     };
 
-    fetchData();
-  }, []);
-  const handleAction = async (inquiry) => {
+    if (session?.user?.user_id) {
+      fetchData();
+    }
+  }, [session]);
+
+  const handleAccept = async (inquiry) => {
     try {
-      // Call API insstead of supabase
-      const response = await fetch("/api/inquiries", {
-        method: "PATCH",
+      const response = await fetch("/api/conversations/createConversation", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ inquiry_id: inquiry.inquiry_id, status: 1 }),
+        body: JSON.stringify({
+          sender_id: inquiry.receiver_id,
+          receiver_id: inquiry.sender_id,
+        }),
       });
 
-      if (!response.ok) throw new Error("Failed to update status");
+      const data = await response.json();
+      if (data.error) throw new Error(data.error);
 
-      setSelectedInquiry(inquiry);
-      setShowReviewPopup(true);
+      await fetch("/api/inquiries", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          inquiry_id: inquiry.inquiry_id,
+          status: "accepted",
+        }),
+      });
     } catch (error) {
-      console.error("Error updating status:", error);
+      console.error("Error handling accept:", error);
+      alert(error.message);
     }
   };
 
   const handleDecline = async (inquiryId) => {
     try {
-      // delete inquiry
       const response = await fetch("/api/inquiries", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
@@ -55,12 +71,11 @@ const AdminTable = () => {
 
       if (!response.ok) throw new Error("Failed to delete inquiry");
 
-      setInquiries(inquiries.filter((inq) => inq.inquiry_id !== inquiryId));
+      setInquiries(prev => prev.filter(inq => inq.inquiry_id !== inquiryId));
     } catch (error) {
       console.error("Error handling decline:", error);
     }
   };
-
 
   return (
     <div className="container mx-auto">
@@ -72,8 +87,8 @@ const AdminTable = () => {
           <thead className="table">
             <tr>
               <th>Name</th>
+              <th>Service</th>
               <th>Date</th>
-              <th>View Inquiry</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -81,30 +96,18 @@ const AdminTable = () => {
             {inquiries.length > 0 ? (
               inquiries.map((inquiry, index) => (
                 <tr key={index}>
+                  <td>{inquiry.users?.first_name} {inquiry.users?.last_name}</td>
+                  <td>{inquiry.service_name}</td>
+                  <td>{inquiry.created_at}</td>
                   <td>
-                    {inquiry.users?.first_name} {inquiry.users?.last_name}
-                  </td>
-                  <td>{inquiry.created_at }</td>
-                  <td>
-                    <a href={`/inquiry/${inquiry.inquiry_id}`} className="btn btn-primary btn-sm">
-                      Inquiry details
-                    </a>
-                  </td>
-                  <td>
-                    <button className="accept_button" onClick={() => handleAction(inquiry)}>
-                      Accept
-                    </button>
-                    <button className="reject_button" onClick={() => handleDecline(inquiry.inquiry_id)}>
-                      Decline
-                    </button>
+                    <button className="accept_button" onClick={() => handleAccept(inquiry)}>Accept</button>
+                    <button className="reject_button" onClick={() => handleDecline(inquiry.inquiry_id)}>Decline</button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="4" className="text-center">
-                  No inquiries available
-                </td>
+                <td colSpan="4" className="text-center">No inquiries available</td>
               </tr>
             )}
           </tbody>

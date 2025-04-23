@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect, use } from "react"
 import userCheck from "@/api/user/userCheck"
 

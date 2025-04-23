@@ -1,28 +1,43 @@
-
-
 import { supabase } from "@/utils/supabase/client";
 
-//fetches inquiries
+// /pages/api/inquiries.js
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const { data, error } = await supabase.from("inquiries").select(`
+    const { data: inquiries, error } = await supabase.from("inquiries").select(`
       inquiry_id,
       sender_id,
       receiver_id,
+      service_id,
       created_at,
       users:sender_id (first_name, last_name)
     `);
-
 
     if (error) {
       return res.status(500).json({ error: error.message });
     }
 
-    return res.status(200).json(data);
+    // Fetch all services
+    const { data: services, error: serviceError } = await supabase
+      .from("services")
+      .select("service_id, service_name");
+
+    if (serviceError) {
+      return res.status(500).json({ error: serviceError.message });
+    }
+
+    // Map service_name to each inquiry
+    const enrichedInquiries = inquiries.map((inq) => {
+      const service = services.find(s => s.service_id === inq.service_id);
+      return {
+        ...inq,
+        service_name: service?.service_name || "Unknown Service"
+      };
+    });
+
+    return res.status(200).json(enrichedInquiries);
   }
-  //updates the status of inquiry
+
   if (req.method === "PATCH") {
-    
     const { inquiry_id, status } = req.body;
 
     const { data, error } = await supabase
@@ -37,18 +52,18 @@ export default async function handler(req, res) {
     return res.status(200).json(data);
   }
 
-  //Deletes inquiry from inquiry table
   if (req.method === "DELETE") {
-
     const { inquiry_id } = req.body;
 
-    const { error } = await supabase.from("inquiries").delete().eq("inquiry_id", inquiry_id);
+    const { error } = await supabase
+      .from("inquiries")
+      .delete()
+      .eq("inquiry_id", inquiry_id);
 
     if (error) return res.status(500).json({ error: error.message });
 
     return res.status(200).json({ message: "Inquiry deleted" });
   }
+
   return res.status(405).json({ message: "Method Not Allowed" });
 }
-
-
