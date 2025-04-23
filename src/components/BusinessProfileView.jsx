@@ -1,22 +1,44 @@
 "use client";
 
 import BusinessNavbar from "@/components/BusinessNavbar";
-import "@/styles/Business.css";
-import { useRouter } from "next/navigation";
-import useSessionCheck from "@/utils/hooks/useSessionCheck";
 import Loading from "@/components/Loading";
+import "@/styles/Business.css";
+import "@/styles/BusinessProfile.css";
+import "@/styles/style.css";
+import useSessionCheck from "@/utils/hooks/useSessionCheck";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
 
 const BusinessProfileView = () => {
     const router = useRouter();
     const { session, loading } = useSessionCheck();
+    const [business, setBusiness] = useState(null);
 
-    if (loading || !session) {
-    return (
-    <div>
-        <Loading />
-    </div>
-    );
-}
+    useEffect(() => {
+        
+    if (loading) return;
+
+    if(!session) {
+        router.push("/login");
+    } else if (session?.user?.permission !== 1) {
+        router.push("/");
+    } else {
+        const fetchBusiness = async () => {
+            const res = await fetch(`/api/business/getBusinessDetails?userId=${session.user.user_id}`);
+            const result = await res.json();
+
+            if (res.ok && result.data) {
+                setBusiness(result.data);
+            } else {
+                console.error("Error fetching business details:", result.error);
+            }
+        };
+        fetchBusiness();
+        }
+    }, [loading, session, router]);
+    
+if (loading || !business) return <Loading />;
 
 return (
     <div>
@@ -70,6 +92,6 @@ return (
     </div>
     </div>
 );
-};
+}
 
 export default BusinessProfileView;

@@ -3,15 +3,16 @@
 import "@/styles/Business.css";
 import "@/styles/BusinessProfile.css";
 import "@/styles/style.css";
-import { supabase } from "@/utils/supabase/client";
+import useSessionCheck from "@/utils/hooks/useSessionCheck";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import useSessionCheck from "@/utils/hooks/useSessionCheck";
+import BusinessNavbar from "./BusinessNavbar";
+import Loading from "./Loading";
 
 const BusinessProfileEdit = () => {
   const { session, loading } = useSessionCheck();
   const router = useRouter();
-
+  const [business, setBusiness] = useState(null);
   const[formData, setFormData] = useState({
     business_name: "",
     description: "",
@@ -22,66 +23,74 @@ const BusinessProfileEdit = () => {
     close_hour: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  }
-
   useEffect(() => {
-   
-    if (session?.user?.permission !== 1) return;{
+    if (loading) return;
+
+    if (!session) {
+      router.push("/login");
+    } else if (session?.user?.permission !== 1) {
+      router.push("/");
+    } else {
+      const fetchBusiness = async () => {
+        const res = await fetch(`/api/business/getBusinessDetails?userId=${session.user.user_id}`);
+        const result = await res.json();
+        
+        if (res.ok && result.data) {
+          setBusiness(result.data);
+        
         setFormData({
-          business_name: session.business.business_name || "",
-          description: session.business.description || "",
-          location: session.business.location || "",
-          phone_number: session.business.phone_number || "",
-          avg_rating: session.business.avg_rating?.toString() ?? "",
-          open_hour: session.business.open_hour?.toString() ?? "",
-          close_hour: session.business.close_hour?.toString() ?? "",
+          business_name: result.data.business_name || "",
+          description: result.data.description || "",
+          location: result.data.location || "",
+          phone_number: result.data.phone_number || "",
+          avg_rating: result.data.avg_rating?.toString() ?? "",
+          open_hour: result.data.open_hour?.toString() ?? "",
+          close_hour: result.data.close_hour?.toString() ?? "",
         });
       }
-    }, [session]);
+    };
+    fetchBusiness();
+    }
+  }, [loading, session, router]);
 
-  
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!session.business?.businessId) return;
+    if (!business?.business_id) return;
 
-    const { error } = await supabase
-      .from("business")
-      .update({
-        business_name: formData.business_name,
-        description: formData.description,
-        location: formData.location,
-        phone_number: formData.phone_number,
-        open_hour: formData.open_hour,
-        close_hour: formData.close_hour,
-      })
-      .eq("business_id", business.business_id);
+    const res = await fetch("/api/business/updateBusinessDetails", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ business_id: business.business_id, ...formData }),
+    });
 
-    if (error) {
-      console.error("Error updating profile:", error.message);
-    } else {
+    const result = await res.json();
+
+    if (res.ok) {
+      alert("Profile updated!");
       router.push("/business/viewProfile");
+    } else {
+      alert("Failed to update profile");
+      console.error(result.error);
     }
   };
 
-  if (loading) {
-    return (
-      <div className="business-profile-wrapper">
-        <div className="business-profile-container">
-          <p>Loading business information...</p>
-        </div>
-      </div>
-    );
-  }
-
+  if (loading || !business) return <Loading />;
 
   return (
+    <div>
+      <BusinessNavbar />
+    <br />
     <div className="business-profile-wrapper">
       <div className="business-profile-container">
       <h2>Edit Business Profile</h2>
@@ -123,7 +132,7 @@ const BusinessProfileEdit = () => {
         <label htmlFor="phone_number">Phone Number</label>
         <input
           type="tel"
-          name="phoneNumber"
+          name="phone_number"
           value={formData.phone_number}
           onChange={handleChange}
           placeholder="Phone Number"
@@ -164,6 +173,7 @@ const BusinessProfileEdit = () => {
         <button type="submit" className="update-profile-button">Update Profile</button>
       </form>
     </div>
+  </div>
   </div>
   );
 };

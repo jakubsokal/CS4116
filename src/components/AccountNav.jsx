@@ -1,15 +1,14 @@
 "use client"
 
-import React, { useState, useMemo, useEffect } from "react"
-import { AppProvider } from "@toolpad/core/AppProvider"
-import { Account } from "@toolpad/core/Account"
 import signOut from "@/api/user/signOut"
-import { useRouter } from "next/navigation"
 import Loading from "@/components/Loading"
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
-import { Button, Stack } from '@mui/material';
-import { AccountPreview, SignOutButton, AccountPopoverFooter } from '@toolpad/core/Account';
-import { FaEdit } from 'react-icons/fa';
+import { Button, Stack } from '@mui/material'
+import { Account, AccountPopoverFooter, AccountPreview, SignOutButton } from "@toolpad/core/Account"
+import { AppProvider } from "@toolpad/core/AppProvider"
+import { useRouter } from "next/navigation"
+import { useEffect, useMemo, useState } from "react"
+import { FaEdit } from 'react-icons/fa'
 
 
 function CustomMenu() {
@@ -24,10 +23,10 @@ function CustomMenu() {
 				startIcon={<FaEdit />}
 				disableElevation
 				onClick={() => {
-					router.push("/business/editProfile");
+					router.push("/business/viewProfile");
 				}}
 			>
-				Edit Profile
+				Manage Profile
 			</Button>
 			<AccountPopoverFooter>
 				<SignOutButton />

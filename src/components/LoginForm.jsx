@@ -1,12 +1,11 @@
 "use client"
 
-import React from "react"
-import { useState } from "react"
-import "@/styles/LoginForm.css"
-import { FaUser, FaLock } from "react-icons/fa"
-import Loading from "@/components/Loading"
 import { login } from "@/api/login/login"
+import Loading from "@/components/Loading"
+import "@/styles/LoginForm.css"
 import { useRouter } from 'next/navigation'
+import { useState } from "react"
+import { FaLock, FaUser } from "react-icons/fa"
 
 const LoginForm = () => {
 	const [error, setError] = useState(null)
