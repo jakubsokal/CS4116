@@ -3,9 +3,7 @@ import AdminTable from "@/components/InquiryTable";
 import Navbar from "@/components/Navbar";
 
 async function fetchInquiries() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"; 
-
-  const res = await fetch(`${baseUrl}/api/inquiries`, {
+  const res = await fetch(`/api/inquiries`, {
     cache: "no-store", 
   });
 
