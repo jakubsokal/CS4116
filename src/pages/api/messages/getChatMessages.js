@@ -5,16 +5,12 @@ export default async function handler(req, res) {
         try {
             const { chatId } = req.query;
             const userId = req.headers['x-user-id']; 
-            console.log('Received request for chat ID:', chatId);
-            console.log('User ID:', userId);
 
             if (!chatId) {
-                console.log('No chat ID provided');
                 return res.status(400).json({ error: "Chat ID is required" });
             }
 
             if (!userId) {
-                console.log('No user ID provided');
                 return res.status(401).json({ error: "User ID is required" });
             }
 
@@ -26,11 +22,8 @@ export default async function handler(req, res) {
                 .single();
 
             if (convoError) {
-                console.error('Error fetching conversation:', convoError);
                 return res.status(404).json({ error: "Conversation not found or access denied" });
             }
-
-            console.log('Found conversation:', conversation);
 
             const { data: messages, error: messageError } = await supabase
                 .from("message")
@@ -39,11 +32,8 @@ export default async function handler(req, res) {
                 .order("sent_at", { ascending: true });
 
             if (messageError) {
-                console.error('Error fetching messages:', messageError);
                 throw messageError;
             }
-
-            console.log('Found messages:', messages);
 
             if (messages && messages.length > 0) {
                 const { error: updateError } = await supabase
@@ -63,10 +53,8 @@ export default async function handler(req, res) {
                 data: messages || [] 
             });
         } catch (error) {
-            console.error("Error in getChatMessages:", error);
             return res.status(500).json({ 
-                error: error.message || "Internal server error",
-                details: error
+                error: error.message || "Internal server error"
             });
         }
     }

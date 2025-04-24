@@ -17,6 +17,9 @@ import Select from "@mui/material/Select"
 import OutlinedInput from "@mui/material/OutlinedInput"
 import Rating from "@mui/material/Rating"
 import Loading from "@/components/Loading"
+import FlagIcon from '@mui/icons-material/Flag';
+import useSessionCheck from "@/utils/hooks/useSessionCheck"
+import { useRouter } from "next/navigation"
 import InquiryPopup from "./InquiryPopup"
 import { supabase } from "@/utils/supabase/client"
 
@@ -31,6 +34,8 @@ const ServiceDialog = (service) => {
 	const [business, setBusiness] = useState([])
 	const [reviews, setReviews] = useState([])
 	const [userReviews, setUserReviews] = useState([])
+	const { session } = useSessionCheck()
+	const router = useRouter()
 	const [showPopup, setShowPopup] = useState(false);
 
 	const businessApi = async () => {
@@ -128,7 +133,6 @@ const ServiceDialog = (service) => {
 				throw new Error(res.error)
 			}
 
-
 			const result = await res.json()
 			if (result.data.length > 0) {
 
@@ -179,11 +183,21 @@ const ServiceDialog = (service) => {
 	}
 
 	const handleContact = () => {
-		console.log("Contacting User")
+		if (session) {
+			//logic to contact the user
+		} else {
+			alert("Please login to contact the user")
+			router.push("/login")
+		}
 	}
 
 	const handleInquire = () => {
-		console.log("Contacting Business")
+		if (session) {
+			//logic to Inqure service
+		} else {
+			alert("Please login to inquire about a service")
+			router.push("/login")
+		}
 	}
 
 	const TierSelect = (event) => {
@@ -192,6 +206,35 @@ const ServiceDialog = (service) => {
 		setTimeout(() => {
 			setIsTierDisabled(false)
 		}, 600)
+	}
+
+	const handleReport = async (userReview) => {
+		if (session) {
+			const report = {
+				userReview: userReview,
+				reported: session.user
+			}
+			const res = await fetch('/api/reviews/reportReview', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ report }),
+			})
+
+			if (!res.ok) {
+				console.error("Error reporting review:", res.error)
+			}
+
+			const result = await res.json()
+
+			if (result) {
+				alert(result.message)
+			}
+		} else {
+			alert("Please login to report a review")
+			router.push("/login")
+		}
 	}
 
 	if (loading) {
@@ -218,11 +261,11 @@ const ServiceDialog = (service) => {
 					aria-labelledby="responsive-dialog-title"
 				>
 					<div className="cs41160-dialog-header">
-					{business.profile_picture ? (
-									<img className="cs4116-business-profile-pic" src={business.profile_picture}></img>
-								) : (
-									<img className="cs4116-business-profile-pic" src="https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png"></img>
-								)}
+						{business.profile_picture ? (
+							<img className="cs4116-business-profile-pic" src={business.profile_picture}></img>
+						) : (
+							<img className="cs4116-business-profile-pic" src="https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png"></img>
+						)}
 						<DialogTitle id="responsive-dialog-title">
 							<div>{business.business_name}</div>
 						</DialogTitle>
@@ -287,8 +330,8 @@ const ServiceDialog = (service) => {
 								component="div"
 							>
 								<div className="cs4116-dialog-text-container">
-									<p style={{ marginBottom: "0", marginTop: "15px", fontSize: "20px"}}>Business Rating:&nbsp;</p>
-								<Rating className="cs4116-dialog-rating" value={business.avg_rating} precision={0.1} readOnly />
+									<p style={{ marginBottom: "0", marginTop: "15px", fontSize: "20px" }}>Business Rating:&nbsp;</p>
+									<Rating className="cs4116-dialog-rating" value={business.avg_rating} precision={0.1} readOnly />
 								</div>
 								{selectedTier && (
 									<div className="cs4116-dialog-info">
@@ -321,8 +364,8 @@ const ServiceDialog = (service) => {
 												<div className="cs4116-grid-splitter">
 													<div>
 														<div style={{ display: "flex", alignItems: "center" }}>
-														<p>{userReview.data.name}</p>
-														<p>&nbsp;{new Date(userReview.review.created_at).toLocaleDateString('en-GB')}</p>
+															<p>{userReview.data.name}</p>
+															<p>&nbsp;{new Date(userReview.review.created_at).toLocaleDateString('en-GB')}</p>
 														</div>
 														<h3>{userReview.review.service_name}</h3>
 														<p>{userReview.review.description}</p>
@@ -337,7 +380,11 @@ const ServiceDialog = (service) => {
 															/>
 														</div>
 													</div>
-													<div>
+													<div className="cs4116-review-btns">
+														<FlagIcon
+															className="cs4116-report-icon"
+															autoFocus
+															onClick={() => handleReport(userReview.review)} />
 														<Button
 															className="cs4116-inq-btn"
 															autoFocus

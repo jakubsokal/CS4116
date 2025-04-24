@@ -1,7 +1,16 @@
+:root {
+  color-scheme: light;
+}
+
+body {
+  color: #333;
+}
+
 .chat-page {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  color: #333;
 }
 
 .chat-container {
@@ -82,6 +91,7 @@
   margin: 0;
   font-size: 14px;
   line-height: 1.4;
+  color: inherit;
 }
 
 .message-time {
@@ -139,6 +149,7 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color-scheme: light;
 }
 
 .chat-input {
@@ -149,10 +160,19 @@
   font-size: 14px;
   outline: none;
   transition: border-color 0.2s;
+  background-color: #fff;
+  color: #333;
+  color-scheme: light;
 }
 
 .chat-input:focus {
   border-color: #ff5125;
+  background-color: #fff;
+  color: #333;
+}
+
+.chat-input::placeholder {
+  color: #65676b;
 }
 
 .send-button {
@@ -164,13 +184,13 @@
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.2s;
+  color-scheme: light;
 }
 
 .send-button:hover {
   background-color: #e64016;
 }
 
-/* Scrollbar styling */
 .chat-messages::-webkit-scrollbar {
   width: 6px;
 }
@@ -189,7 +209,6 @@
   background: #555;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .chat-container {
     margin: 80px 20px 20px;
@@ -205,7 +224,155 @@
     height: auto;
     padding: 10px;
   }
-} 
+}}
+
+.report-button {
+  background: none;
+  border: none;
+  color: #ff4444;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 2px 5px;
+  margin-left: -4px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.report-button:hover {
+  opacity: 1;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  resize: vertical;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal-buttons button:first-child {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.modal-buttons button:last-child {
+  background-color: #ff4444;
+  color: white;
+}
+
+.modal-buttons button:hover {
+  opacity: 0.9;
+}
+
+.success-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+  color: #4CAF50;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  font-weight: 500;
+  animation: fadeInOut 3s ease-in-out;
+  color-scheme: light;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+
+.report-reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.report-reason-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.report-reason-option:hover {
+  background-color: #f5f5f5;
+}
+
+.report-reason-option input[type="radio"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+.report-reason-option input[type="radio"]:checked + span {
+  color: #ff4444;
+}
+
+.error-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+  color: #ff4444;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  font-weight: 500;
+  animation: fadeInOut 3s ease-in-out;
+  color-scheme: light;
+}  
 .review-form-message {
   border: 1px solid #ccc;
   background: #f8f8f8;
