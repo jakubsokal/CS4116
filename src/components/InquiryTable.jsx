@@ -16,7 +16,7 @@ const AdminTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/inquiries");
+        const response = await fetch("/api/inquiries/inquiries");
         const data = await response.json();
 
         if (session?.user?.user_id) {
@@ -47,7 +47,7 @@ const AdminTable = () => {
       const data = await response.json();
       if (data.error) throw new Error(data.error);
 
-      await fetch("/api/inquiries", {
+      await fetch("/api/inquiries/inquiries", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -63,7 +63,7 @@ const AdminTable = () => {
 
   const handleDecline = async (inquiryId) => {
     try {
-      const response = await fetch("/api/inquiries", {
+      const response = await fetch("/api/inquiries/inquiries", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ inquiry_id: inquiryId }),

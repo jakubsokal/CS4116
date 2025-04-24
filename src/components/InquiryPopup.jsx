@@ -16,7 +16,7 @@ const InquiryPopup = ({ serviceId,receiver_id, onClose }) => {
     }
 
     try {
-      const response = await fetch("/api/sendInquiry", {
+      const response = await fetch("/api/inquiries/sendInquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
