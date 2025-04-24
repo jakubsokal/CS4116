@@ -1,12 +1,19 @@
 "use client";
 
+import AccountNav from "@/components/AccountNav";
 import "@/styles/Navbar.css";
+import useSessionCheck from "@/utils/hooks/useSessionCheck";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 const BusinessNavbar = () => {
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { session, loading } = useSessionCheck();
+  const pathName = usePathname();
+
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -26,12 +33,13 @@ const BusinessNavbar = () => {
 
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
         <ul>
-          <li>
-            <Link href="/business/messages" onClick={() => setMenuOpen(false)}> MESSAGES</Link>
-          </li>
-          <li>
-            <Link href="/business/profile" onClick={() => setMenuOpen(false)}> PROFILE</Link>
-          </li>
+          {pathName !== "/business" && (
+          <li> <Link href="/business" onClick={() => setMenuOpen(false)}> HOME</Link> </li>)}
+
+          {pathName !== "/business/messages" && (
+          <li> <Link href="/business/messages" onClick={() => setMenuOpen(false)}> MESSAGES</Link> </li>)}
+
+          <li className="cs4116-account"><AccountNav /></li>
         </ul>
       </div>
     </nav>

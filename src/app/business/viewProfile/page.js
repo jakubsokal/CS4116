@@ -1,15 +1,15 @@
 import BusinessNavbar from "@/components/BusinessNavbar";
-import BusinessProfile from "@/components/BusinessProfile";
+import BusinessProfileView from "@/components/BusinessProfileView";
 import "@/styles/Business.css";
 import "@/styles/style.css";
 
-const BusinessProfilePage = () => {
+const ViewBusinessProfilePage = () => {
   return (
     <div>
       <BusinessNavbar />
-      <BusinessProfile />
+      <BusinessProfileView />
     </div>
   );
 };
 
-export default BusinessProfilePage;
+export default ViewBusinessProfilePage;
