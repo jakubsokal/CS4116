@@ -54,10 +54,12 @@
     margin: 110px auto;
     padding: 20px;
     background: rgba(255, 255, 255, 0.1);
+    color: white;
     border-radius: 10px;
 }
 
 .service-form {
+    color: white;
     display: flex;
     flex-direction: column;
     gap: 20px;
