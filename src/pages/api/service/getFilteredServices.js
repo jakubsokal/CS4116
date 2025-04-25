@@ -3,26 +3,32 @@ import { supabase } from "@/utils/supabase/client"
 export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
-      const { words } = req.query
-      const stopWords = ["and", "or", "the", "a", "an", "of", "in", "on", "at", "to", "for", "with"]
+      const { words, location } = req.query
 
+      let queryBuilder = supabase
+      .from("services")
+      .select("*")
+
+      if (words) {
+      const stopWords = ["and", "or", "the", "a", "an", "of", "in", "on", "at", "to", "for", "with"]
       const filteredWords = words
         .toLowerCase()
         .split(" ")
         .filter((word) => !stopWords.includes(word) && word.trim() !== "")
 
-      if (filteredWords.length === 0) {
-        return res.status(400).json({ error: "Please enter more specific search terms." })
-      }
-
-      const orCondition = filteredWords
+      if (filteredWords.length > 0) {
+        const orCondition = filteredWords
         .map((word) => `service_name.ilike.%${word}%`)
         .join(",")
+        queryBuilder = queryBuilder.or(orCondition)
+      }
+    }
 
-      const { data, error } = await supabase
-        .from("services")
-        .select("*")
-        .or(orCondition)
+      if (location) {
+        queryBuilder = queryBuilder.eq("location", location)
+      }
+
+      const { data, error } = await queryBuilder
 
       if (error) {
         throw new Error(error.message)

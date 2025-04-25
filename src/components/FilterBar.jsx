@@ -1,13 +1,12 @@
 "use client"
-import React from "react";
+import Slider from "@/components/PriceSlider";
+import Rating from "@/components/ReviewRating";
 import "@/styles/filterbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Slider from "@/components/PriceSlider";
 import dynamic from "next/dynamic";
 const LocationSelector = dynamic(() => import('@/components/LocationSelection'), { ssr: false });
-import Rating from "@/components/ReviewRating";
 
-const FilterBar = () => {
+const FilterBar = ({onCountyChange}) => {
 	return (
 		<div className="cs4116-filterbar-main">
 			<div className="accordion accordion-flush" id="accordionFlushExample">
@@ -132,7 +131,7 @@ const FilterBar = () => {
 						data-bs-parent="#accordionFlushExample"
 					>
 						<div className="accordion-body">
-							<LocationSelector />
+							<LocationSelector onCountyChange={onCountyChange}/>
 						</div>
 					</div>
 				</div>

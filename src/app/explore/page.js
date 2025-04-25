@@ -1,14 +1,15 @@
 "use client"
 
-import Navbar from "@/components/Navbar"
 import Filterbar from "@/components/FilterBar"
 import Loading from "@/components/Loading"
-import useSessionCheck from "@/utils/hooks/useSessionCheck"
-import { useEffect, useState, useCallback, Suspense } from "react"
-import { useSearchParams } from "next/navigation"
+import Navbar from "@/components/Navbar"
 import ServiceDialog from "@/components/ServiceDialog"
-import Rating from "@mui/material/Rating"
 import "@/styles/explore.css"
+import useSessionCheck from "@/utils/hooks/useSessionCheck"
+import Rating from "@mui/material/Rating"
+import { useRouter, useSearchParams } from "next/navigation"
+import { Suspense, useCallback, useEffect, useState } from "react"
+
 
 export default function Explore() {
   return(
@@ -23,13 +24,24 @@ function ExplorePage() {
   const [load, setLoading] = useState(true)
   const searchParams = useSearchParams()
   const [tiers, setTiers] = useState({})
+  const router = useRouter()
 
   const serviceApi = useCallback(async () => {
     setLoading(true)
     const query = searchParams.get("query")
-    const sendTo = (!query)
-      ? `/api/service/getAllServices`
-      : `/api/service/getFilteredServices?words=${query}`
+    const location = searchParams.get("location")
+    //const category = searchParams.get("category") etc...
+    let sendTo = `/api/service/getAllServices`
+
+    //for searching by query and location
+    if (query || location) {
+      sendTo = `/api/service/getFilteredServices?`
+      if (query)
+        sendTo += `words=${query}&`
+      if (location)
+        sendTo += `location=${location}`
+    }
+    
 
     try {
       const res = await fetch(sendTo, {
@@ -55,6 +67,16 @@ function ExplorePage() {
       setLoading(false)
     }
   }, [searchParams])
+
+  const handleCountyChange = (location) => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (location) {
+      params.set("location", location)
+    } else {
+      params.delete("location")
+    }
+    router.push(`/explore?${params.toString()}`)
+  }
 
   const getTiers = useCallback(async () => {
     try {
@@ -114,7 +136,7 @@ function ExplorePage() {
     <Suspense fallback={<Loading />}>
     <div>
       <Navbar />
-      <Filterbar />
+      <Filterbar onCountyChange={handleCountyChange}/>
       <div className="explore container">
         {loading || load ? (
           <Loading />
