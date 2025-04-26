@@ -139,7 +139,7 @@ export default function AdminDashboard() {
             <Navbar />
             <div className="cs4116-admin-container">
                 <div className="cs4116-admin-logs">
-                    <h2 className="cs4116-admin-logs-title">Reported Messages</h2>
+                    <h2 className="cs4116-admin-logs-title">Reported Reviews</h2>
                     <table className="cs4116-admin-logs-table">
                         <thead>
                             <tr>
