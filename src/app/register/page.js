@@ -13,15 +13,17 @@ export default function Register() {
   const router = useRouter()
 
 	useEffect(() => {
-		if (!loading) {
-			if (session != null) {
-				console.info("Status:", status, "User logged in")
-				router.push("/")
-			} else {
-				console.info("Status:", status, "User is not logged in")
-			}
+		if (loading) return;
+
+		if (session) {
+			console.info("Status:", status, "User is already logged in");
+			const routes = {
+				2: "/admin",
+				1: "/business",
+			};
+			router.push(routes[session?.user?.permission] || "/");
 		}
-	}, [session, status, loading, router])
+	}, [session, status, loading, router]);
 
 	if (loading) {
 		return <Loading />
