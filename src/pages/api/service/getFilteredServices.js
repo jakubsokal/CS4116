@@ -3,7 +3,7 @@ import { supabase } from "@/utils/supabase/client"
 export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
-      const { words, location } = req.query
+      const { words, minPrice, maxPrice, location } = req.query
 
       let queryBuilder = supabase
       .from("services")

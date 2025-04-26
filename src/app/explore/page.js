@@ -78,6 +78,13 @@ function ExplorePage() {
     router.push(`/explore?${params.toString()}`)
   }
 
+  const handlePriceChange = ([minPrice, maxPrice]) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("minPrice", minPrice)
+    params.set("maxPrice", maxPrice)
+    router.push(`/explore?${params.toString()}`)
+  };
+
   const getTiers = useCallback(async () => {
     try {
       const tierData = await Promise.all(
@@ -136,13 +143,32 @@ function ExplorePage() {
     <Suspense fallback={<Loading />}>
     <div>
       <Navbar />
-      <Filterbar onCountyChange={handleCountyChange}/>
+      <Filterbar
+      onCountyChange={handleCountyChange}
+      onPriceChange={handlePriceChange}/>
       <div className="explore container">
         {loading || load ? (
           <Loading />
         ) : serviceList.length > 0 ? (
           <div className="cs4116-grid-explore">
-            {serviceList.map((service) => (
+            {serviceList.filter((service) => {
+              const serviceTiers = tiers[service.service_id] || []
+
+              if (serviceTiers.length === 0) return false;
+
+              const tierPrices = serviceTiers.map(tier => parseFloat(tier.price));
+              const minTierPrice = Math.min(...tierPrices);
+              const maxTierPrice = Math.max(...tierPrices);
+
+
+              const selectedMinPrice = parseFloat(searchParams.get("minPrice") || 0);
+              const selectedMaxPrice = parseFloat(searchParams.get("maxPrice") || 1000);
+
+              return (
+                minTierPrice >= selectedMinPrice &&
+                maxTierPrice <= selectedMaxPrice
+              );
+            }).map((service) => (
               <div
                 key={service.service_id}
                 className="cs4116-grid-item-explore"

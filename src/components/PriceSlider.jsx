@@ -1,9 +1,8 @@
 "use client";
-import React from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import { useState } from "react";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
 
 function valuetext(value) {
 	return `${value}`;
@@ -11,7 +10,7 @@ function valuetext(value) {
 
 const minDistance = 25;
 
-const PriceSlider = () => {
+const PriceSlider = ({onPriceChange}) => {
 	const [value, setValue] = useState([0, 1000]);
 
 	const handleChange = (event, newValue, activeThumb) => {
@@ -19,10 +18,17 @@ const PriceSlider = () => {
 			return;
 		}
 
+		let updatedValue = value;
+
 		if (activeThumb === 0) {
-			setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
+			updatedValue = [Math.min(newValue[0], value[1] - minDistance), value[1]];
 		} else {
-			setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
+			updatedValue = [value[0], Math.max(newValue[1], value[0] + minDistance)];
+		}
+		setValue(updatedValue);
+
+		if (onPriceChange) {
+			onPriceChange(updatedValue);
 		}
 	};
 

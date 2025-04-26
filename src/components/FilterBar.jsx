@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import dynamic from "next/dynamic";
 const LocationSelector = dynamic(() => import('@/components/LocationSelection'), { ssr: false });
 
-const FilterBar = ({onCountyChange}) => {
+const FilterBar = ({onCountyChange, onPriceChange}) => {
 	return (
 		<div className="cs4116-filterbar-main">
 			<div className="accordion accordion-flush" id="accordionFlushExample">
@@ -84,7 +84,7 @@ const FilterBar = ({onCountyChange}) => {
 						className="accordion-collapse collapse"
 						data-bs-parent="#accordionFlushExample"
 					>
-						<Slider />
+						<Slider onPriceChange={onPriceChange} />
 					</div>
 				</div>
 				<div className="accordion-item">
