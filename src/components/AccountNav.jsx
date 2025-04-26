@@ -69,12 +69,15 @@ const AccountNav = () => {
 				<Account
 					sx={{ padding: "0" }}
 					slotProps={{
-						popoverContent: currentSession.business ? { component: CustomMenu } : {},
+						signInButton: {
+							style: { display: "none" },
+						},
+						popoverContent: currentSession?.business ? { component: CustomMenu } : undefined,
 					}}
 				/>
 			</AppProvider>
 		</div>
-	)
+	);
 }
 
 export default AccountNav
