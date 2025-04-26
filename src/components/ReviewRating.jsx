@@ -18,7 +18,7 @@ const ReviewRating = () => {
 				<p className="cs4116-rating-text">Min Rating</p>
 				<p className="cs4116-rating-text">Max Rating</p>
 			</div>
-			<Stack className="cs4116-rating"spacing={1}>
+			<Stack className="cs4116-rating" spacing={1}>
 				<Rating className="cs4116-rating-stars" name="half-rating" defaultValue={0} precision={0.5} />
 				<Rating className="cs4116-rating-stars" name="half-rating2" defaultValue={0} precision={0.5} />
 			</Stack>
