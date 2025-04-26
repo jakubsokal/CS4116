@@ -36,8 +36,8 @@ const BusinessNavbar = () => {
           {pathName !== "/business" && (
           <li> <Link href="/business" onClick={() => setMenuOpen(false)}> HOME</Link> </li>)}
 
-          {pathName !== "/business/messages" && (
-          <li> <Link href="/business/messages" onClick={() => setMenuOpen(false)}> MESSAGES</Link> </li>)}
+          {pathName !== "/messages" && (
+          <li> <Link href="/messages" onClick={() => setMenuOpen(false)}> MESSAGES</Link> </li>)}
 
           <li className="cs4116-account"><AccountNav /></li>
         </ul>

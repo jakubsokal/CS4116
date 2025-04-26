@@ -29,6 +29,7 @@ export default async function handler(req, res) {
                 .from("message")
                 .select("*")
                 .eq("chat_id", chatId)
+                .eq("isDeleted", 0)
                 .order("sent_at", { ascending: true });
 
             if (messageError) {

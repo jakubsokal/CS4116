@@ -56,26 +56,34 @@ const Navbar = () => {
 
         <div className={`nav-links ${menuOpen ? "active" : ""}`}>
           {loggedIn && (
-          <div className="nav-search">
-          <SearchBar />
-        </div>
-      )}
+            <div className="nav-search">
+              {session?.user?.permission !== 2 &&
+                <SearchBar />
+              }
+            </div>
+          )}
           <ul>
-            {pathname !== "/explore" && (
-            <li><Link href="/explore" onClick={() => setMenuOpen(false)}>EXPLORE</Link></li>)}
-
-            {!loggedIn && pathname !== "/login" && (
-            <li><Link href="/login" onClick={() => setMenuOpen(false)}>LOGIN</Link></li>)}
-
-            {!loggedIn && pathname !== "/register" && (
-            <li><Link href="/register" onClick={() => setMenuOpen(false)}>REGISTER</Link></li>)}
-          
-            {session?.user?.permission === 1 && <li><Link href="/inquiry" onClick={() => setMenuOpen(false)}>INQUIRY</Link></li>}
-
-            {loggedIn && pathname !== "/messages" && (
-            <li><Link href="/messages" onClick={() => setMenuOpen(false)}>MESSAGES</Link></li>)}
-            
-            {loggedIn && <li className="cs4116-account"><AccountNav /></li>}
+            {session?.user?.permission !== 2 &&
+              <li><Link href="/explore" onClick={() => setMenuOpen(false)}>EXPLORE</Link></li>
+            }
+            {!loggedIn &&
+              <li><Link href="/login" onClick={() => setMenuOpen(false)}>LOGIN</Link></li>
+            }
+            {!loggedIn &&
+              <li><Link href="/register" onClick={() => setMenuOpen(false)}>REGISTER</Link></li>
+            }
+            {session?.user?.permission === 1 &&
+              <li><Link href="/inquiry" onClick={() => setMenuOpen(false)}>INQUIRY</Link></li>
+            }
+            {loggedIn && session?.user?.permission !== 2 &&
+              <li><Link href="/messages" onClick={() => setMenuOpen(false)}>MESSAGES</Link></li>
+            }
+            {session?.user?.permission === 2 &&
+              <li><Link href="/admin" onClick={() => setMenuOpen(false)}>DASHBOARD</Link></li>
+            }
+            {loggedIn &&
+              <li className="cs4116-account"><AccountNav /></li>
+            }
           </ul>
         </div>
       </nav>

@@ -59,7 +59,7 @@ export async function register(userData) {
           {
             business_name: userData.businessName,
             location: userData.location,
-            user_id: insertedUser.id,
+            user_id: insertedUser.user_id,
             created_at: new Date().toISOString()
           }
         ])

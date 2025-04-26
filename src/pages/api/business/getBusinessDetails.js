@@ -8,9 +8,6 @@ export default async function handler(req, res) {
             const type = userId ? 'user_id' : 'business_id'
             const businessSearch = userId ? userId : businessId
 
-            console.log("type", type)
-            console.log("businessSearch", businessSearch)
-
             const { data } = await supabase
                 .from('business')
                 .select('*')
