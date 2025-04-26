@@ -30,7 +30,7 @@
 	border-radius: 0 0 20px 20px !important;
 }
 
-.cs41160-dialog-header {
+.cs4116-dialog-header {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -200,4 +200,22 @@
 
 .cs4116-dialog-text-container {
 	display: flex
+}
+
+.cs4116-report-dialog .MuiDialog-paper{
+	background: white !important;
+}
+
+@media screen and (max-width: 1700px) {
+	.explore.container{
+		margin-left: 18%;
+	}
+}
+
+@media screen and (max-width: 650px) {
+
+	.cs4116-dialog-main{
+		width: 75%;
+	}
+	
 }

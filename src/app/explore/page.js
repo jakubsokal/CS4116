@@ -23,6 +23,7 @@ function ExplorePage() {
   const [load, setLoading] = useState(true)
   const searchParams = useSearchParams()
   const [tiers, setTiers] = useState({})
+  const [reportModalOpen, setReportModalOpen] = useState(false)
 
   const serviceApi = useCallback(async () => {
     setLoading(true)

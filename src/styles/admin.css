@@ -108,6 +108,7 @@
 	width: 175px;
 	height: 40px;
 	padding: 10px;
+	color: white;
 	background: #ff5125;
 	border: none;
 	border-radius: 8px;
@@ -130,7 +131,7 @@
 
 .cs4116-admin-search-table {
 	border-collapse: separate;
-	border-spacing: 0 10px;
+	border-spacing: 0 6px;
 	width: 100%;
 	table-layout: fixed;
 	overflow-x: auto;
@@ -138,7 +139,7 @@
 
 .cs4116-admin-logs-table {
 	border-collapse: separate;
-	border-spacing: 0 10px;
+	border-spacing: 0 4px;
 	width: 100%;
 	table-layout: fixed;
 	overflow-x: auto;
@@ -165,80 +166,147 @@
 	border-bottom: 1px solid #000;
 }
 
+.cs4116-admin-reported-message-container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 85%;
+}
+
+.cs4116-admin-reported-message-remove-button {
+	padding: 10px;
+	width: 100%;
+	background: red;
+	border: none;
+	border-radius: 5px;
+	transition: all 0.3s ease-in-out !important;
+}
+
+.cs4116-admin-reported-message-dismiss-button {
+	padding: 10px;
+	width: 100%;
+	background: green;
+	border: none;
+	border-radius: 5px;
+	transition: all 0.3s ease-in-out !important;
+}
+
+.cs4116-admin-reported-message-input{
+	width: 100%;
+    background: white;
+    padding: 8px;
+    border-radius: 5px;
+
+}
+
+.cs4116-admin-reported-message-remove-button:hover {
+	background: rgb(164, 1, 1);
+	cursor: pointer;
+}
+.cs4116-admin-reported-message-dismiss-button:hover {
+	background: rgb(0, 98, 0);
+	cursor: pointer;
+}
+
 @media screen and (max-width: 1200px) {
-    .cs4116-admin-container {
-        font-size: 10px !important;
-		max-width: 800px;
+	.cs4116-admin-container {
+		font-size: 10px !important;
 		margin: 110px auto 25px auto !important;
-    }
+	}
 
-    .cs4116-admin-text {
-        font-size: 14px;
-    }
+	.cs4116-admin-reported-message-remove-button  {
+		font-size: 8px !important;
+	}
 
-    .cs4116-admin-button {
-        font-size: 10px;
+	.cs4116-admin-reported-message-dismiss-button  {
+		font-size: 8px !important;
+	}
+
+	.cs4116-admin-text {
+		font-size: 14px;
+	}
+
+	.cs4116-admin-button {
+		font-size: 10px;
 		width: 115px;
 		height: 30px;
 		border-radius: 5px;
-    }
+	}
 
-    .cs4116-admin-input-small {
-        font-size: 10px;
-    }
+	.cs4116-admin-input-small {
+		font-size: 10px;
+	}
 
-    .cs4116-admin-input {
-        font-size: 10px;
-    }
+	.cs4116-admin-input {
+		font-size: 10px;
+	}
 
-	.cs4116-admin-logs{
+	.cs4116-admin-logs {
 		margin: 0;
 	}
 
-    .cs4116-admin-logs-table th,
-    .cs4116-admin-search-table th {
-        font-size: 10px;
-        text-align: left;
-    }
+	.cs4116-admin-logs-table th,
+	.cs4116-admin-search-table th {
+		font-size: 16px;
+		text-align: left;
+	}
 
-    .cs4116-admin-logs-table td,
-    .cs4116-admin-search-table td {
-        font-size: 10px;
-        text-align: left;
-    }
+	.cs4116-admin-logs-table td,
+	.cs4116-admin-search-table td {
+		font-size: 14px;
+		text-align: left;
+	}
 }
 
 @media screen and (max-width: 900px) {
 	.cs4116-admin-container {
-        font-size: 10px !important;
-		max-width: 600px;
+		font-size: 10px !important;
 		margin: 100px auto 25px auto !important;
-    }
+	}
 
-    .cs4116-admin-search-table th,
-    .cs4116-admin-logs-table th {
-        font-size: 8px !important;
-        padding: 4px 8px;
-        text-align: left;
-    }
+	.cs4116-admin-search-table th,
+	.cs4116-admin-logs-table th {
+		font-size: 12px !important;
+		padding: 4px 8px;
+		text-align: left;
+	}
 
-    .cs4116-admin-search-table td,
-    .cs4116-admin-logs-table td {
-        font-size: 8px !important;
-        padding: 0;
-        text-align: left;
-    }
+	.cs4116-admin-search-table td,
+	.cs4116-admin-logs-table td {
+		font-size: 10px !important;
+		padding: 0;
+		text-align: left;
+	}
+
+	.cs4116-admin-reported-message-remove-button  {
+		padding: 5px;
+		margin-top: 5px;
+	}
+
+	.cs4116-admin-reported-message-dismiss-button  {
+		margin-bottom: 5px;
+		padding: 5px;
+	}
+
+	.cs4116-admin-reported-message-container {
+		gap: 5px;
+		width: 75%;
+	}
 }
 
 @media screen and (max-width: 675px) {
+
+	.cs4116-admin-logs-table{
+		border-spacing: 0 3px;
+	}
+
 	.cs4116-admin-container {
-        font-size: 10px !important;
-		max-width: 300px;
+		font-size: 12px !important;
 		margin: 75px auto 25px auto !important;
-    }
+	}
 
 	.cs4116-admin-button {
-		font-size: 6px;
+		font-size: 10px;
 		margin-top: 5px;
 		width: 70px;
 		height: 20px;
@@ -252,7 +320,7 @@
 		height: 15%;
 		background: transparent;
 		border-radius: 5px;
-		font-size: 6px;
+		font-size: 10px;
 		color: black;
 		padding: 8px 55px 8px 5px;
 	}
@@ -272,52 +340,78 @@
 	}
 
 	.cs4116-admin-text {
-	font-size: 10px;
+		font-size: 10px;
 	}
 
-    .cs4116-admin-search-table th,
-    .cs4116-admin-logs-table th {
-        font-size: 6px !important;
-        padding: 4px 8px;
-        text-align: left;
-    }
+	.cs4116-admin-search-table th,
+	.cs4116-admin-logs-table th {
+		font-size: 10px !important;
+		padding: 4px 8px;
+		text-align: left;
+	}
 
-    .cs4116-admin-search-table td,
-    .cs4116-admin-logs-table td {
-        font-size: 6px !important;
-        padding: 0;
-        text-align: left;
-    }
+	.cs4116-admin-search-table td,
+	.cs4116-admin-logs-table td {
+		font-size: 8px !important;
+		padding: 0;
+		text-align: left;
+	}
+
+	.cs4116-admin-reported-message-remove-button  {
+		padding: 5px;
+		margin-top: 5px;
+		font-size: 4px !important;
+	}
+
+	.cs4116-admin-reported-message-dismiss-button  {
+		margin-bottom: 5px;
+		padding: 5px;
+		font-size: 4px !important;
+	}
+
+	.cs4116-admin-reported-message-container {
+		gap: 5px;
+		width: 75%;
+	}
 }
 
 @media screen and (max-width: 530px) {
-    .cs4116-admin-search-table th,
-    .cs4116-admin-logs-table th {
-        font-size: 5px !important;
-        padding: 2px 8px;
-        text-align: left;
-    }
+	.cs4116-admin-logs-table{
+		border-spacing: 0 3px;
+	}
+	.cs4116-admin-search-table th,
+	.cs4116-admin-logs-table th {
+		font-size: 6px !important;
+		padding: 2px 8px;
+		text-align: left;
+	}
 
-    .cs4116-admin-search-table td,
-    .cs4116-admin-logs-table td {
-        font-size: 4px !important;
-        padding: 0;
-        text-align: left;
-    }
+	.cs4116-admin-search-table td,
+	.cs4116-admin-logs-table td {
+		font-size: 6px !important;
+		padding: 0;
+		text-align: left;
+	}
 }
 
 @media screen and (max-width: 400px) {
-    .cs4116-admin-search-table th,
-    .cs4116-admin-logs-table th {
-        font-size: 4px !important;
-        padding: 2px 8px;
-        text-align: left;
-    }
+	.cs4116-admin-logs-table{
+		border-spacing: 0 3px;
+	}
 
-    .cs4116-admin-search-table td,
-    .cs4116-admin-logs-table td {
-        font-size: 3px !important;
-        padding: 0;
-        text-align: left;
-    }
+	.cs4116-admin-search-table th,
+	.cs4116-admin-logs-table th {
+		font-size: 6px !important;
+		padding: 2px 8px;
+		text-align: left;
+		
+	}
+
+	.cs4116-admin-search-table td,
+	.cs4116-admin-logs-table td {
+		font-size: 6px !important;
+		
+		padding: 0;
+		text-align: left;
+	}
 }

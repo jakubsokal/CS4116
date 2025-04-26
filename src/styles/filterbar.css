@@ -61,3 +61,35 @@ input[type="checkbox"]:checked::before {
 	display: flex;
 	justify-content: space-evenly;
 }
+
+@media screen and (max-width: 1600px) {
+	.cs4116-filterbar-main {
+        top: 9%;
+    }
+	
+}
+
+@media screen and (max-width: 1250px) {
+	.cs4116-filterbar-main {
+        top: 8%;
+    }
+	
+}
+
+
+@media screen and (max-width: 1024px){
+	.cs4116-filterbar-main {
+        top: 7%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+	.cs4116-filterbar-main {
+		position: fixed;
+		width: 30%;
+		min-height: 100%;
+		background: #fff;
+		top: 6%;
+	}
+	
+}

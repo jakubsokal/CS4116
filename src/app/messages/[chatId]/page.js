@@ -33,6 +33,18 @@ export default function ChatPage() {
     "Offensive Language"
   ];
 
+  useEffect(() => {
+    const checkSession = async () => {
+      if (sessionLoading) return;
+      if (session == null) {
+        router.push('/login');
+      } else if (session.user.permission === 2) {
+        router.push('/admin');
+      }
+    }; 
+    checkSession();
+  }, [session, router, sessionLoading]);
+
   const fetchChatPartnerDetails = useCallback(async (chatPartnerId) => {
     try {
       const response = await fetch(`/api/user/getUserDetailsId?userId=${chatPartnerId}`);
