@@ -1,8 +1,8 @@
 "use client";
-import { useState } from "react";
 import React from "react";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
+import "@/styles/filterbar.css";
 
 const ReviewRating = () => {
 	return (
@@ -15,12 +15,12 @@ const ReviewRating = () => {
 					padding: "2px 7px 10px 0px",
 				}}
 			>
-				<p>Min Rating</p>
-				<p>Max Rating</p>
+				<p className="cs4116-rating-text">Min Rating</p>
+				<p className="cs4116-rating-text">Max Rating</p>
 			</div>
-			<Stack spacing={1}>
-				<Rating name="half-rating" defaultValue={0} precision={0.5} />
-				<Rating name="half-rating2" defaultValue={0} precision={0.5} />
+			<Stack className="cs4116-rating"spacing={1}>
+				<Rating className="cs4116-rating-stars" name="half-rating" defaultValue={0} precision={0.5} />
+				<Rating className="cs4116-rating-stars" name="half-rating2" defaultValue={0} precision={0.5} />
 			</Stack>
 		</div>
 	);

@@ -62,6 +62,10 @@ input[type="checkbox"]:checked::before {
 	justify-content: space-evenly;
 }
 
+.MuiBox-root.css-peakhq{
+	width: 100%;
+}
+
 @media screen and (max-width: 1600px) {
 	.cs4116-filterbar-main {
         top: 9%;
@@ -91,5 +95,88 @@ input[type="checkbox"]:checked::before {
 		background: #fff;
 		top: 6%;
 	}
+
+		.MuiBox-root.css-peakhq{
+		width: 100%;
+	}
+
+	.cs4116-price-show-text{
+		font-size: 12px !important;
+	}
+
+	.css-11jtmwl-MuiSlider-root .MuiSlider-thumb{
+		height: 15px !important;
+		width: 15px !important;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.css-peakhq {
+		padding-left: 20px !important;
+		padding-right: 20px !important;
+	}
+
+	.cs4116-rating-text{
+		font-size: 12px !important;
+	}
+
+	.cs4116-rating-stars{
+		font-size: 15px !important;	
+	}
+
+	.cs4116-rating{
+		display: flex !important;
+		justify-content: space-evenly !important;
+	}
 	
+}
+
+@media screen and (max-width: 480px) {
+	.cs4116-filterbar-main {
+		font-size: 10px;
+	}
+
+	input[type="checkbox"] {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 15px;
+		height: 14px;
+		border: 1px solid black;
+		border-radius: 3px;
+		cursor: pointer;
+		position: relative;
+	}
+
+	.accordion-button.collapsed{
+		font-size: 12px;
+	}
+
+	.accordion-button{
+		font-size: 12px !important;
+	}
+	.cs4116-price-show-text{
+		font-size: 10px !important;
+	}
+
+	.css-11jtmwl-MuiSlider-root .MuiSlider-thumb{
+		height: 10px !important;
+		width: 10px !important;
+	}
+
+	.css-xvk2i-MuiSlider-track {
+		height: 2px !important;	
+	}	
+
+	.cs4116-rating-text{
+		font-size: 8px !important;
+	}
+
+	.cs4116-rating-stars{
+		font-size: 12px !important;	
+	}
+
+	.cs4116-rating{
+		display: flex !important;
+		justify-content: space-evenly !important;
+	}
 }

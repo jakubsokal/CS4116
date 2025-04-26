@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Loading from '@/components/Loading';
 import '@/styles/Chat.css';
 import useSessionCheck from '@/utils/hooks/useSessionCheck';
+import Link from 'next/link';
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
@@ -287,6 +288,9 @@ export default function ChatPage() {
                 key={message.message_id}
                 className={`message ${message.sender_id === session?.user?.user_id ? 'sent' : 'received'}`}
               >
+                {message.isReview === 1 && (
+                   <Link className="message-text" onClick={() => router.push("/leave-review/")}>{message.message_text}</Link>
+                )}
                 <div className="message-content">
                   <p className="message-text">{message.message_text}</p>
                   <span className="message-time">

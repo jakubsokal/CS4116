@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
+import "@/styles/filterbar.css";
 
 function valuetext(value) {
 	return `${value}`;
@@ -28,10 +29,11 @@ const PriceSlider = () => {
 
 	return (
 		<Box sx={{ width: 300, px: 5 }}>
-			<div style={{ display: "flex", justifyContent: "space-between" }}>
+			<div className="cs4116-price-show" style={{ display: "flex", justifyContent: "space-between" }}>
 				<Typography
 					id="non-linear-slider"
 					gutterBottom
+					className="cs4116-price-show-text"
 					sx={{ fontFamily: "Urbanist-Bold" }}
 				>
 					€{value[0]}
@@ -39,6 +41,7 @@ const PriceSlider = () => {
 				<Typography
 					id="non-linear-slider"
 					gutterBottom
+					className="cs4116-price-show-text"
 					sx={{ fontFamily: "Urbanist-Bold" }}
 				>
 					€{value[1]}
