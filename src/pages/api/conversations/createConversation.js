@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { sender_id, receiver_id } = req.body;
+  const { sender_id, receiver_id ,inquiry_id} = req.body;
 
   if (!sender_id || !receiver_id) {
     return res.status(400).json({ error: "Missing sender or receiver" });
@@ -31,6 +31,7 @@ export default async function handler(req, res) {
         {
           participant1_id: sender_id,
           participant2_id: receiver_id,
+          inquiry_id: inquiry_id,
           created_at: new Date().toISOString(),
         },
       ])

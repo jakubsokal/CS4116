@@ -41,6 +41,7 @@ const AdminTable = () => {
         body: JSON.stringify({
           sender_id: inquiry.receiver_id,
           receiver_id: inquiry.sender_id,
+          inquiry_id:inquiry.inquiry_id,
         }),
       });
 

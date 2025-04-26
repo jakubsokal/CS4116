@@ -115,11 +115,47 @@ export default function ChatPage() {
 
   const fetchInquiry = async () => {
     try {
-      const res = await fetch(`/api/conversations/getByChat?chatId=${chatId}`);
+      const res = await fetch(`/api/inquiries/getByChat?chatId=${chatId}`);
       const data = await res.json();
-      if (res.ok) setInquiry(data);
+      if (res.ok && data && data.inquiry_id) {
+        setInquiry(data.inquiry_id); // ✅ Store the inquiry_id directly
+      }
     } catch (err) {
       console.error("Error fetching inquiry:", err);
+    }
+  };
+
+  const handleServiceComplete = async () => {
+    if (!chatId || !session?.user?.user_id) return;
+
+    const receiverId = messages[0]?.sender_id === session.user.user_id
+      ? messages[0]?.receiver_id
+      : messages[0]?.sender_id;
+
+    const messageText = `Thank you so much for completing the service! Please leave a review.`;
+    //setServiceCompleted(true);
+    try {
+      const response = await fetch('/api/messages/sendMessage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message_text: messageText,
+          sender_id: session.user.user_id,
+          receiver_id: receiverId,
+          chat_id: chatId,
+          is_review: 1,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.error) throw new Error(data.error);
+
+      await fetchMessages(); // Refresh chat after sending
+    } catch (err) {
+      console.error("Error sending completion message:", err);
+      setError("Failed to send completion message.");
     }
   };
 
@@ -282,7 +318,7 @@ export default function ChatPage() {
               </div>
             )}
             {isBusiness && (
-              <button className="btn btn-success">
+              <button className="btn btn-success" onClick={handleServiceComplete}>
                 Mark Service as Completed
               </button>
             )}
@@ -294,26 +330,22 @@ export default function ChatPage() {
             <div className="no-messages">No messages in this conversation</div>
           ) : (
             messages.map((message) => {
-              const isReviewForm = message.message_text?.startsWith("__review_form__");
-              const inquiryId = isReviewForm ? message.message_text.split("::")[1] : null;
-
+              //in here insert isReview ===1 then tge message that get sent needs to be clickable may or may not need to query db
+              const isReviewMessage = message.is_review === 1
               return (
                 <div
                   key={message.message_id}
-                  className={`message ${message.sender_id === session?.user?.user_id ? 'sent' : 'received'} ${isReviewForm ? 'review-form-message' : ''}`}
-                >
+                  className={`message ${message.sender_id === session?.user?.user_id ? 'sent' : 'received'} ${isReviewMessage ? 'review-form-message' : ''}`}
+                
+                  onClick={() => {
+          if (isReviewMessage) {
+            router.push(`/review/${inquiry}`); // 👈 Update with your real route
+          }
+        }}
+        style={{ cursor: isReviewMessage ? 'pointer' : 'default' }} // 👈 show pointer only if clickable
+      >
                   <div className="message-content">
-                    {isReviewForm && inquiryId ? (
-                      <ReviewForm
-                        inquiry={{ inquiry_id: inquiryId }}
-                        onComplete={() =>
-                          setMessages((prev) =>
-                            prev.filter((msg) => msg.message_id !== message.message_id)
-                          )
-                        }
-                      />
-                    ) : (
-                      <>
+                
                         <p className="message-text">{message.message_text}</p>
                         <span className="message-time">
                           {new Date(message.sent_at).toLocaleTimeString([], {
@@ -329,8 +361,6 @@ export default function ChatPage() {
                       Report
                     </button>
                   )}
-                      </>
-                    )}
                   </div>
                   <div className="message-sender">
                     {message.sender_id === session?.user?.user_id 
