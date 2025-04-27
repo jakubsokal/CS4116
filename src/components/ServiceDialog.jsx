@@ -219,6 +219,11 @@ const ServiceDialog = (service) => {
 		}, 600)
 	}
 
+	const handleOnOpen = (review) => {
+		setReportModalOpen(true)
+		setReviewId(review)
+	}
+
 	const handleReport = async (userReview) => {
 		if (session) {
 			const report = {
@@ -240,9 +245,11 @@ const ServiceDialog = (service) => {
 			const result = await res.json()
 
 			if (result) {
+				setReportModalOpen(false)
 				alert(result.message)
 			}
 		} else {
+			setReportModalOpen(false)
 			alert("Please login to report a review")
 			router.push("/login")
 		}
@@ -271,7 +278,7 @@ const ServiceDialog = (service) => {
 					onClose={handleClose}
 					aria-labelledby="responsive-dialog-title"
 				>
-					<div className="cs41160-dialog-header">
+					<div className="cs4116-dialog-header">
 						{business.profile_picture ? (
 							<img className="cs4116-business-profile-pic" src={business.profile_picture}></img>
 						) : (
@@ -395,7 +402,7 @@ const ServiceDialog = (service) => {
 														<FlagIcon
 															className="cs4116-report-icon"
 															autoFocus
-															onClick={() => handleReport(userReview.review)} />
+															onClick={() => handleOnOpen(userReview.review)} />
 														<Button
 															className="cs4116-inq-btn"
 															autoFocus
@@ -407,13 +414,50 @@ const ServiceDialog = (service) => {
 												</div>
 											</div>
 										))}
-
 									</div>
 								) : (
 									<p style={{ color: "red", position: "relative" }}>This Service Has No Reviews</p>
 								)}
 						</div>
 					</div>
+					{reportModalOpen && (
+						<Dialog 
+							open={reportModalOpen}
+							onClose={() => setReportModalOpen(false)}
+							className="cs4116-report-dialog"
+						>
+							<DialogTitle id="report-dialog-title">Report Review</DialogTitle>
+							<DialogContent >
+							<p style={{marginTop: "15px", fontSize: "18px"}}>Are you sure you want to report this review?</p>
+								{removeReasons.map((reason) => (
+									<label key={reason} className="report-reason-option" style={{ color: 'black' }}>
+										<input
+											type="radio"
+											name="reportReason"
+											value={reason}
+											checked={reportReason === reason}
+											onChange={(e) => setReportReason(e.target.value)}
+										/>
+										{reason}
+									</label>
+								))}
+							</DialogContent>
+							<DialogActions className="modal-buttons">
+								<Button onClick={() => setReportModalOpen(false)}>Cancel</Button>
+								<Button
+									onClick={() => {
+										if (reportReason !== "") {
+											handleReport(review_id);
+										} else {
+											alert("Please select a reason before removing the message.");
+										}
+									}}
+								>
+									Report
+								</Button>
+							</DialogActions>
+						</Dialog>
+					)}
 				</Dialog>
 			)}
 		</div>

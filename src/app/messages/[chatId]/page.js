@@ -37,6 +37,18 @@ export default function ChatPage() {
     "Offensive Language"
   ];
 
+  useEffect(() => {
+    const checkSession = async () => {
+      if (sessionLoading) return;
+      if (session == null) {
+        router.push('/login');
+      } else if (session.user.permission === 2) {
+        router.push('/admin');
+      }
+    }; 
+    checkSession();
+  }, [session, router, sessionLoading]);
+
   const fetchChatPartnerDetails = useCallback(async (chatPartnerId) => {
     try {
       const response = await fetch(`/api/user/getUserDetailsId?userId=${chatPartnerId}`);
@@ -182,6 +194,23 @@ export default function ChatPage() {
     if (!newMessage.trim() || !session?.user?.user_id) return;
 
     try {
+      const convoResponse = await fetch(`/api/messages/getChatMessages?chatId=${chatId}`, {
+        method: 'GET',
+        headers: {
+          'x-user-id': session.user.user_id,
+          'Content-Type': 'application/json'
+        }
+      });
+      const convoData = await convoResponse.json();
+      
+      if (convoData.error) {
+        throw new Error(convoData.error);
+      }
+
+      const receiver_id = convoData.conversation.participant1_id === session.user.user_id 
+        ? convoData.conversation.participant2_id 
+        : convoData.conversation.participant1_id;
+
       const response = await fetch('/api/messages/sendMessage', {
         method: 'POST',
         headers: {
@@ -190,9 +219,7 @@ export default function ChatPage() {
         body: JSON.stringify({
           message_text: newMessage.trim(),
           sender_id: session.user.user_id,
-          receiver_id: messages[0]?.sender_id === session.user.user_id 
-            ? messages[0]?.receiver_id 
-            : messages[0]?.sender_id,
+          receiver_id: receiver_id,
           chat_id: chatId
         }),
       });

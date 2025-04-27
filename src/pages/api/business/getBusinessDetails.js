@@ -2,13 +2,16 @@ import { supabase } from '@/utils/supabase/client'
 
 export default async function handler(req, res) {
     if (req.method === 'GET') {
-        const { businessId } = req.query
+        const { businessId, userId } = req.query
 
         try {
+            const type = userId ? 'user_id' : 'business_id'
+            const businessSearch = userId ? userId : businessId
+
             const { data } = await supabase
                 .from('business')
                 .select('*')
-                .eq('business_id', businessId)
+                .eq(type, businessSearch)
 
             return res.status(200).json({ message: "Successful Search", data: data[0] })
         } catch (error) {

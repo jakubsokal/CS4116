@@ -27,6 +27,7 @@ export default function AdminDashboard() {
                     router.push("/")
                 }
             }
+
             async function getLogs() {
                 const res = await fetch(`/api/admin/getAdminLogs`, {
                     method: 'GET',
@@ -223,7 +224,7 @@ export default function AdminDashboard() {
                         <p className="cs4116-admin-text">
                             Here you view reported messages
                         </p>
-                        <button className="cs4116-admin-button">
+                        <button className="cs4116-admin-button" onClick={() => router.push("/admin/reported/messages")}>
                             Reported Messages
                         </button>
                     </div>
@@ -231,7 +232,7 @@ export default function AdminDashboard() {
                         <p className="cs4116-admin-text">
                             Here you can view reported reviews
                         </p>
-                        <button className="cs4116-admin-button">
+                        <button className="cs4116-admin-button" onClick={() => router.push("/admin/reported/reviews")}>
                             Reported reviews
                         </button>
                     </div>
@@ -256,8 +257,8 @@ export default function AdminDashboard() {
                                     <td>{log.admin_id}</td>
                                     <td>{log.target_id}</td>
                                     <td>{log.reason}</td>
-                                    <td>{log.action_taken == 1 ? "User Banned" : log.action_taken == 2 ? "Removed Review" : log.action_taken == 3 ? "Removed Message" : "No Action"}</td>
-                                    <td>{new Date(log.created_at).toLocaleString()}</td>
+                                    <td>{log.action_taken}</td>
+                                    <td>{new Date(log.created_at).toLocaleDateString('en-GB')}</td>
                                 </tr>
                             ))}
                         </tbody>

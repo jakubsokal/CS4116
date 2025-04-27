@@ -29,6 +29,7 @@ export default async function handler(req, res) {
                 .from("message")
                 .select("*")
                 .eq("chat_id", chatId)
+                .eq("isDeleted", 0)
                 .order("sent_at", { ascending: true });
 
             if (messageError) {
@@ -50,7 +51,8 @@ export default async function handler(req, res) {
 
             return res.status(200).json({ 
                 message: "Messages retrieved successfully", 
-                data: messages || [] 
+                data: messages || [],
+                conversation: conversation
             });
         } catch (error) {
             return res.status(500).json({ 

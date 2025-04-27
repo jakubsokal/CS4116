@@ -73,12 +73,12 @@
 	border: none;
 	cursor: pointer;
 	transition: 0.3s ease;
-  }
-  
-  .cs4116-message-button:hover {
+}
+
+.cs4116-message-button:hover {
 	background-color: #e64520;
 	cursor: pointer;
-  }
+}
 
 .cs4116-unread-messages {
 	background-color: #ff5125;
@@ -95,6 +95,13 @@
 	display: flex;
 }
 
-.cs4116-message-sender-name{
-  margin-top: 7px
+.cs4116-message-sender-name {
+	margin-top: 7px;
+}
+
+@media (max-width: 1000px) {
+	.cs4116-message-button {
+		padding: 10px;
+		font-size: 10px;
+	}
 }

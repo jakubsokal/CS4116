@@ -27,10 +27,27 @@ const useSessionCheck = () => {
 					const result = await res.json();
 
 					if (result.data) {
+						const updatedSession = { user: { ...result.data } };
+						if (result.data.permission === 1) {
+							try {
+								const res = await fetch(`/api/business/getBusinessDetails?userId=${result.data.user_id}`, {
+									method: 'GET',
+									headers: {
+										'Content-Type': 'application/json',
+									},
+								});
+								if (res.ok) {
+									const businessRes = await res.json();
+									updatedSession.business = { ...businessRes.data };
+								}
+							} catch (error) {
+								console.error("Error fetching business details:", error);
+							}
+						}
 						setSession((prevSession) => ({
 							...prevSession,
-							user: { ...result.data },
-						}))
+							...updatedSession,
+						}));
 					}
 					setLoading(false)
 				} catch (error) {

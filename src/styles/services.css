@@ -1,0 +1,91 @@
+.services-container h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.service-info {
+    margin-top: 1rem;
+}
+
+.service-info h3 {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.cs-service-fields {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.4rem 0;
+}
+
+.cs-label {
+    font-weight: bolder;
+    font-size: large;
+    color: white ;
+    min-width: 100px;
+}
+
+.cs-value {
+    color: white;
+    font-family: 'Urbanist-Regular';
+    word-break: break-word;
+}
+
+/*service buttons*/
+.cs-service-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.cs-remove-services-button,
+.cs-edit-services-button,
+.cs-confirm-services-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cs-remove-services-button {
+    background-color: #ff4d4f;
+    color: white;
+}
+.cs-edit-services-button {
+    background-color: #1890ff;
+    color: white;
+}
+
+    .cs-confirm-services-button {
+    background-color: green;
+    color: white;
+    }
+
+
+    .cs-input,
+.cs-service-fields textarea,
+.cs-service-fields select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: white;
+    color: #333;
+    font-family: inherit;
+}
+
+.cs-service-fields {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}

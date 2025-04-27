@@ -1,14 +1,14 @@
 "use client"
 
-import { useState, useEffect, Suspense } from "react"
-import Link from "next/link"
-import "@/styles/Navbar.css"
-import Image from "next/image"
-import SearchBar from "@/components/Searchbar"
 import AccountNav from "@/components/AccountNav"
-import useSessionCheck from "@/utils/hooks/useSessionCheck"
 import Loading from "@/components/Loading"
-import { useRouter } from "next/navigation"
+import SearchBar from "@/components/Searchbar"
+import "@/styles/Navbar.css"
+import useSessionCheck from "@/utils/hooks/useSessionCheck"
+import Image from "next/image"
+import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
+import { Suspense, useEffect, useState } from "react"
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -16,6 +16,7 @@ const Navbar = () => {
   const { session, loading, status } = useSessionCheck()
   const [loggedIn, setLoggedIn] = useState(false)
   const router = useRouter()
+  const pathname = usePathname()
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
@@ -54,16 +55,35 @@ const Navbar = () => {
         </div>
 
         <div className={`nav-links ${menuOpen ? "active" : ""}`}>
-          <div className="nav-search">
-            <SearchBar />
-          </div>
+          {loggedIn && (
+            <div className="nav-search">
+              {session?.user?.permission !== 2 &&
+                <SearchBar />
+              }
+            </div>
+          )}
           <ul>
-            <li><Link href="/explore" onClick={() => setMenuOpen(false)}>EXPLORE</Link></li>
-            {!loggedIn && (<li><Link href="/login" onClick={() => setMenuOpen(false)}>LOGIN</Link></li>)}
-            {!loggedIn && (<li><Link href="/register" onClick={() => setMenuOpen(false)}>REGISTER</Link></li>)}
-            {session?.user?.permission === 1 && <li><Link href="/inquiry" onClick={() => setMenuOpen(false)}>INQUIRY</Link></li>}
-            {loggedIn && <li><Link href="/messages" onClick={() => setMenuOpen(false)}>MESSAGES</Link></li>}
-            {loggedIn && <li className="cs4116-account"><AccountNav /></li>}
+            {session?.user?.permission !== 2 &&
+              <li><Link href="/explore" onClick={() => setMenuOpen(false)}>EXPLORE</Link></li>
+            }
+            {!loggedIn &&
+              <li><Link href="/login" onClick={() => setMenuOpen(false)}>LOGIN</Link></li>
+            }
+            {!loggedIn &&
+              <li><Link href="/register" onClick={() => setMenuOpen(false)}>REGISTER</Link></li>
+            }
+            {session?.user?.permission === 1 &&
+              <li><Link href="/inquiry" onClick={() => setMenuOpen(false)}>INQUIRY</Link></li>
+            }
+            {loggedIn && session?.user?.permission !== 2 &&
+              <li><Link href="/messages" onClick={() => setMenuOpen(false)}>MESSAGES</Link></li>
+            }
+            {session?.user?.permission === 2 &&
+              <li><Link href="/admin" onClick={() => setMenuOpen(false)}>DASHBOARD</Link></li>
+            }
+            {loggedIn &&
+              <li className="cs4116-account"><AccountNav /></li>
+            }
           </ul>
         </div>
       </nav>
