@@ -114,7 +114,7 @@ const AdminTable = () => {
           </tbody>
         </table>
       </div>
-
+      
       {showReviewPopup && (
         <ReviewPopup
           inquiry={selectedInquiry}

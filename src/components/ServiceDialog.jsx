@@ -193,7 +193,7 @@ const ServiceDialog = (service) => {
 
 	const handleInquire = () => {
 		if (session) {
-			//logic to Inqure service
+			setShowPopup(true);
 		} else {
 			alert("Please login to inquire about a service")
 			router.push("/login")
