@@ -3,7 +3,7 @@ import { supabase } from "@/utils/supabase/client"
 export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
-      const { words, minPrice, maxPrice, location } = req.query
+      const { words, location, category, minRating, maxRating } = req.query
 
       let queryBuilder = supabase
       .from("services")
@@ -27,6 +27,20 @@ export default async function handler(req, res) {
       if (location) {
         queryBuilder = queryBuilder.eq("location", location)
       }
+
+      if (category) {
+        const categoriesArray = category.split(",").map(Number);
+        queryBuilder = queryBuilder.in('category_id', categoriesArray);
+      }
+
+      if (minRating !== undefined && minRating !== null && minRating !== "") {
+        queryBuilder = queryBuilder.gte("avg_rating", minRating)
+      }
+
+      if (maxRating !== undefined && maxRating !== null && maxRating !== "") {
+        queryBuilder = queryBuilder.lte("avg_rating", maxRating)
+      }
+
 
       const { data, error } = await queryBuilder
 

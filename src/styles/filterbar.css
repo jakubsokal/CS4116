@@ -61,3 +61,19 @@ input[type="checkbox"]:checked::before {
 	display: flex;
 	justify-content: space-evenly;
 }
+
+.reset-filter-button {
+	margin-top: 30px;
+    width: 80%;
+	margin-left: 10%;
+    padding: 14px;
+    background-color: #ff5125;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+

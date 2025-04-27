@@ -10,7 +10,7 @@ function valuetext(value) {
 
 const minDistance = 25;
 
-const PriceSlider = ({onPriceChange}) => {
+const PriceSlider = ({onPriceChange, isResetting}) => {
 	const [value, setValue] = useState([0, 1000]);
 
 	const handleChange = (event, newValue, activeThumb) => {
@@ -27,7 +27,7 @@ const PriceSlider = ({onPriceChange}) => {
 		}
 		setValue(updatedValue);
 
-		if (onPriceChange) {
+		if (!isResetting && onPriceChange) {
 			onPriceChange(updatedValue);
 		}
 	};

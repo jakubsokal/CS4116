@@ -25,23 +25,32 @@ function ExplorePage() {
   const searchParams = useSearchParams()
   const [tiers, setTiers] = useState({})
   const router = useRouter()
+  const [isResetting, setIsResetting] = useState(false)
 
   const serviceApi = useCallback(async () => {
     setLoading(true)
     const query = searchParams.get("query")
     const location = searchParams.get("location")
-    //const category = searchParams.get("category") etc...
+    const category = searchParams.get("category")
+    const minRating = searchParams.get("minRating")
+    const maxRating = searchParams.get("maxRating")
+
     let sendTo = `/api/service/getAllServices`
 
-    //for searching by query and location
-    if (query || location) {
+    //for searching by query, location, category
+    if (query || location || category || minRating || maxRating) {
       sendTo = `/api/service/getFilteredServices?`
       if (query)
         sendTo += `words=${query}&`
+      if (category)
+        sendTo += `category=${category}&`
+      if (minRating)
+        sendTo += `minRating=${minRating}&`
+      if (maxRating)
+        sendTo += `maxRating=${maxRating}&`
       if (location)
         sendTo += `location=${location}`
     }
-    
 
     try {
       const res = await fetch(sendTo, {
@@ -49,7 +58,7 @@ function ExplorePage() {
         headers: {
           "Content-Type": "application/json",
         },
-      })
+      });
 
       const result = await res.json()
 
@@ -68,6 +77,7 @@ function ExplorePage() {
     }
   }, [searchParams])
 
+    //LOCATION
   const handleCountyChange = (location) => {
     const params = new URLSearchParams(searchParams.toString())
     if (location) {
@@ -78,12 +88,50 @@ function ExplorePage() {
     router.push(`/explore?${params.toString()}`)
   }
 
+  //PRICE
   const handlePriceChange = ([minPrice, maxPrice]) => {
     const params = new URLSearchParams(searchParams.toString())
     params.set("minPrice", minPrice)
     params.set("maxPrice", maxPrice)
     router.push(`/explore?${params.toString()}`)
   };
+
+  //CATEGORY
+  const handleCategoryChange = (categories) => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (categories.length > 0) {
+      params.set("category", categories.join(","))
+    } else {
+      params.delete("category")
+    }
+    router.push(`/explore?${params.toString()}`)
+  }
+
+  const categoryMap = {
+    1: "Soccer",
+    2: "GAA",
+    3: "Hurling",
+    4: "Rugby",
+    5: "Basketball",
+    6: "Gym",
+    7: "Swimming",
+    8: "Running",
+  }
+
+  //RATING
+  const handleRatingChange = (minRating, maxRating) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("minRating", minRating)
+    params.set("maxRating", maxRating)
+    router.push(`/explore?${params.toString()}`)
+  }
+
+  //RESET
+  const handleResetButton = () => {
+    setIsResetting(true)
+    router.push(`/explore`)
+      setIsResetting(false)
+  }
 
   const getTiers = useCallback(async () => {
     try {
@@ -145,7 +193,13 @@ function ExplorePage() {
       <Navbar />
       <Filterbar
       onCountyChange={handleCountyChange}
-      onPriceChange={handlePriceChange}/>
+      onPriceChange={handlePriceChange}
+      onCategoryChange={handleCategoryChange}
+      onRatingChange={handleRatingChange}
+      onResetButton={handleResetButton}
+      isResetting={isResetting}
+      />
+
       <div className="explore container">
         {loading || load ? (
           <Loading />
@@ -174,6 +228,7 @@ function ExplorePage() {
                 className="cs4116-grid-item-explore"
               >
                 <h3>{service.service_name}</h3>
+                <p>Category: {categoryMap[service.category_id]}</p>
                 <p>{service.description}</p>
                 <div
                   style={{
