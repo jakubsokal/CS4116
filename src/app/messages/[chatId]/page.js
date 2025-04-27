@@ -130,8 +130,9 @@ export default function ChatPage() {
       const res = await fetch(`/api/inquiries/getByChat?chatId=${chatId}`);
       const data = await res.json();
 
-      if (res.ok && data) {
+      if (res.ok && data.inquiryData) {
         setInquiry(data.inquiryData);
+        setIsConversationAccepted(true);
       }
     } catch (err) {
       console.error("Error fetching inquiry:", err);
@@ -147,9 +148,9 @@ export default function ChatPage() {
       
       if (res.ok && data) {
         setMessageRequestStatus(data.status);
-        setIsConversationAccepted(data.status === 1); // 1 = accepted
-        setIsConversationRejected(data.status === 2); // 2 = rejected
-        setIsMessageRequestReceiver(data.isReceiver); // Check if current user is the receiver
+        setIsConversationAccepted(data.status === 1 || !data.request_id);
+        setIsConversationRejected(data.status === 2);
+        setIsMessageRequestReceiver(data.isReceiver); 
       }
     } catch (err) {
       console.error("Error fetching message request status:", err);
@@ -167,6 +168,21 @@ export default function ChatPage() {
     
     setMessagesLoaded(false);
     try {
+      const statusResponse = await fetch('/api/messages/updateConversationStatus', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: chatId
+        }),
+      });
+
+      if (!statusResponse.ok) {
+        const statusData = await statusResponse.json();
+        throw new Error(statusData.error || 'Failed to update conversation status');
+      }
+
       const response = await fetch('/api/messages/sendMessage', {
         method: 'POST',
         headers: {
@@ -186,8 +202,7 @@ export default function ChatPage() {
       setMessagesLoaded(false);
       await fetchMessages();
     } catch (err) {
-      console.error("Error sending completion message:", err);
-      setError("Failed to send completion message.");
+      setError("Failed to complete service: " + err.message);
     }
   };
 
@@ -195,7 +210,6 @@ export default function ChatPage() {
     if (!chatId || !session?.user?.user_id) return;
     
     try {
-      // First get the message request ID
       const statusRes = await fetch(`/api/messages/getMessageRequestStatus?chatId=${chatId}&userId=${session.user.user_id}`);
       const statusData = await statusRes.json();
       
@@ -204,7 +218,6 @@ export default function ChatPage() {
         return;
       }
 
-      // Then handle the request
       const response = await fetch('/api/messages/handleMessageRequest', {
         method: 'POST',
         headers: {
@@ -212,7 +225,7 @@ export default function ChatPage() {
         },
         body: JSON.stringify({
           request_id: statusData.request_id,
-          action: action // 'accept' or 'reject'
+          action: action  
         }),
       });
 
@@ -261,8 +274,8 @@ export default function ChatPage() {
       setError("Missing required information to send message.");
       return;
     }
-    
-    if (!isConversationAccepted) {
+
+    if (!isConversationAccepted && messageRequestStatus !== null) {
       setError("Cannot send messages until the conversation is accepted.");
       return;
     }
@@ -281,7 +294,6 @@ export default function ChatPage() {
       return;
     }
     
-    // Check if user is trying to message themselves
     if (receiverId === session.user.user_id) {
       setError("You cannot send messages to yourself.");
       return;
@@ -309,7 +321,7 @@ export default function ChatPage() {
       
       setNewMessage('');
       setMessagesLoaded(false);
-      await fetchMessages(); // Refresh chat after sending
+      await fetchMessages(); 
     } catch (err) {
       console.error("Error sending message:", err);
       setError(err.message || "Failed to send message. Please try again.");
@@ -492,7 +504,7 @@ export default function ChatPage() {
           <div className="rejected-conversation-notice">
             <p>This conversation has been rejected. You cannot send messages.</p>
           </div>
-        ) : isConversationAccepted ? (
+        ) : isConversationAccepted || inquiry ? (
           <form onSubmit={handleSendMessage} className="chat-input-container">
             <input
               type="text"
