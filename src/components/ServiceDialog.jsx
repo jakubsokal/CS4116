@@ -22,9 +22,10 @@ import useSessionCheck from "@/utils/hooks/useSessionCheck"
 import { useRouter } from "next/navigation"
 import InquiryPopup from "./InquiryPopup"
 import { supabase } from "@/utils/supabase/client"
+import "@/styles/Chat.css"
 
 const ServiceDialog = (service) => {
-	const [open, setOpen] = React.useState(false)
+	const [open, setOpen] = useState(false)
 	const theme = useTheme()
 	const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
 	const [loading, setLoading] = useState(false)
@@ -36,7 +37,17 @@ const ServiceDialog = (service) => {
 	const [userReviews, setUserReviews] = useState([])
 	const { session } = useSessionCheck()
 	const router = useRouter()
-	const [showPopup, setShowPopup] = useState(false);
+	const [showPopup, setShowPopup] = useState(false)
+	const [reportModalOpen, setReportModalOpen] = useState(false)
+	const [reportReason, setReportReason] = useState("")
+	const [review_id, setReviewId] = useState("")
+
+	const removeReasons = [
+		"Inappropriate Content",
+		"Spam",
+		"Harassment",
+		"Offensive Language"
+	];
 
 	const businessApi = async () => {
 		setLoading(true)
