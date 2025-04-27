@@ -209,6 +209,21 @@ body {
   background: #555;
 }
 
+.cs4116-chat-complete-button{
+  padding: 8px 16px;
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.cs4116-chat-complete-button:hover{
+  background-color: rgb(3, 98, 3);
+}
+
 @media (max-width: 768px) {
   .chat-container {
     margin: 80px 20px 20px;

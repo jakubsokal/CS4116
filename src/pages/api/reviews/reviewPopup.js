@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     // 
     const { data: inquiryData, error: inquiryError } = await supabase
       .from("inquiries")
-      .select("sender_id, service_id")
+      .select("sender_id, service_id, receiver_id")
       .eq("inquiry_id", inquiry_id)
       .single();
 
@@ -22,11 +22,38 @@ export default async function handler(req, res) {
 
     const user_id = inquiryData.sender_id;
     const service_id = inquiryData.service_id;
+    const receiver_id = inquiryData.receiver_id;
 
     // inserts into reviews
     const { error } = await supabase.from("reviews").insert([
       { user_id, service_id, description, rating },
     ]);
+
+    const { data: business } = await supabase
+      .from("business")
+      .select("avg_rating")
+      .eq("user_id", receiver_id)
+      .single();
+
+    const newRating = (business.avg_rating + rating) / 2;
+
+    const { error: updateError } = await supabase
+      .from("business")
+      .update({ avg_rating: newRating })
+      .eq("user_id", receiver_id);
+
+      const { data: service } = await supabase
+      .from("services")
+      .select("avg_rating")
+      .eq("service_id", service_id)
+      .single();
+
+      const newServiceRating = (service.avg_rating + rating) / 2;
+
+      const { error: updateServiceError } = await supabase
+      .from("services")
+      .update({ avg_rating: newServiceRating })
+      .eq("service_id", service_id);
 
     if (error) {
       console.error("Error inserting review:", error);

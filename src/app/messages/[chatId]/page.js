@@ -162,7 +162,7 @@ export default function ChatPage() {
       const data = await response.json();
       if (data.error) throw new Error(data.error);
       setMessagesLoaded(false);
-      await fetchMessages(); 5// Refresh chat after sending
+      await fetchMessages();
     } catch (err) {
       console.error("Error sending completion message:", err);
       setError("Failed to send completion message.");
@@ -344,7 +344,7 @@ export default function ChatPage() {
               </div>
             )}
             {isBusiness && (
-              <button className="btn btn-success" onClick={handleServiceComplete}>
+              <button className="cs4116-chat-complete-button" onClick={handleServiceComplete}>
                 Mark Service as Completed
               </button>
             )}
