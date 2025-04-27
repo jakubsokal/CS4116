@@ -11,11 +11,12 @@ export default async function handler(req, res) {
     // 
     const { data: inquiryData, error: inquiryError } = await supabase
       .from("inquiries")
-      .select("sender_id,service_id")
+      .select("sender_id, service_id")
       .eq("inquiry_id", inquiry_id)
       .single();
 
     if (inquiryError || !inquiryData) {
+      console.error("Error fetching inquiry data:", inquiryError);
       return res.status(404).json({ error: "Inquiry not found" });
     }
 
@@ -28,13 +29,14 @@ export default async function handler(req, res) {
     ]);
 
     if (error) {
+      console.error("Error inserting review:", error);
       return res.status(500).json({ error: error.message });
     }
 
     // Delete the inquiry after successful review submission
     const { error: deleteError } = await supabase
       .from("inquiries")
-      .delete()
+      .update({ isReviewed: 1 })
       .eq("inquiry_id", inquiry_id);
 
     if (deleteError) {

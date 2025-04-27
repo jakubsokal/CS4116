@@ -6,7 +6,6 @@ import Navbar from '@/components/Navbar';
 import Loading from '@/components/Loading';
 import '@/styles/Chat.css';
 import useSessionCheck from '@/utils/hooks/useSessionCheck';
-import ReviewForm from '@/components/ReviewPopup';
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
@@ -21,6 +20,7 @@ export default function ChatPage() {
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
   const [showErrorNotification, setShowErrorNotification] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [messagesLoaded, setMessagesLoaded] = useState(false);
 
   const [inquiry, setInquiry] = useState(null);
   const params = useParams();
@@ -50,10 +50,14 @@ export default function ChatPage() {
   }, [session, router, sessionLoading]);
 
   const fetchChatPartnerDetails = useCallback(async (chatPartnerId) => {
+    if (chatPartnerDetails[chatPartnerId]) {
+      return;
+    }
+
     try {
       const response = await fetch(`/api/user/getUserDetailsId?userId=${chatPartnerId}`);
       const chatPartnerData = await response.json();
-      
+
       if (chatPartnerData.data) {
         setChatPartnerDetails(prev => ({
           ...prev,
@@ -63,14 +67,16 @@ export default function ChatPage() {
     } catch (error) {
       console.error('Error fetching chat partner details:', error);
     }
-  }, []);
+  }, [chatPartnerDetails]);
 
   const fetchMessages = useCallback(async () => {
+    if(messagesLoaded) return;
+    
     if (!chatId) {
       setError('Invalid chat ID');
       return;
     }
-
+    
     if (!session?.user?.user_id) {
       setError('Please log in to view messages');
       return;
@@ -85,67 +91,59 @@ export default function ChatPage() {
         }
       });
       const data = await response.json();
-      
+
       if (data.error) {
         throw new Error(data.error);
       }
 
       if (data.data) {
         setMessages(data.data);
-        const unreadMessages = data.data.filter(msg => 
-          msg.receiver_id === session.user.user_id && 
-          msg.chat_id === parseInt(chatId) && 
+        const unreadMessages = data.data.filter(msg =>
+          msg.receiver_id === session.user.user_id &&
+          msg.chat_id === parseInt(chatId) &&
           msg.read === 0
         ).length;
         setUnreadCount(unreadMessages);
-        
-        const chatPartnerId = data.data[0]?.sender_id === session.user.user_id 
-          ? data.data[0]?.receiver_id 
+
+        const chatPartnerId = data.data[0]?.sender_id === session.user.user_id
+          ? data.data[0]?.receiver_id
           : data.data[0]?.sender_id;
-        
+
         if (chatPartnerId) {
           fetchChatPartnerDetails(chatPartnerId);
         }
+        setMessagesLoaded(true);
       }
     } catch (error) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
-  }, [chatId, session, fetchChatPartnerDetails]);
-  const fetchUserDetails = async (userId) => {
-    try {
-      const res = await fetch(`/api/user/getUserDetailsId?userId=${userId}`);
-      const data = await res.json();
-      if (data.data) {
-        setUserDetails(prev => ({ ...prev, [userId]: data.data }));
-      }
-    } catch (err) {
-      console.error('User detail fetch error:', err);
-    }
-  };
+  }, [chatId, session, fetchChatPartnerDetails, messagesLoaded]);
 
-  const fetchInquiry = async () => {
+  const fetchInquiry = useCallback(async () => {
     try {
       const res = await fetch(`/api/inquiries/getByChat?chatId=${chatId}`);
       const data = await res.json();
-      if (res.ok && data && data.inquiry_id) {
-        setInquiry(data.inquiry_id); // ✅ Store the inquiry_id directly
+
+      if (res.ok && data) {
+        setInquiry(data.inquiryData);
       }
     } catch (err) {
       console.error("Error fetching inquiry:", err);
     }
-  };
+  }, [chatId]);
 
   const handleServiceComplete = async () => {
-    if (!chatId || !session?.user?.user_id) return;
+    if (!chatId || !session?.user?.user_id ) return;
 
     const receiverId = messages[0]?.sender_id === session.user.user_id
       ? messages[0]?.receiver_id
       : messages[0]?.sender_id;
 
     const messageText = `Thank you so much for completing the service! Please leave a review.`;
-    //setServiceCompleted(true);
+    
+    setMessagesLoaded(false);
     try {
       const response = await fetch('/api/messages/sendMessage', {
         method: 'POST',
@@ -157,7 +155,7 @@ export default function ChatPage() {
           sender_id: session.user.user_id,
           receiver_id: receiverId,
           chat_id: chatId,
-          is_review: 1,
+          isReview: 1,
         }),
       });
 
@@ -177,7 +175,7 @@ export default function ChatPage() {
       fetchMessages();
       fetchInquiry();
     }
-  }, [chatId, session, sessionLoading, fetchMessages]);
+  }, [chatId, session, sessionLoading, fetchMessages, fetchInquiry]);
 
   useEffect(() => {
     const pollInterval = setInterval(() => {
@@ -231,6 +229,7 @@ export default function ChatPage() {
       }
 
       setNewMessage('');
+      setMessagesLoaded(false);
       fetchMessages();
     } catch (error) {
       setError(error.message);
@@ -270,7 +269,7 @@ export default function ChatPage() {
       });
 
       const data = await response.json();
-      
+
       if (data.error) {
         if (data.error.includes('table may not exist')) {
           setErrorMessage('The reporting system is not yet set up. Please try again later.');
@@ -286,7 +285,7 @@ export default function ChatPage() {
       setReportReason('');
       setSelectedMessage(null);
       setShowSuccessNotification(true);
-      
+
       setTimeout(() => {
         setShowSuccessNotification(false);
       }, 3000);
@@ -358,41 +357,41 @@ export default function ChatPage() {
           ) : (
             messages.map((message) => {
               //in here insert isReview ===1 then tge message that get sent needs to be clickable may or may not need to query db
-              const isReviewMessage = message.is_review === 1
+              const isReviewMessage = message.isReview === 1 && inquiry?.isReviewed === 0
               return (
                 <div
                   key={message.message_id}
-                  className={`message ${message.sender_id === session?.user?.user_id ? 'sent' : 'received'} ${isReviewMessage ? 'review-form-message' : ''}`}
-                
-                  onClick={() => {
-          if (isReviewMessage) {
-            router.push(`/review/${inquiry}`); // 👈 Update with your real route
-          }
-        }}
-        style={{ cursor: isReviewMessage ? 'pointer' : 'default' }} // 👈 show pointer only if clickable
-      >
+                  className={`message ${message.sender_id === session?.user?.user_id ? 'sent' : 'received'}`}
+                >
                   <div className="message-content">
-                
-                        <p className="message-text">{message.message_text}</p>
-                        <span className="message-time">
-                          {new Date(message.sent_at).toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                          })}
-                        </span>
-                  {message.sender_id !== session?.user?.user_id && (
-                    <button 
-                      className="report-button"
-                      onClick={() => openReportModal(message)}
-                    >
-                      Report
+                    <p className="message-text">{message.message_text}</p>
+                    <span className="message-time">
+                      {new Date(message.sent_at).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                    {message.sender_id !== session?.user?.user_id && (
+                      <button
+                        className="report-button"
+                        onClick={() => openReportModal(message)}
+                      >
+                        Report
+                      </button>
+                    )}
+                     { isReviewMessage && message.sender_id !== session?.user?.user_id && (
+                  
+                  <div className="review-message">
+                    <button className="review-button" onClick={() => router.push(`/review/${inquiry.inquiry_id}`)}>
+                      Leave a Review
                     </button>
-                  )}
+                  </div>
+                )}
                   </div>
                   <div className="message-sender">
-                    {message.sender_id === session?.user?.user_id 
-                    ? "Me" 
-                    : chatPartnerDetails[message.sender_id]?.name || 'User'}
+                    {message.sender_id === session?.user?.user_id
+                      ? "Me"
+                      : chatPartnerDetails[message.sender_id]?.name || 'User'}
                   </div>
                 </div>
               );

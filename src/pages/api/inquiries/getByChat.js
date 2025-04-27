@@ -17,6 +17,12 @@ export default async function handler(req, res) {
     .eq('convo_id', chatId)
     .single(); 
 
+    const { data: inquiryData, error: inquiryError } = await supabase
+    .from("inquiries")
+    .select("inquiry_id, isReviewed")
+    .eq("inquiry_id", data.inquiry_id)
+    .single();
+
   if (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -25,5 +31,5 @@ export default async function handler(req, res) {
     return res.status(404).json({ error: 'Inquiry not found' });
   }
 
-  return res.status(200).json({ inquiry_id: data.inquiry_id });
+  return res.status(200).json({ inquiryData });
 }

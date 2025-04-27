@@ -380,3 +380,24 @@ body {
   border-radius: 10px;
   margin: 1rem 0;
 }
+
+.review-message{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.review-button{
+  padding: 8px;
+    background: #ff5125;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    transition: background-color 0.3s;
+}
+
+.review-button:hover{
+  padding: 8px;
+    background: #c32b05;
+cursor: pointer;
+}

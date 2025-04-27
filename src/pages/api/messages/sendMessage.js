@@ -3,7 +3,7 @@ import { supabase } from "@/utils/supabase/client"
 export default async function handler(req, res) {
     if (req.method === "POST") {
         try {
-            const { message_text, sender_id, receiver_id, chat_id,is_review } = req.body;
+            const { message_text, sender_id, receiver_id, chat_id,isReview } = req.body;
 
             if (!message_text || !sender_id || !receiver_id) {
                 return res.status(400).json({ error: "Missing required fields" });
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
                     chat_id,
                     sent_at: new Date().toISOString(),
                     read: 0,
-                    is_review:is_review
+                    isReview: isReview
                 })
                 .select()
                 .single();

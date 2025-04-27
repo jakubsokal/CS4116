@@ -7,7 +7,7 @@ import "@/styles/InquiryTable.css";
 import ReviewPopup from "./ReviewPopup";
 import useSessionCheck from "@/utils/hooks/useSessionCheck";
 
-const AdminTable = () => {
+const InquiryTable = () => {
   const [inquiries, setInquiries] = useState([]);
   const [showReviewPopup, setShowReviewPopup] = useState(false);
   const [selectedInquiry, setSelectedInquiry] = useState(null);
@@ -16,12 +16,16 @@ const AdminTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/inquiries/inquiries");
+        const response = await fetch(`/api/inquiries/inquiries?receiverId=${session?.user?.user_id}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        
         const data = await response.json();
 
-        if (session?.user?.user_id) {
-          const filtered = data.filter(inq => inq.receiver_id === session.user.user_id);
-          setInquiries(filtered);
+        if (response.ok) {
+          setInquiries(data);
+          
         }
       } catch (error) {
         console.error("Error fetching inquiries:", error);
@@ -41,21 +45,27 @@ const AdminTable = () => {
         body: JSON.stringify({
           sender_id: inquiry.receiver_id,
           receiver_id: inquiry.sender_id,
-          inquiry_id:inquiry.inquiry_id,
+          inquiry_id: inquiry.inquiry_id,
         }),
       });
 
       const data = await response.json();
       if (data.error) throw new Error(data.error);
 
-      await fetch("/api/inquiries/inquiries", {
+      const res = await fetch("/api/inquiries/inquiries", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           inquiry_id: inquiry.inquiry_id,
-          status: "accepted",
         }),
       });
+
+      if (!res.ok) throw new Error("Failed to update inquiry status");
+      
+      const result = await res.json();
+      alert(result.message);
+
+      setInquiries(prev => prev.filter(inq => inq.inquiry_id !== inquiry.inquiry_id));
     } catch (error) {
       console.error("Error handling accept:", error);
       alert(error.message);
@@ -70,7 +80,10 @@ const AdminTable = () => {
         body: JSON.stringify({ inquiry_id: inquiryId }),
       });
 
-      if (!response.ok) throw new Error("Failed to delete inquiry");
+      if (!response.ok) throw new Error("Failed to decline inquiry");
+
+      const result = await response.json();
+      alert(result.message);
 
       setInquiries(prev => prev.filter(inq => inq.inquiry_id !== inquiryId));
     } catch (error) {
@@ -125,4 +138,4 @@ const AdminTable = () => {
   );
 };
 
-export default AdminTable;
+export default InquiryTable;
