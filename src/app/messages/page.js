@@ -3,7 +3,7 @@
 //remembver tomnorrow look at the getting convos as there could be a better way to do it 
 
 /*if (message.inquiry_id) {
-            getSeriveName(message.inquiry_id, message.convo_id)
+            getServiceName(message.inquiry_id, message.convo_id)
           }*/
 
 import Navbar from '@/components/Navbar'
@@ -41,10 +41,10 @@ export default function Messages() {
     }
   }, [])
 
-  const getSeriveName = useCallback(async (InquiryId, messageId) => {
+  const getServiceName = useCallback(async (InquiryId, messageId) => {
     if (!InquiryId) return
     try {
-      const res = await fetch(`/api/messages/getSerivceNameByConvoId?InquiryId=${InquiryId}`, {
+      const res = await fetch(`/api/messages/getServiceNameByConvoId?InquiryId=${InquiryId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export default function Messages() {
         setMessages(messageResult.data)
         await Promise.all(messageResult.data.map(async (message) => {
           if (message.inquiry_id) {
-            await getSeriveName(message.inquiry_id, message.convo_id)
+            await getServiceName(message.inquiry_id, message.convo_id)
           }
           if (!userDetails[message.participantId]) {
             await getUserDetails(message.participantId)
@@ -97,7 +97,7 @@ export default function Messages() {
     } finally {
       setLoading(false)
     }
-  }, [getUserDetails, currentSession?.user?.user_id, userDetails, getSeriveName])
+  }, [getUserDetails, currentSession?.user?.user_id, userDetails, getServiceName])
 
   useEffect(() => {
     const fetchMessages = async () => {

@@ -29,6 +29,10 @@ const InquiryPopup = ({ serviceId,receiver_id, onClose }) => {
         
       });
 
+      if (!response.ok) {
+        throw new Error("Failed to send inquiry.");
+      }
+
       const text = await response.text(); 
   
       const result = JSON.parse(text); 
