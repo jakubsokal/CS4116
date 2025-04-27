@@ -28,6 +28,7 @@ export default async function handler(req, res) {
                         .select("message_text, read")
                         .eq("chat_id", conversation.convo_id)
                         .eq("receiver_id", userId)
+                        .eq("read", 0)
                         .order("sent_at", { ascending: false });
 
                     if (messageError) {

@@ -82,6 +82,10 @@ export default function Messages() {
       if (messageResult.data) {
         setMessages(messageResult.data)
         messageResult.data.forEach((message) => {
+          console.log(!message?.serviceName )
+          if (message.inquiry_id && !message?.serviceName) {
+            getSeriveName(message.inquiry_id, message.convo_id)
+          }
           if (!userDetails[message.participantId]) {
             getUserDetails(message.participantId)
           }
@@ -92,7 +96,7 @@ export default function Messages() {
     } finally {
       setLoading(false)
     }
-  }, [getUserDetails, currentSession?.user?.user_id, userDetails])
+  }, [getUserDetails, currentSession?.user?.user_id, userDetails, getSeriveName])
 
   useEffect(() => {
     if (loading) {

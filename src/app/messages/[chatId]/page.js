@@ -161,8 +161,8 @@ export default function ChatPage() {
 
       const data = await response.json();
       if (data.error) throw new Error(data.error);
-
-      await fetchMessages(); // Refresh chat after sending
+      setMessagesLoaded(false);
+      await fetchMessages(); 5// Refresh chat after sending
     } catch (err) {
       console.error("Error sending completion message:", err);
       setError("Failed to send completion message.");

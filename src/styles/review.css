@@ -1,0 +1,66 @@
+
+  
+  .cs4116-review-container {
+    display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+
+  }
+
+  .cs4116-review-items{
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+    align-items: center;
+    text-align: center;
+	background: #ffffff;
+	width: 50%;
+	height: 60%;
+	padding: 30px;
+	border: 1px solid #dcdcdc;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	border-radius: 12px;}
+  
+  .cs4116-review-heading {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 1rem;
+    color: black;
+  }
+
+  .cs4116-review-button{
+    padding: 10px;
+    font-size: 16px;
+    background: #ff5125;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+
+  .cs4116-review-button:hover{
+    padding: 10px;
+    font-size: 16px;
+    background: #c8300a;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .cs4116-review-text{
+    background: white;
+    color: black;
+    border-radius: 4px;
+    width: 408px;
+    height: 189px;
+    padding-left: 15px;
+    padding-top: 15px;
+    font-size: 15px;
+  }
+
+  .cs4116-review-rating{
+    font-size: 40px !important;
+  
+  }
