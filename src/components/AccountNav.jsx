@@ -43,15 +43,18 @@ const AccountNav = () => {
 	const authentication = useMemo(() => {
 		return {
 			signOut: async () => {
-				setSession(null)
-				const res = await signOut()
-				if (res) {
-					console.log("Signed out")
-					router.push("/login")
+				try {
+					const success = await signOut()
+					if (success) {
+						setSession(null)
+						// The signOut function will handle the redirect
+					}
+				} catch (error) {
+					console.error("Error during sign out:", error)
 				}
 			},
 		}
-	}, [currentSession])
+	}, [])
 
 	useEffect(() => {
 		if (session != null) {

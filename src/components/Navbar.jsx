@@ -81,6 +81,9 @@ const Navbar = () => {
             {session?.user?.permission === 2 &&
               <li><Link href="/admin" onClick={() => setMenuOpen(false)}>DASHBOARD</Link></li>
             }
+            {loggedIn && session?.user?.permission === 0 &&
+              <li><Link href="/profile" onClick={() => setMenuOpen(false)}>PROFILE</Link></li>
+            }
             {loggedIn &&
               <li className="cs4116-account"><AccountNav /></li>
             }

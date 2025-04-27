@@ -3,10 +3,24 @@ import { supabase } from "@/utils/supabase/client"
 export default async function handler(req, res) {
     if (req.method === "POST") {
         try {
-            const { message_text, sender_id, receiver_id, chat_id,isReview } = req.body;
+            const { message_text, sender_id, receiver_id, chat_id, isReview } = req.body;
 
             if (!message_text || !sender_id || !receiver_id) {
                 return res.status(400).json({ error: "Missing required fields" });
+            }
+
+            // Check if the conversation has been accepted
+            const { data: messageRequest, error: requestError } = await supabase
+                .from("message_request")
+                .select("*")
+                .or(`and(sender_id.eq.${sender_id},receiver_id.eq.${receiver_id}),and(sender_id.eq.${receiver_id},receiver_id.eq.${sender_id})`)
+                .single();
+
+            // If there's a message request and it's not accepted, prevent sending
+            if (messageRequest && messageRequest.status !== 1) {
+                return res.status(403).json({ 
+                    error: "Cannot send messages until the conversation is accepted" 
+                });
             }
 
             const { data: maxIdResult, error: maxIdError } = await supabase

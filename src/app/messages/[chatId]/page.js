@@ -23,6 +23,10 @@ export default function ChatPage() {
   const [messagesLoaded, setMessagesLoaded] = useState(false);
 
   const [inquiry, setInquiry] = useState(null);
+  const [messageRequestStatus, setMessageRequestStatus] = useState(null);
+  const [isConversationAccepted, setIsConversationAccepted] = useState(false);
+  const [isConversationRejected, setIsConversationRejected] = useState(false);
+  const [isMessageRequestReceiver, setIsMessageRequestReceiver] = useState(false);
   const params = useParams();
   const router = useRouter();
   const { session, loading: sessionLoading } = useSessionCheck();
@@ -134,6 +138,24 @@ export default function ChatPage() {
     }
   }, [chatId]);
 
+  const fetchMessageRequestStatus = useCallback(async () => {
+    if (!chatId || !session?.user?.user_id) return;
+    
+    try {
+      const res = await fetch(`/api/messages/getMessageRequestStatus?chatId=${chatId}&userId=${session.user.user_id}`);
+      const data = await res.json();
+      
+      if (res.ok && data) {
+        setMessageRequestStatus(data.status);
+        setIsConversationAccepted(data.status === 1); // 1 = accepted
+        setIsConversationRejected(data.status === 2); // 2 = rejected
+        setIsMessageRequestReceiver(data.isReceiver); // Check if current user is the receiver
+      }
+    } catch (err) {
+      console.error("Error fetching message request status:", err);
+    }
+  }, [chatId, session?.user?.user_id]);
+
   const handleServiceComplete = async () => {
     if (!chatId || !session?.user?.user_id ) return;
 
@@ -169,13 +191,58 @@ export default function ChatPage() {
     }
   };
 
+  const handleMessageRequest = async (action) => {
+    if (!chatId || !session?.user?.user_id) return;
+    
+    try {
+      // First get the message request ID
+      const statusRes = await fetch(`/api/messages/getMessageRequestStatus?chatId=${chatId}&userId=${session.user.user_id}`);
+      const statusData = await statusRes.json();
+      
+      if (!statusData.request_id) {
+        setError("Message request not found");
+        return;
+      }
+
+      // Then handle the request
+      const response = await fetch('/api/messages/handleMessageRequest', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          request_id: statusData.request_id,
+          action: action // 'accept' or 'reject'
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (data.error) {
+        setError(data.error);
+      } else {
+        if (action === 'accept') {
+          setIsConversationAccepted(true);
+          setIsConversationRejected(false);
+        } else {
+          setIsConversationAccepted(false);
+          setIsConversationRejected(true);
+        }
+        setMessageRequestStatus(action === 'accept' ? 1 : 2);
+      }
+    } catch (error) {
+      console.error('Error handling message request:', error);
+      setError('Failed to handle message request');
+    }
+  };
 
   useEffect(() => {
     if (!sessionLoading && session?.user?.user_id) {
       fetchMessages();
       fetchInquiry();
+      fetchMessageRequestStatus();
     }
-  }, [chatId, session, sessionLoading, fetchMessages, fetchInquiry]);
+  }, [chatId, session, sessionLoading, fetchMessages, fetchInquiry, fetchMessageRequestStatus]);
 
   useEffect(() => {
     const pollInterval = setInterval(() => {
@@ -189,50 +256,63 @@ export default function ChatPage() {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    if (!newMessage.trim() || !session?.user?.user_id) return;
+    
+    if (!newMessage.trim() || !chatId || !session?.user?.user_id) {
+      setError("Missing required information to send message.");
+      return;
+    }
+    
+    if (!isConversationAccepted) {
+      setError("Cannot send messages until the conversation is accepted.");
+      return;
+    }
 
+    if (!messages || messages.length === 0) {
+      setError("Unable to determine message recipient. Please try refreshing the page.");
+      return;
+    }
+    
+    const receiverId = messages[0]?.sender_id === session.user.user_id
+      ? messages[0]?.receiver_id
+      : messages[0]?.sender_id;
+
+    if (!receiverId) {
+      setError("Unable to determine message recipient. Please try refreshing the page.");
+      return;
+    }
+    
+    // Check if user is trying to message themselves
+    if (receiverId === session.user.user_id) {
+      setError("You cannot send messages to yourself.");
+      return;
+    }
+    
+    setMessagesLoaded(false);
     try {
-      const convoResponse = await fetch(`/api/messages/getChatMessages?chatId=${chatId}`, {
-        method: 'GET',
-        headers: {
-          'x-user-id': session.user.user_id,
-          'Content-Type': 'application/json'
-        }
-      });
-      const convoData = await convoResponse.json();
-      
-      if (convoData.error) {
-        throw new Error(convoData.error);
-      }
-
-      const receiver_id = convoData.conversation.participant1_id === session.user.user_id 
-        ? convoData.conversation.participant2_id 
-        : convoData.conversation.participant1_id;
-
       const response = await fetch('/api/messages/sendMessage', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message_text: newMessage.trim(),
+          message_text: newMessage,
           sender_id: session.user.user_id,
-          receiver_id: receiver_id,
-          chat_id: chatId
+          receiver_id: receiverId,
+          chat_id: chatId,
         }),
       });
 
       const data = await response.json();
-      
       if (data.error) {
         throw new Error(data.error);
       }
-
+      
       setNewMessage('');
       setMessagesLoaded(false);
-      fetchMessages();
-    } catch (error) {
-      setError(error.message);
+      await fetchMessages(); // Refresh chat after sending
+    } catch (err) {
+      console.error("Error sending message:", err);
+      setError(err.message || "Failed to send message. Please try again.");
     }
   };
 
@@ -338,9 +418,20 @@ export default function ChatPage() {
             <button onClick={() => router.push('/messages')} className="back-button">
               Back to Messages
             </button>
-            {unreadCount > 0 && (
-              <div className="unread-messages-indicator">
-                {unreadCount}
+            {!isConversationAccepted && !isConversationRejected && messageRequestStatus === 0 && isMessageRequestReceiver && (
+              <div className="message-request-actions">
+                <button 
+                  className="accept-button"
+                  onClick={() => handleMessageRequest('accept')}
+                >
+                  Accept
+                </button>
+                <button 
+                  className="reject-button"
+                  onClick={() => handleMessageRequest('reject')}
+                >
+                  Reject
+                </button>
               </div>
             )}
             {isBusiness && (
@@ -356,8 +447,7 @@ export default function ChatPage() {
             <div className="no-messages">No messages in this conversation</div>
           ) : (
             messages.map((message) => {
-              //in here insert isReview ===1 then tge message that get sent needs to be clickable may or may not need to query db
-              const isReviewMessage = message.isReview === 1 && inquiry?.isReviewed === 0
+              const isReviewMessage = message.isReview === 1 && inquiry?.isReviewed === 0;
               return (
                 <div
                   key={message.message_id}
@@ -379,14 +469,13 @@ export default function ChatPage() {
                         Report
                       </button>
                     )}
-                     { isReviewMessage && message.sender_id !== session?.user?.user_id && (
-                  
-                  <div className="review-message">
-                    <button className="review-button" onClick={() => router.push(`/review/${inquiry.inquiry_id}`)}>
-                      Leave a Review
-                    </button>
-                  </div>
-                )}
+                    {isReviewMessage && message.sender_id !== session?.user?.user_id && (
+                      <div className="review-message">
+                        <button className="review-button" onClick={() => router.push(`/review/${inquiry.inquiry_id}`)}>
+                          Leave a Review
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <div className="message-sender">
                     {message.sender_id === session?.user?.user_id
@@ -399,18 +488,28 @@ export default function ChatPage() {
           )}
         </div>
 
-        <form onSubmit={handleSendMessage} className="chat-input-container">
-          <input
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Type a message..."
-            className="chat-input"
-          />
-          <button type="submit" className="send-button">
-            Send
-          </button>
-        </form>
+        {isConversationRejected ? (
+          <div className="rejected-conversation-notice">
+            <p>This conversation has been rejected. You cannot send messages.</p>
+          </div>
+        ) : isConversationAccepted ? (
+          <form onSubmit={handleSendMessage} className="chat-input-container">
+            <input
+              type="text"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              placeholder="Type a message..."
+              className="chat-input"
+            />
+            <button type="submit" className="send-button">
+              Send
+            </button>
+          </form>
+        ) : (
+          <div className="pending-conversation-notice">
+            <p>This conversation is pending acceptance. Messages cannot be sent until the other user accepts the conversation request.</p>
+          </div>
+        )}
 
         {reportModalOpen && (
           <div className="modal-overlay">

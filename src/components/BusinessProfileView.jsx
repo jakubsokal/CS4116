@@ -30,8 +30,6 @@ const BusinessProfileView = () => {
 
             if (res.ok && result.data) {
                 setBusiness(result.data);
-            } else {
-                console.error("Error fetching business details:", result.error);
             }
         };
         fetchBusiness();
@@ -50,37 +48,72 @@ return (
 
         <div className="business-form-row">
             <strong>Business Name: </strong>
-            <p>{business.business_name}</p>
+            <input 
+                type="text" 
+                value={business.business_name || ''} 
+                className="business-input" 
+                disabled 
+            />
         </div>
 
         <div className="business-form-row">
             <strong>Description: </strong>
-            <p>{business.description}</p>
+            <textarea 
+                value={business.description || ''} 
+                className="business-input" 
+                disabled 
+                rows="3"
+            />
         </div>
 
         <div className="business-form-row">
             <strong>Location: </strong>
-            <p>{business.location}</p>
+            <input 
+                type="text" 
+                value={business.location || ''} 
+                className="business-input" 
+                disabled 
+            />
         </div>
 
         <div className="business-form-row">
             <strong>Phone Number: </strong>
-            <p>{business.phone_number}</p>
+            <input 
+                type="text" 
+                value={business.phone_number || ''} 
+                className="business-input" 
+                disabled 
+            />
         </div>
 
         <div className="business-form-row">
             <strong>Average Rating: </strong>
-            <p>{business.avg_rating}</p>
+            <input 
+                type="text" 
+                value={business.avg_rating || ''} 
+                className="business-input" 
+                disabled 
+            />
         </div>
 
         <div className="business-form-row">
             <strong>Opening Hour: </strong>
-            <p>{business.open_hour}</p>
+            <input 
+                type="text" 
+                value={business.open_hour || ''} 
+                className="business-input" 
+                disabled 
+            />
         </div>
 
         <div className="business-form-row">
             <strong>Closing Hour: </strong>
-            <p>{business.close_hour}</p>
+            <input 
+                type="text" 
+                value={business.close_hour || ''} 
+                className="business-input" 
+                disabled 
+            />
         </div>
 
         <button className="update-profile-button"

@@ -193,14 +193,36 @@ const ServiceDialog = (service) => {
 		setListofTiers([])
 	}
 
-	const handleContact = () => {
-		if (session) {
-			//logic to contact the user
-		} else {
-			alert("Please login to contact the user")
-			router.push("/login")
+	const handleContact = async (userReview) => {
+		if (!session) {
+			router.push('/login');
+			return;
 		}
-	}
+
+		try {
+			const response = await fetch('/api/messages/sendMessageRequest', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					sender_id: session.user.user_id,
+					receiver_id: userReview.review.user_id
+				}),
+			});
+
+			const data = await response.json();
+			
+			if (data.error) {
+				alert(data.error);
+		} else {
+				alert('Message request sent successfully!');
+			}
+		} catch (error) {
+			console.error('Error sending message request:', error);
+			alert('Failed to send message request. Please try again.');
+		}
+	};
 
 	const handleInquire = () => {
 		if (session) {
@@ -406,7 +428,7 @@ const ServiceDialog = (service) => {
 														<Button
 															className="cs4116-inq-btn"
 															autoFocus
-															onClick={handleContact}
+															onClick={() => handleContact(userReview)}
 														>
 															Contact
 														</Button>
