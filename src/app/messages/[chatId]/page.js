@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Loading from '@/components/Loading';
 import '@/styles/Chat.css';
 import useSessionCheck from '@/utils/hooks/useSessionCheck';
+import Link from 'next/link';
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);

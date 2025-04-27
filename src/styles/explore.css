@@ -69,6 +69,13 @@
 	
 }
 
+@media screen and (max-width: 1100px) {
+	.cs4116-grid-explore {
+        grid-template-columns: repeat(1, 350px);
+	}
+	
+}
+
 @media (max-width: 1000px) {
 	.cs4116-grid-explore {
 		margin-top: 75%;
@@ -96,6 +103,29 @@
 	}
 	.explore.container {
 		margin-left: 15%;
+	}
+	
+}
+
+@media screen and (max-width: 600px) {
+	.explore.container {
+		margin-left: 5%;
+	}
+	
+}
+
+@media screen and (max-width: 480px) {
+	.cs4116-grid-explore {
+		grid-template-columns: repeat(1, 200px);
+	}
+
+	.cs4116-dialog-main {
+        width: 50%;
+    }
+
+	.explore.container {
+		margin-left: 0;
+		padding-left: 65%;
 	}
 	
 }

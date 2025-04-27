@@ -8,6 +8,7 @@ import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import OutlinedInput from "@mui/material/OutlinedInput"
 import Loading from "@/components/Loading"
+import "@/styles/filterbar.css"
 
 const LocationSelection = ({ onCountyChange, isCustomStyle = false, value = "" }) => {
 	const [countyData, setCountyData] = useState([])

@@ -103,7 +103,7 @@ const FilterBar = () => {
 					</h2>
 					<div
 						id="flush-collapseThree"
-						className="accordion-collapse collapse"
+						className="accordion-collapse collapse cs4116-rating"
 						data-bs-parent="#accordionFlushExample"
 					>
 						<div className="accordion-body">

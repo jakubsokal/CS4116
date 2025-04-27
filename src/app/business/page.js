@@ -54,7 +54,7 @@ export default function BusinessPage() {
         <div className="action">
           <h2>View Inquiries</h2>
           <p>View inquiries of potential new clients who are interested in your services.</p>
-          <Link href="/business/inquiries" className="business-buttons">View Inquiries</Link>
+          <Link href="/inquiry" className="business-buttons">View Inquiries</Link>
         </div>
       </section>
     </div>
