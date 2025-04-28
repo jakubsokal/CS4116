@@ -84,15 +84,18 @@ const RegisterForm = () => {
             setEdited(false)
             return false;
         }
-        if (isBusiness && (!formData.businessName || !formData.location)) {
-            setMessage({ type: 'error', text: 'Please fill in all business details' });
-            setEdited(false)
-            return false;
-        }
-        if (!isBusiness && (!formData.firstName || !formData.lastName)) {
-            setMessage({ type: 'error', text: 'Please fill in all personal details' });
-            setEdited(false)
-            return false;
+        if (isBusiness) {
+            if (!formData.businessName || !formData.location || !formData.email || !formData.password || !formData.confirmPassword) {
+                setMessage({ type: 'error', text: 'Please fill in all business details' });
+                setEdited(false)
+                return false;
+            }
+        } else {
+            if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.confirmPassword) {
+                setMessage({ type: 'error', text: 'Please fill in all personal details' });
+                setEdited(false)
+                return false;
+            }
         }
         return true;
     };
@@ -203,202 +206,206 @@ const RegisterForm = () => {
             </div>
 
             <form onSubmit={handleSubmit}>
-                <div className={`form-fields ${isBusiness ? "business" : "customer"} ${isBusiness ? "active" : ""}`}>
-                    <div className="customer-fields">
-                        <div className="input-box">
-                            <input
-                                type="text"
-                                name="firstName"
-                                placeholder="First Name"
-                                value={formData.firstName}
-                                required={!isBusiness}
-                                onChange={handleChange}
-                            />
-                            <FaUser className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <input
-                                type="text"
-                                name="lastName"
-                                placeholder="Last Name"
-                                value={formData.lastName}
-                                required={!isBusiness}
-                                onChange={handleChange}
-                            />
-                            <FaUser className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <label className="cs4116-custom-upload">
+                <div className={`form-fields ${isBusiness ? "business" : "customer"}`}>
+                    {!isBusiness && (
+                        <div className="customer-fields">
+                            <div className="input-box">
                                 <input
-                                    type="file"
-                                    onChange={handleFileChange}
-                                    accept="image/*"
+                                    type="text"
+                                    name="firstName"
+                                    placeholder="First Name"
+                                    value={formData.firstName}
+                                    required
+                                    onChange={handleChange}
                                 />
-                                {fileName === 'No file selected' ? (
-                                    <span>Upload Logo</span>
-                                ) : (
-                                    <span className="file-name">{fileName}</span>
-                                )}
-                            </label>
-                            <FaFileUpload className="icon" />
+                                <FaUser className="icon" />
+                            </div>
+                            <div className="input-box">
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    placeholder="Last Name"
+                                    value={formData.lastName}
+                                    required
+                                    onChange={handleChange}
+                                />
+                                <FaUser className="icon" />
+                            </div>
+                            <div className="input-box">
+                                <label className="cs4116-custom-upload">
+                                    <input
+                                        type="file"
+                                        onChange={handleFileChange}
+                                        accept="image/*"
+                                    />
+                                    {fileName === 'No file selected' ? (
+                                        <span>Upload Logo</span>
+                                    ) : (
+                                        <span className="file-name">{fileName}</span>
+                                    )}
+                                </label>
+                                <FaFileUpload className="icon" />
+                            </div>
+                            <div className="input-box">
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    value={formData.email}
+                                    required
+                                    onChange={handleChange}
+                                />
+                                <FaEnvelope className="icon" />
+                            </div>
+                            <div className="input-box">
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    value={formData.password}
+                                    required
+                                    onChange={handleChange}
+                                />
+                                <FaLock className="icon" />
+                            </div>
+                            <div className="input-box">
+                                <input
+                                    type="password"
+                                    name="confirmPassword"
+                                    placeholder="Confirm Password"
+                                    value={formData.confirmPassword}
+                                    required
+                                    onChange={handleChange}
+                                />
+                                <FaLock className="icon" />
+                            </div>
                         </div>
-                        <div className="input-box">
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email"
-                                value={formData.email}
-                                required
-                                onChange={handleChange}
-                            />
-                            <FaEnvelope className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                value={formData.password}
-                                required
-                                onChange={handleChange}
-                            />
-                            <FaLock className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <input
-                                type="password"
-                                name="confirmPassword"
-                                placeholder="Confirm Password"
-                                value={formData.confirmPassword}
-                                required
-                                onChange={handleChange}
-                            />
-                            <FaLock className="icon" />
-                        </div>
-                    </div>
+                    )}
 
-                    <div className="business-fields">
-                        <div className="input-box">
-                            <input
-                                type="text"
-                                name="businessName"
-                                placeholder="Business Name"
-                                value={formData.businessName}
-                                required={isBusiness}
-                                onChange={handleChange}
-                            />
-                            <FaBuilding className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <select
-                                name="location"
-                                value={formData.location}
-                                onChange={handleChange}
-                                required={isBusiness}
-                                className="county-select"
-                            >
-                                <option value="">Select County</option>
-                                {[
-                                    "Antrim", "Armagh", "Carlow", "Cavan", "Clare", "Cork", "Derry",
-                                    "Donegal", "Down", "Dublin", "Fermanagh", "Galway", "Kerry",
-                                    "Kildare", "Kilkenny", "Laois", "Leitrim", "Limerick", "Longford",
-                                    "Louth", "Mayo", "Meath", "Monaghan", "Offaly", "Roscommon",
-                                    "Sligo", "Tipperary", "Tyrone", "Waterford", "Westmeath",
-                                    "Wexford", "Wicklow"
-                                ].map((county) => (
-                                    <option key={county} value={county}>
-                                        {county}
-                                    </option>
-                                ))}
-                            </select>
-                            <FaSearchLocation className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <label className="cs4116-custom-upload">
+                    {isBusiness && (
+                        <div className="business-fields">
+                            <div className="input-box">
                                 <input
-                                    type="file"
-                                    onChange={handleFileChange}
-                                    accept="image/*"
+                                    type="text"
+                                    name="businessName"
+                                    placeholder="Business Name"
+                                    value={formData.businessName}
+                                    required
+                                    onChange={handleChange}
                                 />
-                                {fileName === 'No file selected' ? (
-                                    <span>Upload Logo</span>
-                                ) : (
-                                    <span className="file-name">{fileName}</span>
-                                )}
-                            </label>
-                            <FaFileUpload className="icon" />
+                                <FaBuilding className="icon" />
+                            </div>
+                            <div className="input-box">
+                                <select
+                                    name="location"
+                                    value={formData.location}
+                                    onChange={handleChange}
+                                    required
+                                    className="county-select"
+                                >
+                                    <option value="">Select County</option>
+                                    {[
+                                        "Antrim", "Armagh", "Carlow", "Cavan", "Clare", "Cork", "Derry",
+                                        "Donegal", "Down", "Dublin", "Fermanagh", "Galway", "Kerry",
+                                        "Kildare", "Kilkenny", "Laois", "Leitrim", "Limerick", "Longford",
+                                        "Louth", "Mayo", "Meath", "Monaghan", "Offaly", "Roscommon",
+                                        "Sligo", "Tipperary", "Tyrone", "Waterford", "Westmeath",
+                                        "Wexford", "Wicklow"
+                                    ].map((county) => (
+                                        <option key={county} value={county}>
+                                            {county}
+                                        </option>
+                                    ))}
+                                </select>
+                                <FaSearchLocation className="icon" />
+                            </div>
+                            <div className="input-box">
+                                <label className="cs4116-custom-upload">
+                                    <input
+                                        type="file"
+                                        onChange={handleFileChange}
+                                        accept="image/*"
+                                    />
+                                    {fileName === 'No file selected' ? (
+                                        <span>Upload Logo</span>
+                                    ) : (
+                                        <span className="file-name">{fileName}</span>
+                                    )}
+                                </label>
+                                <FaFileUpload className="icon" />
+                            </div>
+                            <div className="input-box">
+                                <input
+                                    type="text"
+                                    name="phoneNumber"
+                                    placeholder="Phone Number"
+                                    value={formData.phoneNumber || ""}
+                                    required
+                                    onChange={handleChange}
+                                />
+                                <FaUser className="icon" />
+                            </div>
+                            <div className="input-box" onClick={toggleTimePicker}>
+                                Opening Hour
+                                <input
+                                    ref={OpenTimeRef}
+                                    className={isTimePickerOpen ? "" : "hidden-input"}
+                                    type="time"
+                                    name="openHour"
+                                    value={selectedOpenTime || ""}
+                                    onChange={handleTimeChange}
+                                    required
+                                />
+                                <FaDoorOpen className="icon" />
+                            </div>
+                            <div className="input-box" onClick={toggleTimePicker}>
+                                Closing Hour
+                                <input
+                                    ref={CloseTimeRef}
+                                    className={isTimePickerClose ? "" : "hidden-input"}
+                                    type="time"
+                                    name="closeHour"
+                                    value={selectedCloseTime || ""}
+                                    onChange={handleTimeChange}
+                                    required
+                                />
+                                <FaDoorClosed className="icon" />
+                            </div>
+                            <div className="input-box">
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    value={formData.email}
+                                    required
+                                    onChange={handleChange}
+                                />
+                                <FaEnvelope className="icon" />
+                            </div>
+                            <div className="input-box">
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    value={formData.password}
+                                    required
+                                    onChange={handleChange}
+                                />
+                                <FaLock className="icon" />
+                            </div>
+                            <div className="input-box">
+                                <input
+                                    type="password"
+                                    name="confirmPassword"
+                                    placeholder="Confirm Password"
+                                    value={formData.confirmPassword}
+                                    required
+                                    onChange={handleChange}
+                                />
+                                <FaLock className="icon" />
+                            </div>
                         </div>
-                        <div className="input-box">
-                            <input
-                                type="text"
-                                name="phoneNumber"
-                                placeholder="Phone Number"
-                                value={formData.phoneNumber || ""}
-                                required={!isBusiness}
-                                onChange={handleChange}
-                            />
-                            <FaUser className="icon" />
-                        </div>
-                        <div className="input-box" onClick={toggleTimePicker}>
-                            Opening Hour
-                            <input
-                                ref={OpenTimeRef}
-                                className={isTimePickerOpen ? "" : "hidden-input"}
-                                type="time"
-                                name="openHour"
-                                value={selectedOpenTime || ""}
-                                onChange={handleTimeChange}
-                                required
-                            />
-                            <FaDoorOpen className="icon" />
-                        </div>
-                        <div className="input-box" onClick={toggleTimePicker}>
-                            Closing Hour
-                            <input
-                                ref={CloseTimeRef}
-                                className={isTimePickerClose ? "" : "hidden-input"}
-                                type="time"
-                                name="closeHour"
-                                value={selectedCloseTime || ""}
-                                onChange={handleTimeChange}
-                                required
-                            />
-                            <FaDoorClosed className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email"
-                                value={formData.email}
-                                required
-                                onChange={handleChange}
-                            />
-                            <FaEnvelope className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                value={formData.password}
-                                required
-                                onChange={handleChange}
-                            />
-                            <FaLock className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <input
-                                type="password"
-                                name="confirmPassword"
-                                placeholder="Confirm Password"
-                                value={formData.confirmPassword}
-                                required
-                                onChange={handleChange}
-                            />
-                            <FaLock className="icon" />
-                        </div>
-                    </div>
+                    )}
                 </div>
 
                 <button
