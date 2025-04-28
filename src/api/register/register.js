@@ -67,7 +67,7 @@ export async function register(userData) {
           last_name: userData.isBusiness ? '' : userData.lastName,
           email: userData.email,
           permission: userData.isBusiness ? 1 : 0,
-          status: userData.isBusiness ? 0 : 1,
+          status: 1,
           profile_picture: imageUrl || null,
           created_at: new Date().toISOString()
         }
