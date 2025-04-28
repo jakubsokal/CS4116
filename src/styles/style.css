@@ -142,7 +142,11 @@ nav img {
 
 @media (max-width: 650px) {
     .hero-content {
-        top: 40%;
+        top: 20%;
+    }
+
+    .header{
+        min-height: 40vh;
     }
 
     .text-box h1 {

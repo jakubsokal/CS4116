@@ -1,4 +1,5 @@
 "use client";
+import "@/styles/filterbar.css";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
@@ -34,10 +35,11 @@ const PriceSlider = ({onPriceChange, isResetting}) => {
 
 	return (
 		<Box sx={{ width: 300, px: 5 }}>
-			<div style={{ display: "flex", justifyContent: "space-between" }}>
+			<div className="cs4116-price-show" style={{ display: "flex", justifyContent: "space-between" }}>
 				<Typography
 					id="non-linear-slider"
 					gutterBottom
+					className="cs4116-price-show-text"
 					sx={{ fontFamily: "Urbanist-Bold" }}
 				>
 					€{value[0]}
@@ -45,6 +47,7 @@ const PriceSlider = ({onPriceChange, isResetting}) => {
 				<Typography
 					id="non-linear-slider"
 					gutterBottom
+					className="cs4116-price-show-text"
 					sx={{ fontFamily: "Urbanist-Bold" }}
 				>
 					€{value[1]}

@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Loading from '@/components/Loading';
 import '@/styles/Chat.css';
 import useSessionCheck from '@/utils/hooks/useSessionCheck';
+import Link from 'next/link';
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
@@ -32,6 +33,18 @@ export default function ChatPage() {
     "Harassment",
     "Offensive Language"
   ];
+
+  useEffect(() => {
+    const checkSession = async () => {
+      if (sessionLoading) return;
+      if (session == null) {
+        router.push('/login');
+      } else if (session.user.permission === 2) {
+        router.push('/admin');
+      }
+    }; 
+    checkSession();
+  }, [session, router, sessionLoading]);
 
   const fetchChatPartnerDetails = useCallback(async (chatPartnerId) => {
     try {

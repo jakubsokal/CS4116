@@ -8,6 +8,9 @@
 }
 
 .cs4116-grid-item-explore {
+	display: flex;
+    flex-direction: column;
+	justify-content: space-between;
 	background-color: white;
 	border-radius: 8px;
 	padding: 15px;
@@ -40,22 +43,89 @@
 
 @media (max-width: 1750px ) {
 	.cs4116-grid-explore {
-		grid-template-columns: repeat(2, minmax(300px, 350px));
+		grid-template-columns: repeat(2, 350px);
+	}
+
+	.explore.container{
+		margin-left: 18%;
 	}
 }
 
 @media (max-width: 1350px) {
+
 	.cs4116-explore-container {
         margin-left: 15%;
     }
 }
 
-@media (max-width: 900px) {
+@media screen and (max-width: 1200px) {
 	.cs4116-grid-explore {
-		grid-template-columns: minmax(280px, 350px);
+        grid-template-columns: repeat(2, 350px);
+	}
+
+	.explore.container{
+		margin-left: 20%;
+	}
+	
+}
+
+@media screen and (max-width: 1100px) {
+	.cs4116-grid-explore {
+        grid-template-columns: repeat(1, 350px);
+	}
+	
+}
+
+@media (max-width: 1000px) {
+	.cs4116-grid-explore {
+		margin-top: 75%;
 	}
 
     .cs4116-explore-container {
         margin-left: 10%;
     }
+}
+
+@media (max-width: 768px) {
+	.cs4116-grid-explore {
+		margin-top: 75px;
+	}
+
+	.explore.container {
+        margin-left: 20%;
+    }
+	
+}
+
+@media screen and (max-width: 650px) {
+	.cs4116-grid-explore {
+		grid-template-columns: repeat(1, 280px);
+	}
+	.explore.container {
+		margin-left: 15%;
+	}
+	
+}
+
+@media screen and (max-width: 600px) {
+	.explore.container {
+		margin-left: 5%;
+	}
+	
+}
+
+@media screen and (max-width: 480px) {
+	.cs4116-grid-explore {
+		grid-template-columns: repeat(1, 200px);
+	}
+
+	.cs4116-dialog-main {
+        width: 50%;
+    }
+
+	.explore.container {
+		margin-left: 0;
+		padding-left: 65%;
+	}
+	
 }

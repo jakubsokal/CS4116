@@ -187,6 +187,14 @@
         gap: 20px;
     }
 
+    .hero-content {
+        top: 15%;
+    }
+
+    .cs-text-box h1 {
+        font-size: 2rem;
+    }
+
     .action {
         margin: 0;
     }
@@ -200,6 +208,14 @@
     .form-container,
     .services-container {
         margin: 20px;
+    }
+
+    .hero-content {
+        top: 10%;
+    }
+
+    .cs-text-box h1 {
+        font-size: 1.5rem;
     }
 
     .business-buttons {

@@ -1,8 +1,8 @@
 "use client";
+import "@/styles/filterbar.css";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { useEffect, useState } from "react";
-
 
 const ReviewRating = ({onRatingChange, isResetting}) => {
 	const [selectedMinRating, setSelectedMinRating] = useState(0);
@@ -37,11 +37,12 @@ const ReviewRating = ({onRatingChange, isResetting}) => {
 					padding: "2px 7px 10px 0px",
 				}}
 			>
-				<p>Min Rating</p>
-				<p>Max Rating</p>
+				<p className="cs4116-rating-text">Min Rating</p>
+				<p className="cs4116-rating-text">Max Rating</p>
 			</div>
-			<Stack spacing={1}>
+			<Stack className="cs4116-rating" spacing={1}>
 				<Rating
+				className="cs4116-rating-stars"
 				name="half-rating"
 				value={selectedMinRating}
 				onChange={handleMinRatingChange}
@@ -49,6 +50,7 @@ const ReviewRating = ({onRatingChange, isResetting}) => {
 				precision={0.5} />
 
 				<Rating
+				className="cs4116-rating-stars"
 				name="half-rating2"
 				value={selectedMaxRating}
 				onChange={handleMaxRatingChange}
