@@ -41,8 +41,8 @@ const RegisterForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleFileChange = (event) => {
-        const uploadedFile = event.target.files[0];
+    const handleFileChange = (e) => {
+        const uploadedFile = e.target.files[0];
         if (uploadedFile) {
             setFormData({ ...formData, profilePicture: uploadedFile });
             setFileName(uploadedFile.name);
@@ -50,7 +50,7 @@ const RegisterForm = () => {
     };
 
     const handleTimeChange = (e) => {
-        const { name, value } = event.target;
+        const { name, value } = e.target;
         if (name === "openHour") {
             setSelectedOpenTime(value);
             setFormData({ ...formData, openHour: value });
