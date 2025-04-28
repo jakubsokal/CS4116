@@ -1,13 +1,44 @@
 "use client"
-import React from "react";
+import Slider from "@/components/PriceSlider";
+import ReviewRating from "@/components/ReviewRating";
 import "@/styles/filterbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Slider from "@/components/PriceSlider";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 const LocationSelector = dynamic(() => import('@/components/LocationSelection'), { ssr: false });
-import Rating from "@/components/ReviewRating";
 
-const FilterBar = () => {
+const FilterBar = ({onCountyChange, onPriceChange, onCategoryChange, onRatingChange, onResetButton, isResetting}) => {
+	const [selectedCategories, setSelectedCategories] = useState([]);
+
+	const categoryMap = {
+		soccer: 1,
+		gaa:2,
+		hurling:3,
+		rugby:4,
+		basketball:5,
+		gym:6,
+		swimming:7,
+		running:8,
+	}
+
+	const handleCategoryChange = (e) => {
+		const { value, checked } = e.target;
+		const categoryInt = parseInt(value, 8);
+		let updatedCategories = [...selectedCategories];
+
+		if (checked) {
+			updatedCategories.push(categoryInt);
+		} else {
+			updatedCategories = updatedCategories.filter((category) => category !== categoryInt);
+		}
+
+		setSelectedCategories(updatedCategories);
+
+		if (onCategoryChange) {
+		onCategoryChange(updatedCategories);
+		}
+	};
+
 	return (
 		<div className="cs4116-filterbar-main">
 			<div className="accordion accordion-flush" id="accordionFlushExample">
@@ -31,38 +62,18 @@ const FilterBar = () => {
 					>
 						<div className="accordion-body">
 							<ul>
-								<li>
-									<label className="soccer">Soccer</label>
-									<input type="checkbox" id="soccer" />
-								</li>
-								<li>
-									<label className="gaa">Football</label>
-									<input type="checkbox" id="gaa" />
-								</li>
-								<li>
-									<label className="hurling">Hurling</label>
-									<input type="checkbox" id="hurling" />
-								</li>
-								<li>
-									<label className="rugby">Rugby</label>
-									<input type="checkbox" id="rugby" />
-								</li>
-								<li>
-									<label className="bball">Basketball</label>
-									<input type="checkbox" id="bball" />
-								</li>
-								<li>
-									<label className="gym">Gym</label>
-									<input type="checkbox" id="gym" />
-								</li>
-								<li>
-									<label className="swimming">Swimming</label>
-									<input type="checkbox" id="swimming" />
-								</li>
-								<li>
-									<label className="running">Running</label>
-									<input type="checkbox" id="running" />
-								</li>
+								{Object.entries(categoryMap).map(([name, id]) => (
+									<li key ={id}>
+										<label className={name}>{name.charAt(0).toUpperCase() + name.slice(1)}</label>
+											<input
+												type="checkbox"
+												value={id}
+												id={name}
+												onChange={handleCategoryChange}
+												checked={selectedCategories.includes(id)}
+											/>
+									</li>
+								))}
 							</ul>
 						</div>
 					</div>
@@ -85,7 +96,8 @@ const FilterBar = () => {
 						className="accordion-collapse collapse"
 						data-bs-parent="#accordionFlushExample"
 					>
-						<Slider />
+						<Slider onPriceChange={onPriceChange}
+						isResetting={isResetting}/>
 					</div>
 				</div>
 				<div className="accordion-item">
@@ -108,7 +120,8 @@ const FilterBar = () => {
 					>
 						<div className="accordion-body">
 							<div className="cs4116-rating">
-								<Rating />
+								<ReviewRating onRatingChange={onRatingChange}
+								isResetting={isResetting}/>
 							</div>
 						</div>
 					</div>
@@ -132,11 +145,16 @@ const FilterBar = () => {
 						data-bs-parent="#accordionFlushExample"
 					>
 						<div className="accordion-body">
-							<LocationSelector />
+							<LocationSelector onCountyChange={onCountyChange}/>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div className="cs4116-filterbar-button">
+				<button className="reset-filter-button" onClick={onResetButton}>
+					Reset Filters
+				</button>
+				</div>
 		</div>
 	);
 };
