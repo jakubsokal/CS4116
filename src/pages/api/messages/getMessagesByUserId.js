@@ -12,10 +12,12 @@ export default async function handler(req, res) {
                     participant1_id,
                     participant2_id,
                     inquiry_id,
+                    isClosed,
                     users1:participant1_id (first_name, last_name),
                     users2:participant2_id (first_name, last_name)
                 `)
                 .or(`participant1_id.eq.${userId},participant2_id.eq.${userId}`)
+                .is('isClosed', null)
 
             if (convoError) {
                 console.error("Error fetching conversations:", convoError);

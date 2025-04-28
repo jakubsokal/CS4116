@@ -416,3 +416,69 @@ body {
     background: #c32b05;
 cursor: pointer;
 }
+
+.pending-conversation-notice {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #ffeeba;
+}
+
+.pending-conversation-notice p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.message-request-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.accept-button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.accept-button:hover {
+  background-color: #45a049;
+}
+
+.reject-button {
+  padding: 8px 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.reject-button:hover {
+  background-color: #da190b;
+}
+
+.rejected-conversation-notice {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #ffcdd2;
+}
+
+.rejected-conversation-notice p {
+  margin: 0;
+  font-size: 14px;
+}
