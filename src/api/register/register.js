@@ -33,6 +33,32 @@ export async function register(userData) {
       return { status: 400, error: authError.message }
     }
 
+    let imageUrl = null;
+
+    try {
+      if (userData.profilePicture) {
+        const file = userData.profilePicture;
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
+        const filePath = `business-images/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('business-images')
+          .upload(filePath, file);
+
+        if (uploadError) throw new Error(`Error uploading: ${uploadError.message}`);
+
+        const { data: urlData } = supabase.storage
+          .from('business-images')
+          .getPublicUrl(filePath);
+
+        imageUrl = urlData.publicUrl;
+      } else imageUrl = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'
+    } catch (error) {
+      console.error("Error uploading image:", error)
+      return { status: 400, error: error.message }
+    }
+
     const { data: insertedUser, error: userError } = await supabase
       .from('users')
       .insert([
@@ -42,6 +68,7 @@ export async function register(userData) {
           email: userData.email,
           permission: userData.isBusiness ? 1 : 0,
           status: userData.isBusiness ? 0 : 1,
+          profile_picture: imageUrl || null,
           created_at: new Date().toISOString()
         }
       ])
@@ -52,6 +79,7 @@ export async function register(userData) {
       return { status: 400, error: userError.message }
     }
 
+
     if (userData.isBusiness) {
       const { error: businessError } = await supabase
         .from('business')
@@ -60,6 +88,10 @@ export async function register(userData) {
             business_name: userData.businessName,
             location: userData.location,
             user_id: insertedUser.user_id,
+            profile_picture: imageUrl,
+            phone_number: userData.phoneNumber,
+            close_hour: userData.closeHour,
+            open_hour: userData.openHour,
             created_at: new Date().toISOString()
           }
         ])

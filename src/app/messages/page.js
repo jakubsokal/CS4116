@@ -1,17 +1,12 @@
 "use client"
 
-//remembver tomnorrow look at the getting convos as there could be a better way to do it 
-
-/*if (message.inquiry_id) {
-            getSeriveName(message.inquiry_id, message.convo_id)
-          }*/
-
 import Navbar from '@/components/Navbar'
 import useSessionCheck from '@/utils/hooks/useSessionCheck'
 import '@/styles/Messages.css'
 import { useState, useEffect, useCallback } from 'react'
 import Loading from '@/components/Loading'
 import { useRouter } from 'next/navigation'
+import BusinessNavbar from '@/components/BusinessNavbar';
 
 export default function Messages() {
   const [load, setLoading] = useState(false)
@@ -20,8 +15,8 @@ export default function Messages() {
   const [userDetails, setUserDetails] = useState([])
   const { session, loading } = useSessionCheck()
   const router = useRouter()
-  const [serviceName, setServiceName] = useState("")
   const [messageRequests, setMessageRequests] = useState([]);
+  const [messsagesLoaded, setMessagesLoaded] = useState("")
 
   const getUserDetails = useCallback(async (participantId) => {
     const res = await fetch(`/api/user/getUserDetailsId?userId=${participantId}`, {
@@ -42,10 +37,10 @@ export default function Messages() {
     }
   }, [])
 
-  const getSeriveName = useCallback(async (InquiryId, messageId) => {
+  const getServiceName = useCallback(async (InquiryId, messageId) => {
     if (!InquiryId) return
     try {
-      const res = await fetch(`/api/messages/getSerivceNameByConvoId?InquiryId=${InquiryId}`, {
+      const res = await fetch(`/api/messages/getServiceNameByConvoId?InquiryId=${InquiryId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -82,89 +77,64 @@ export default function Messages() {
 
       if (messageResult.data) {
         setMessages(messageResult.data)
-        messageResult.data.forEach((message) => {
-          console.log(!message?.serviceName )
-          if (message.inquiry_id && !message?.serviceName) {
-            getSeriveName(message.inquiry_id, message.convo_id)
+        await Promise.all(messageResult.data.map(async (message) => {
+          if (message.inquiry_id) {
+            await getServiceName(message.inquiry_id, message.convo_id)
           }
           if (!userDetails[message.participantId]) {
-            getUserDetails(message.participantId)
+            await getUserDetails(message.participantId)
           }
-        })
+        }))
+        setLoading(false)
       }
     } catch (error) {
       console.error("Error searching for messages:", error)
     } finally {
       setLoading(false)
     }
-  }, [getUserDetails, currentSession?.user?.user_id, userDetails, getSeriveName])
+  }, [getUserDetails, currentSession?.user?.user_id, userDetails, getServiceName])
 
   const getMessageRequests = useCallback(async () => {
     if (!currentSession?.user?.user_id) return;
 
     try {
-        const res = await fetch(`/api/messages/getMessageRequests?userId=${currentSession.user.user_id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+      const res = await fetch(`/api/messages/getMessageRequests?userId=${currentSession.user.user_id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-        const result = await res.json();
-        if (result.data) {
-            setMessageRequests(result.data);
-        }
+      const result = await res.json();
+      if (result.data) {
+        setMessageRequests(result.data);
+      }
     } catch (error) {
-        console.error("Error fetching message requests:", error);
+      console.error("Error fetching message requests:", error);
     }
   }, [currentSession?.user?.user_id]);
 
-  const handleMessageRequest = async (requestId, action) => {
-    try {
-        const response = await fetch('/api/messages/handleMessageRequest', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                request_id: requestId,
-                action
-            }),
-        });
-
-        const result = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(result.error || `Failed to ${action} message request`);
-        }
-
-        // Refresh message requests and messages
-        getMessageRequests();
-        getMessages();
-        
-        alert(`Message request ${action}ed successfully!`);
-    } catch (error) {
-        console.error(`Error ${action}ing message request:`, error);
-        alert(`Failed to ${action} message request. Please try again.`);
-    }
-  };
-
   useEffect(() => {
-    if (loading) {
-      return
+    const fetchMessages = async () => {
+      if (loading) {
+        return
+      }
+
+      if (session) {
+        setSession(session)
+      } else {
+        router.push('/login')
+      }
+
+      if (currentSession.user?.user_id && !messsagesLoaded) {
+        setMessagesLoaded(true)
+        await getMessages()
+        await getMessageRequests()
+      }
     }
 
-    if (session) {
-      setSession(session)
-    } else {
-      router.push('/login')
-    }
-
-    if (currentSession.user?.user_id) {
-      getMessages()
-      getMessageRequests()
-    }
-  }, [currentSession?.user?.user_id, getMessages, getMessageRequests, session, router, loading])
+    fetchMessages()
+  }, [currentSession?.user?.user_id, messsagesLoaded, getMessages, getMessageRequests, session, router, loading])
 
   if (loading) {
     return <Loading />
@@ -172,7 +142,9 @@ export default function Messages() {
 
   return (
     <div>
-      <Navbar />
+      {session?.business ? (
+        <BusinessNavbar />
+      ) : (<Navbar />)}
       <div className="cs4116-messages-container">
         <div className="cs4116-messages-list">
           {messages && messages.length > 0 ? (
@@ -186,8 +158,12 @@ export default function Messages() {
                     <div className="cs4116-unread-messages">{message.unreadMessages}</div>
                   )}
                   <div className="cs4116-message-sender-name">
-                   <span>{userDetails[message.participantId]?.name || <Loading />}</span> 
-                    <span>{message.serviceName !== null ? message.serviceName : ""}</span>
+                    {!load ? (
+                      <>
+                        <span>{userDetails[message.participantId]?.name || <Loading />}</span>
+                        <span>{message.serviceName ? message.serviceName : ""}</span>
+                      </>
+                    ) : <Loading />}
                   </div>
                 </div>
                 <button className="cs4116-message-button" onClick={() => router.push(`/messages/${message.convo_id}`)}>

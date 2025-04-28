@@ -12,6 +12,7 @@ export default async function handler(req, res) {
             const combinedData = data.map(user => ({
                 user_id: userId,
                 name: `${user.first_name} ${user.last_name}`,
+                image: user.profile_picture,
                 email: user.email,
                 permission: user.permission,
                 last_used: user.last_used,

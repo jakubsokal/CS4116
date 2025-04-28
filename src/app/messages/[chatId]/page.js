@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Loading from '@/components/Loading';
 import '@/styles/Chat.css';
 import useSessionCheck from '@/utils/hooks/useSessionCheck';
+import BusinessNavbar from '@/components/BusinessNavbar';
 import Link from 'next/link';
 
 export default function ChatPage() {
@@ -398,7 +399,9 @@ export default function ChatPage() {
   if (sessionLoading || loading) {
     return (
       <div className="chat-page">
-        <Navbar />
+        {isBusiness ? (
+          <BusinessNavbar />
+        ) : ( <Navbar /> )}
         <div className="chat-container">
           <Loading />
         </div>
@@ -409,10 +412,12 @@ export default function ChatPage() {
   if (error) {
     return (
       <div className="chat-page">
-        <Navbar />
+        {isBusiness ? (
+          <BusinessNavbar />
+        ) : ( <Navbar /> )}
         <div className="chat-container">
           <div className="error-message">
-            <p>Error: {error}</p>
+            <p style={{color: 'white'}}>Error: {error}</p>
             <button onClick={() => router.push('/messages')} className="back-button">
               Back to Messages
             </button>
@@ -424,7 +429,9 @@ export default function ChatPage() {
 
   return (
     <div className="chat-page">
-      <Navbar />
+      {isBusiness ? (
+          <BusinessNavbar />
+        ) : ( <Navbar /> )}
       <div className="chat-container">
         <div className="chat-header">
           <div className="chat-header-content">
