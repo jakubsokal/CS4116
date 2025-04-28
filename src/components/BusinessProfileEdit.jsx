@@ -46,7 +46,6 @@ const BusinessProfileEdit = () => {
     if (!session) {
       router.push("/login");
     } else if (session?.user?.permission !== 1) {
-      console.log(session)
       router.push("/");
     } else {
       const fetchBusiness = async () => {
@@ -141,7 +140,7 @@ const BusinessProfileEdit = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+
       if (!response.ok) {
         throw new Error(data.error || 'Failed to update password');
       }
