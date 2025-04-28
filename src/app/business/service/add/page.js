@@ -27,6 +27,7 @@ export default function AddServicePage() {
   useEffect(() => {
     const fetchData = async () => {
       const checkSession = async () => {
+        if (loading || !session?.user?.permission) return;
         if (session == null) {
           router.push("/login")
         } else if (session.user.permission !== 1) {
