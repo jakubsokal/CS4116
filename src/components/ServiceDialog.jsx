@@ -20,6 +20,8 @@ import Loading from "@/components/Loading"
 import FlagIcon from '@mui/icons-material/Flag';
 import useSessionCheck from "@/utils/hooks/useSessionCheck"
 import { useRouter } from "next/navigation"
+import InquiryPopup from "./InquiryPopup"
+import { supabase } from "@/utils/supabase/client"
 import "@/styles/Chat.css"
 
 const ServiceDialog = (service) => {
@@ -35,6 +37,7 @@ const ServiceDialog = (service) => {
 	const [userReviews, setUserReviews] = useState([])
 	const { session } = useSessionCheck()
 	const router = useRouter()
+	const [showPopup, setShowPopup] = useState(false)
 	const [reportModalOpen, setReportModalOpen] = useState(false)
 	const [reportReason, setReportReason] = useState("")
 	const [review_id, setReviewId] = useState("")
@@ -201,7 +204,7 @@ const ServiceDialog = (service) => {
 
 	const handleInquire = () => {
 		if (session) {
-			//logic to Inqure service
+			setShowPopup(true);
 		} else {
 			alert("Please login to inquire about a service")
 			router.push("/login")
@@ -285,13 +288,22 @@ const ServiceDialog = (service) => {
 							<div>{business.business_name}</div>
 						</DialogTitle>
 						<DialogActions className="cs4116-dialog-actions">
-							<Button
-								className="cs4116-inq-btn"
-								autoFocus
-								onClick={handleInquire}
+						<Button
+							className="cs4116-inq-btn"
+							autoFocus
+							onClick={() => setShowPopup(true)}
 							>
-								Inquire
+							Inquire
 							</Button>
+
+							{showPopup && (
+							<InquiryPopup
+								serviceId={service.service.service_id}
+								receiver_id={service.service.business_id}
+								onClose={() => setShowPopup(false)}
+							/>
+							)}
+
 							<Button
 								className="cs4116-viewpf-btn"
 								autoFocus

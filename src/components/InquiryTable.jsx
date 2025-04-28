@@ -4,63 +4,92 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import "@/styles/InquiryTable.css";
 
-import ReviewPopup from "./ReviewPopup"; 
+import ReviewPopup from "./ReviewPopup";
+import useSessionCheck from "@/utils/hooks/useSessionCheck";
 
-
-const AdminTable = () => {
+const InquiryTable = () => {
   const [inquiries, setInquiries] = useState([]);
   const [showReviewPopup, setShowReviewPopup] = useState(false);
-  const [selectedInquiry, setSelectedInquiry] = useState(null);  
+  const [selectedInquiry, setSelectedInquiry] = useState(null);
+  const { session } = useSessionCheck();
 
   useEffect(() => {
-    // Fetching inquiries from API instead of db
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/inquiries");
+        const response = await fetch(`/api/inquiries/inquiries?receiverId=${session?.user?.user_id}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        
         const data = await response.json();
-        setInquiries(data);
+
+        if (response.ok) {
+          setInquiries(data);
+          
+        }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching inquiries:", error);
       }
     };
 
-    fetchData();
-  }, []);
-  const handleAction = async (inquiry) => {
+    if (session?.user?.user_id) {
+      fetchData();
+    }
+  }, [session]);
+
+  const handleAccept = async (inquiry) => {
     try {
-      // Call API insstead of supabase
-      const response = await fetch("/api/inquiries", {
-        method: "PATCH",
+      const response = await fetch("/api/conversations/createConversation", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ inquiry_id: inquiry.inquiry_id, status: 1 }),
+        body: JSON.stringify({
+          sender_id: inquiry.receiver_id,
+          receiver_id: inquiry.sender_id,
+          inquiry_id: inquiry.inquiry_id,
+        }),
       });
 
-      if (!response.ok) throw new Error("Failed to update status");
+      const data = await response.json();
+      if (data.error) throw new Error(data.error);
 
-      setSelectedInquiry(inquiry);
-      setShowReviewPopup(true);
+      const res = await fetch("/api/inquiries/inquiries", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          inquiry_id: inquiry.inquiry_id,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to update inquiry status");
+      
+      const result = await res.json();
+      alert(result.message);
+
+      setInquiries(prev => prev.filter(inq => inq.inquiry_id !== inquiry.inquiry_id));
     } catch (error) {
-      console.error("Error updating status:", error);
+      console.error("Error handling accept:", error);
+      alert(error.message);
     }
   };
 
   const handleDecline = async (inquiryId) => {
     try {
-      // delete inquiry
-      const response = await fetch("/api/inquiries", {
+      const response = await fetch("/api/inquiries/inquiries", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ inquiry_id: inquiryId }),
       });
 
-      if (!response.ok) throw new Error("Failed to delete inquiry");
+      if (!response.ok) throw new Error("Failed to decline inquiry");
 
-      setInquiries(inquiries.filter((inq) => inq.inquiry_id !== inquiryId));
+      const result = await response.json();
+      alert(result.message);
+
+      setInquiries(prev => prev.filter(inq => inq.inquiry_id !== inquiryId));
     } catch (error) {
       console.error("Error handling decline:", error);
     }
   };
-
 
   return (
     <div className="container mx-auto">
@@ -72,8 +101,8 @@ const AdminTable = () => {
           <thead className="table">
             <tr>
               <th>Name</th>
+              <th>Service</th>
               <th>Date</th>
-              <th>View Inquiry</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -81,36 +110,24 @@ const AdminTable = () => {
             {inquiries.length > 0 ? (
               inquiries.map((inquiry, index) => (
                 <tr key={index}>
+                  <td>{inquiry.users?.first_name} {inquiry.users?.last_name}</td>
+                  <td>{inquiry.service_name}</td>
+                  <td>{inquiry.created_at}</td>
                   <td>
-                    {inquiry.users?.first_name} {inquiry.users?.last_name}
-                  </td>
-                  <td>{inquiry.created_at }</td>
-                  <td>
-                    <a href={`/inquiry/${inquiry.inquiry_id}`} className="btn btn-primary btn-sm">
-                      Inquiry details
-                    </a>
-                  </td>
-                  <td>
-                    <button className="accept_button" onClick={() => handleAction(inquiry)}>
-                      Accept
-                    </button>
-                    <button className="reject_button" onClick={() => handleDecline(inquiry.inquiry_id)}>
-                      Decline
-                    </button>
+                    <button className="accept_button" onClick={() => handleAccept(inquiry)}>Accept</button>
+                    <button className="reject_button" onClick={() => handleDecline(inquiry.inquiry_id)}>Decline</button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="4" className="text-center">
-                  No inquiries available
-                </td>
+                <td colSpan="4" className="text-center">No inquiries available</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
-
+      
       {showReviewPopup && (
         <ReviewPopup
           inquiry={selectedInquiry}
@@ -121,4 +138,4 @@ const AdminTable = () => {
   );
 };
 
-export default AdminTable;
+export default InquiryTable;

@@ -11,6 +11,7 @@ export default async function handler(req, res) {
                     convo_id,
                     participant1_id,
                     participant2_id,
+                    inquiry_id,
                     users1:participant1_id (first_name, last_name),
                     users2:participant2_id (first_name, last_name)
                 `)
@@ -28,6 +29,7 @@ export default async function handler(req, res) {
                         .select("message_text, read")
                         .eq("chat_id", conversation.convo_id)
                         .eq("receiver_id", userId)
+                        .eq("read", 0)
                         .order("sent_at", { ascending: false });
 
                     if (messageError) {
@@ -39,6 +41,7 @@ export default async function handler(req, res) {
                 })
             );
 
+            console.log("Messages:", messages);
             const convoDetails = convo.map((conversation) => {
                 const isParticipant1 = parseInt(conversation.participant1_id) === parseInt(userId);
                 
@@ -55,12 +58,14 @@ export default async function handler(req, res) {
                 
                 return { 
                     convo_id: conversation.convo_id,
+                    inquiry_id: conversation?.inquiry_id,
                     unreadMessages: unreadCount,  
                     participantId: otherParticipantId,
                     participantName: otherParticipantName
                 };
             });
-            
+
+            console.log("Convo Details:", convoDetails);
             return res.status(200).json({ message: "Successful Search", data: convoDetails })
         } catch (error) {
             console.error("Error in getMessagesByUserId:", error);

@@ -97,6 +97,9 @@
 
 .cs4116-message-sender-name {
 	margin-top: 7px;
+	margin-top: 7px;
+  	display: flex;
+  	gap: 20px;
 }
 
 @media (max-width: 1000px) {
