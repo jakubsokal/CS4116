@@ -68,11 +68,7 @@ const LoginForm = () => {
 				</div>
 
 				<div className="remember-forgot">
-					<label>
-						<input type="checkbox" />
-						Remember me
-					</label>
-					<a href="#">Forgot password?</a>
+					<a href="/login/reset-password">Forgot password?</a>
 				</div>
 				<button type="submit" disabled={incorrectDetials}>
 					{load ? (

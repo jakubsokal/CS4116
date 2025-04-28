@@ -11,6 +11,7 @@
 	flex-direction: column;
 	justify-content: center;
 	text-align: center;
+	align-items: center;
 	background: #ffffff;
 	width: 40%;
 	height: 60%;
@@ -43,6 +44,30 @@
 
 .cs4116-confirmed-text.href:hover {
 	color: #1363a0;
+}
+
+.cs4116-confirmed-button{
+	padding: 10px;
+    width: 50%;
+    color: white;
+    background: green;
+    border: none;
+    border-radius: 5px;
+	margin-top: 15px;
+}
+
+.cs4116-confirmed-button:hover{
+	background: #4caf50;
+	cursor: pointer;
+}
+
+.cs4116-confirmed-input{
+	padding: 10px;
+    width: 100%;
+    background: white;
+    color: black;
+    border-radius: 5px;
+	margin-top: 15px;
 }
 
 @media screen and (max-width: 1450px) {

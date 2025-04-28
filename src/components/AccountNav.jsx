@@ -39,6 +39,7 @@ const AccountNav = () => {
 	const [currentSession, setSession] = useState(null)
 	const { session, loading } = useSessionCheck()
 	const router = useRouter()
+	const [waiting, setWaiting] = useState(true)
 
 	const authentication = useMemo(() => {
 		return {
@@ -47,7 +48,8 @@ const AccountNav = () => {
 					const success = await signOut()
 					if (success) {
 						setSession(null)
-						// The signOut function will handle the redirect
+						console.log("Signed out")
+						router.push("/login")
 					}
 				} catch (error) {
 					console.error("Error during sign out:", error)
@@ -59,10 +61,11 @@ const AccountNav = () => {
 	useEffect(() => {
 		if (session != null) {
 			setSession(session)
+			setWaiting(false)
 		}
 	}, [session])
 
-	if (loading) {
+	if (loading || waiting) {
 		return <Loading />
 	}
 

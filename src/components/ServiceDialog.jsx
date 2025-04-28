@@ -331,7 +331,7 @@ const ServiceDialog = (service) => {
 								autoFocus
 								onClick={handleClose}
 							>
-								View Profile
+								Close
 							</Button>
 						</DialogActions>
 					</div>

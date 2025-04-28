@@ -5,9 +5,11 @@ import "@/styles/BusinessProfile.css";
 import "@/styles/style.css";
 import useSessionCheck from "@/utils/hooks/useSessionCheck";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import BusinessNavbar from "./BusinessNavbar";
 import Loading from "./Loading";
+import "@/styles/editProfile.css";
+import LocationSelection from "./LocationSelection";
 
 const BusinessProfileEdit = () => {
   const { session, loading } = useSessionCheck();
@@ -18,7 +20,6 @@ const BusinessProfileEdit = () => {
     description: "",
     location: "",
     phone_number: "",
-    avg_rating: "",
     open_hour: "",
     close_hour: "",
   });
@@ -31,6 +32,13 @@ const BusinessProfileEdit = () => {
   const [success, setSuccess] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordSuccess, setPasswordSuccess] = useState('');
+  const [isTimePickerClose, setIsTimePickerClose] = useState(false);
+  const [isTimePickerOpen, setIsTimePickerOpen] = useState(false);
+  const OpenTimeRef = useRef(null);
+  const CloseTimeRef = useRef(null);
+  const [selectedCloseTime, setSelectedCloseTime] = useState('');
+  const [selectedOpenTime, setSelectedOpenTime] = useState('');
+  const [onSubmit, setOnSubmit] = useState("")
 
   useEffect(() => {
     if (loading) return;
@@ -43,19 +51,20 @@ const BusinessProfileEdit = () => {
       const fetchBusiness = async () => {
         const res = await fetch(`/api/business/getBusinessDetails?userId=${session.user.user_id}`);
         const result = await res.json();
-        
+
         if (res.ok && result.data) {
           setBusiness(result.data);
-        
+
           setFormData({
             business_name: result.data.business_name || "",
             description: result.data.description || "",
             location: result.data.location || "",
             phone_number: result.data.phone_number || "",
-            avg_rating: result.data.avg_rating?.toString() ?? "",
             open_hour: result.data.open_hour?.toString() ?? "",
             close_hour: result.data.close_hour?.toString() ?? "",
           });
+          setSelectedOpenTime(result.data.open_hour?.toString() ?? "");
+          setSelectedCloseTime(result.data.close_hour?.toString() ?? "");
         }
       };
       fetchBusiness();
@@ -124,7 +133,7 @@ const BusinessProfileEdit = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_id: session.user.email,
+          email: session.user.email,
           current_password: passwordData.current_password,
           new_password: passwordData.new_password
         }),
@@ -147,6 +156,44 @@ const BusinessProfileEdit = () => {
     }
   };
 
+  const handleTimeChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "openHour") {
+      setSelectedOpenTime(value);
+      setFormData({ ...formData, openHour: value });
+    } else if (name === "closeHour") {
+      setSelectedCloseTime(value);
+      setFormData({ ...formData, closeHour: value });
+    }
+  };
+
+  const toggleTimePicker = () => {
+    if (!isTimePickerClose) {
+      setIsTimePickerClose(true);
+      setTimeout(() => {
+        if (CloseTimeRef.current) {
+          CloseTimeRef.current.showPicker();
+        }
+      }, 0);
+    } else if (!isTimePickerOpen) {
+      setIsTimePickerOpen(true);
+      setTimeout(() => {
+        if (OpenTimeRef.current) {
+          OpenTimeRef.current.showPicker();
+        }
+      }, 0);
+    }
+  };
+
+  const handleLocationChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      location: e,
+    }));
+
+    setOnSubmit("")
+  };
+
   if (loading || !business) return <Loading />;
 
   return (
@@ -156,11 +203,11 @@ const BusinessProfileEdit = () => {
       <div className="business-profile-wrapper">
         <div className="business-profile-container">
           <h2>Edit Business Profile</h2>
-          
+
           {error && <div className="business-error">{error}</div>}
           {success && <div className="business-success">{success}</div>}
 
-          <form onSubmit={handleSubmit}>
+          <form className="cs4116-edit-form" onSubmit={handleSubmit}>
             <div className="business-form-row">
               <label htmlFor="business_name">Business Name</label>
               <input
@@ -183,15 +230,9 @@ const BusinessProfileEdit = () => {
             </div>
 
             <div className="business-form-row">
-              <label htmlFor="location">Location</label>
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                placeholder="Business Location"
-                required />
-            </div>
+            <label htmlFor="location">Location</label>
+            <LocationSelection value={onSubmit} onCountyChange={handleLocationChange} isCustomStyle={true} />
+          </div>
 
             <div className="business-form-row">
               <label htmlFor="phone_number">Phone Number</label>
@@ -204,35 +245,29 @@ const BusinessProfileEdit = () => {
                 required />
             </div>
 
-            <div className="business-form-row">
-              <label htmlFor="avg_rating">Average Rating</label>
-              <input
-                type="text"
-                name="avg_rating"
-                value={formData.avg_rating}
-                readOnly />
-            </div>
-
-            <div className="business-form-row">
+            <div className="business-form-row" onClick={toggleTimePicker}>
               <label htmlFor="open_hour">Opening Time</label>
               <input
-                type="text"
+                ref={OpenTimeRef}
+                type="time"
                 name="open_hour"
-                value={formData.open_hour}
-                onChange={handleChange}
+                value={selectedOpenTime || ""}
+                onChange={handleTimeChange}
                 placeholder="Opening Time"
                 required />
             </div>
 
-            <div className="business-form-row">
+            <div className="business-form-row" onClick={toggleTimePicker}>
               <label htmlFor="close_hour">Closing Time</label>
               <input
-                type="text"
-                name="close_hour"
-                value={formData.close_hour}
-                onChange={handleChange}
-                placeholder="Closing Time"
-                required />
+                ref={CloseTimeRef}
+                className={isTimePickerClose ? "" : "hidden-input"}
+                type="time"
+                name="closeHour"
+                value={selectedCloseTime || ""}
+                onChange={handleTimeChange}
+                required
+              />
             </div>
 
             <button type="submit" className="update-profile-button">Update Profile</button>
@@ -245,7 +280,7 @@ const BusinessProfileEdit = () => {
           {passwordError && <div className="business-error">{passwordError}</div>}
           {passwordSuccess && <div className="business-success">{passwordSuccess}</div>}
 
-          <form onSubmit={handlePasswordSubmit}>
+          <form className="cs4116-edit-form" onSubmit={handlePasswordSubmit}>
             <div className="business-form-row">
               <label htmlFor="current_password">Current Password</label>
               <input
@@ -281,7 +316,6 @@ const BusinessProfileEdit = () => {
                 required
               />
             </div>
-
             <button type="submit" className="update-profile-button">Update Password</button>
           </form>
         </div>

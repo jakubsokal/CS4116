@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import "@/styles/RegisterForm.css";
-import { FaUser, FaLock, FaBuilding, FaEnvelope } from "react-icons/fa";
+import { FaUser, FaLock, FaBuilding, FaEnvelope, FaFileUpload, FaSearchLocation, FaDoorOpen, FaDoorClosed } from "react-icons/fa";
 import { register } from "@/api/register/register";
 
 const RegisterForm = () => {
@@ -11,6 +11,13 @@ const RegisterForm = () => {
     const [message, setMessage] = useState({ type: '', text: '' });
     const [edited, setEdited] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
+    const [fileName, setFileName] = useState('No file selected');
+    const [isTimePickerClose, setIsTimePickerClose] = useState(false);
+    const [isTimePickerOpen, setIsTimePickerOpen] = useState(false);
+    const OpenTimeRef = useRef(null);
+    const CloseTimeRef = useRef(null);
+    const [selectedCloseTime, setSelectedCloseTime] = useState('');
+    const [selectedOpenTime, setSelectedOpenTime] = useState('');
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -20,6 +27,10 @@ const RegisterForm = () => {
         confirmPassword: "",
         businessName: "",
         location: "",
+        profilePicture: "",
+        phoneNumber: "",
+        closeHour: "",
+        openHour: ""
     });
 
     const [isBusiness, setIsBusiness] = useState(false);
@@ -28,6 +39,43 @@ const RegisterForm = () => {
         const { name, value } = e.target;
         setEdited(true);
         setFormData({ ...formData, [name]: value });
+    };
+
+    const handleFileChange = (e) => {
+        const uploadedFile = e.target.files[0];
+        if (uploadedFile) {
+            setFormData({ ...formData, profilePicture: uploadedFile });
+            setFileName(uploadedFile.name);
+        }
+    };
+
+    const handleTimeChange = (e) => {
+        const { name, value } = e.target;
+        if (name === "openHour") {
+            setSelectedOpenTime(value);
+            setFormData({ ...formData, openHour: value });
+        } else if (name === "closeHour") {
+            setSelectedCloseTime(value);
+            setFormData({ ...formData, closeHour: value });
+        }
+    };
+
+    const toggleTimePicker = () => {
+        if (!isTimePickerClose) {
+            setIsTimePickerClose(true);
+            setTimeout(() => {
+                if (CloseTimeRef.current) {
+                    CloseTimeRef.current.showPicker();
+                }
+            }, 0);
+        } else if (!isTimePickerOpen) {
+            setIsTimePickerOpen(true);
+            setTimeout(() => {
+                if (OpenTimeRef.current) {
+                    OpenTimeRef.current.showPicker();
+                }
+            }, 0);
+        }
     };
 
     const validateForm = () => {
@@ -63,6 +111,10 @@ const RegisterForm = () => {
                 firstName: formData.firstName,
                 lastName: formData.lastName,
                 businessName: formData.businessName,
+                profilePicture: formData.profilePicture,
+                phoneNumber: formData.phoneNumber,
+                closeHour: formData.closeHour,
+                openHour: formData.openHour,
                 location: formData.location
             });
 
@@ -91,7 +143,9 @@ const RegisterForm = () => {
 
         } catch (error) {
             setMessage({ type: 'error', text: error.message });
-            setEdited(false)
+            if (!error.message.includes("For security purposes, you can only request this")) {
+                setEdited(false)
+            }
         } finally {
             setIsLoading(false);
         }
@@ -107,7 +161,14 @@ const RegisterForm = () => {
             confirmPassword: "",
             businessName: "",
             location: "",
+            profilePicture: "",
+            phoneNumber: "",
+            closeHour: "",
+            openHour: ""
         });
+        setFileName('No file selected');
+        setSelectedCloseTime('');
+        setSelectedOpenTime('');
     };
 
     return (
@@ -165,6 +226,21 @@ const RegisterForm = () => {
                                 onChange={handleChange}
                             />
                             <FaUser className="icon" />
+                        </div>
+                        <div className="input-box">
+                            <label className="cs4116-custom-upload">
+                                <input
+                                    type="file"
+                                    onChange={handleFileChange}
+                                    accept="image/*"
+                                />
+                                {fileName === 'No file selected' ? (
+                                    <span>Upload Logo</span>
+                                ) : (
+                                    <span className="file-name">{fileName}</span>
+                                )}
+                            </label>
+                            <FaFileUpload className="icon" />
                         </div>
                         <div className="input-box">
                             <input
@@ -235,6 +311,59 @@ const RegisterForm = () => {
                                     </option>
                                 ))}
                             </select>
+                            <FaSearchLocation className="icon" />
+                        </div>
+                        <div className="input-box">
+                            <label className="cs4116-custom-upload">
+                                <input
+                                    type="file"
+                                    onChange={handleFileChange}
+                                    accept="image/*"
+                                />
+                                {fileName === 'No file selected' ? (
+                                    <span>Upload Logo</span>
+                                ) : (
+                                    <span className="file-name">{fileName}</span>
+                                )}
+                            </label>
+                            <FaFileUpload className="icon" />
+                        </div>
+                        <div className="input-box">
+                            <input
+                                type="text"
+                                name="phoneNumber"
+                                placeholder="Phone Number"
+                                value={formData.phoneNumber || ""}
+                                required={!isBusiness}
+                                onChange={handleChange}
+                            />
+                            <FaUser className="icon" />
+                        </div>
+                        <div className="input-box" onClick={toggleTimePicker}>
+                            Opening Hour
+                            <input
+                                ref={OpenTimeRef}
+                                className={isTimePickerOpen ? "" : "hidden-input"}
+                                type="time"
+                                name="openHour"
+                                value={selectedOpenTime || ""}
+                                onChange={handleTimeChange}
+                                required
+                            />
+                            <FaDoorOpen className="icon" />
+                        </div>
+                        <div className="input-box" onClick={toggleTimePicker}>
+                            Closing Hour
+                            <input
+                                ref={CloseTimeRef}
+                                className={isTimePickerClose ? "" : "hidden-input"}
+                                type="time"
+                                name="closeHour"
+                                value={selectedCloseTime || ""}
+                                onChange={handleTimeChange}
+                                required
+                            />
+                            <FaDoorClosed className="icon" />
                         </div>
                         <div className="input-box">
                             <input
@@ -274,7 +403,7 @@ const RegisterForm = () => {
 
                 <button
                     type="submit"
-                    className="submit-button"
+                    className={`submit-button${isBusiness ? "" : "-customer"}`}
                     disabled={isLoading || !edited || JSON.stringify(formData) === JSON.stringify({
                         firstName: "",
                         lastName: "",
@@ -283,6 +412,10 @@ const RegisterForm = () => {
                         confirmPassword: "",
                         businessName: "",
                         location: "",
+                        profilePicture: "",
+                        phoneNumber: "",
+                        closeHour: "",
+                        openHour: ""
                     })}
                 >
                     {isLoading ? 'Creating Account...' : 'Create Account'}

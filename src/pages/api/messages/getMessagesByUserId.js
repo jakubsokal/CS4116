@@ -43,7 +43,6 @@ export default async function handler(req, res) {
                 })
             );
 
-            console.log("Messages:", messages);
             const convoDetails = convo.map((conversation) => {
                 const isParticipant1 = parseInt(conversation.participant1_id) === parseInt(userId);
                 
@@ -67,7 +66,6 @@ export default async function handler(req, res) {
                 };
             });
 
-            console.log("Convo Details:", convoDetails);
             return res.status(200).json({ message: "Successful Search", data: convoDetails })
         } catch (error) {
             console.error("Error in getMessagesByUserId:", error);

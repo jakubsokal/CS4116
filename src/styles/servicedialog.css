@@ -12,6 +12,10 @@
 	left: 0;
 }
 
+.MuiDialog-container .MuiDialog-scrollPaper .css-19do60a-MuiDialog-container{
+	width: 90% !important;
+}
+
 .cs4116-open {
 	left: 60%;
 	font-size: 14px !important;
@@ -138,7 +142,7 @@
 
 .cs4116-dialog-body {
 	width: 100% !important;
-	overflow-y: hidden;
+	overflow-y: auto !important;
 }
 
 .cs4116-dialog-reviews {

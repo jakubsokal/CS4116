@@ -6,6 +6,7 @@ import "@/styles/Business.css";
 import "@/styles/BusinessProfile.css";
 import "@/styles/style.css";
 import useSessionCheck from "@/utils/hooks/useSessionCheck";
+import { Rating } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -17,7 +18,7 @@ const BusinessProfileView = () => {
 
     useEffect(() => {
         
-    if (loading) return;
+    if (loading || !session?.user?.permission) return;
 
     if(!session) {
         router.push("/login");
@@ -88,12 +89,7 @@ return (
 
         <div className="business-form-row">
             <strong>Average Rating: </strong>
-            <input 
-                type="text" 
-                value={business.avg_rating || ''} 
-                className="business-input" 
-                disabled 
-            />
+            <Rating name="half-rating" value={business.avg_rating} precision={0.1} readOnly  />
         </div>
 
         <div className="business-form-row">

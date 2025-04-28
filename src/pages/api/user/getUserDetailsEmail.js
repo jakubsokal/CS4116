@@ -16,6 +16,7 @@ export default async function handler(req, res) {
 				last_name: user.last_name,
 				name: `${user.first_name} ${user.last_name}`,
 				email: email,
+				image: user.profile_picture,
 				permission: user.permission,
 				last_used: user.last_used,
 				status: user.status,
