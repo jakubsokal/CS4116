@@ -75,6 +75,8 @@ export default function Messages() {
 
       const messageResult = await messageRes.json()
 
+      console.log("Message Result:", currentSession?.user?.user_id)
+
       if (messageResult.data) {
         setMessages(messageResult.data)
         await Promise.all(messageResult.data.map(async (message) => {

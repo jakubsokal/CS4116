@@ -64,7 +64,10 @@ const ServiceDialog = (service) => {
 			}
 
 			const result = await res.json()
+
+			console.log(result)
 			if (result.data) {
+				console.log(result.data)
 				setBusiness(result.data)
 			}
 		} catch (error) {
@@ -157,8 +160,10 @@ const ServiceDialog = (service) => {
 	}
 
 	useEffect(() => {
-		businessApi()
-		reviewsApi()
+		(async () => {
+			
+			await reviewsApi()
+		})();
 	}, [service.service.business_id, service.service.service_id])
 
 	useEffect(() => {
@@ -224,9 +229,11 @@ const ServiceDialog = (service) => {
 		}
 	};
 
-	const handleInquire = () => {
+	const handleInquire = async () => {
 		if (session) {
+			await businessApi()
 			setShowPopup(true);
+
 		} else {
 			alert("Please login to inquire about a service")
 			router.push("/login")
@@ -313,7 +320,7 @@ const ServiceDialog = (service) => {
 						<Button
 							className="cs4116-inq-btn"
 							autoFocus
-							onClick={() => setShowPopup(true)}
+							onClick={() => handleInquire()}
 							>
 							Inquire
 							</Button>
@@ -321,7 +328,7 @@ const ServiceDialog = (service) => {
 							{showPopup && (
 							<InquiryPopup
 								serviceId={service.service.service_id}
-								receiver_id={service.service.business_id}
+								receiver_id={business.user_id}
 								onClose={() => setShowPopup(false)}
 							/>
 							)}

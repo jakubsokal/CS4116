@@ -9,6 +9,10 @@ export async function login(email, password) {
     password: password,
   })
 
+  if (error) {
+    return { status: 400, error: error.message };
+  }
+
   const { data: userData, error: userError } = await supabase
     .from('users')
     .select('*')
@@ -17,9 +21,9 @@ export async function login(email, password) {
 
     if(userData.status === 0) return { status: 400, error: "Your account has been suspended. Please contact support." }
 
-  if (error) {
-    return { status: 400, error: error.message };
-  }
+    if (userError) {
+      return { status: 400, error: userError.message };
+    }
   
   return { user: data.user, status: 200 }
 

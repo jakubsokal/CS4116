@@ -21,6 +21,8 @@ export default async function handler(req, res) {
                 .or(`participant1_id.eq.${userId},participant2_id.eq.${userId}`)
                 .single();
 
+                console.log("Conversation data:", conversation); // Debugging line
+
             if (convoError) {
                 return res.status(404).json({ error: "Conversation not found or access denied" });
             }
@@ -31,6 +33,8 @@ export default async function handler(req, res) {
                 .eq("chat_id", chatId)
                 .eq("isDeleted", 0)
                 .order("sent_at", { ascending: true });
+
+                console.log("Messages data:", messages); // Debugging line
 
             if (messageError) {
                 throw messageError;
@@ -51,7 +55,9 @@ export default async function handler(req, res) {
 
             return res.status(200).json({ 
                 message: "Messages retrieved successfully", 
+                isClosed: conversation.isClosed,
                 data: messages || [],
+                receiver_id: conversation.participant1_id === parseInt(userId) ? conversation.participant2_id : conversation.participant1_id,
                 conversation: conversation
             });
         } catch (error) {

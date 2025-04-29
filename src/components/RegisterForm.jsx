@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import "@/styles/RegisterForm.css";
 import { FaUser, FaLock, FaBuilding, FaEnvelope, FaFileUpload, FaSearchLocation, FaDoorOpen, FaDoorClosed } from "react-icons/fa";
@@ -32,6 +32,22 @@ const RegisterForm = () => {
         closeHour: "",
         openHour: ""
     });
+
+    useEffect(() => {
+        console.log("Form data changed:", JSON.stringify(formData) === JSON.stringify({
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            businessName: "",
+            location: "",
+            profilePicture: "",
+            phoneNumber: "",
+            closeHour: "",
+            openHour: ""
+        }));
+    }, [formData]);
 
     const [isBusiness, setIsBusiness] = useState(false);
 
@@ -174,12 +190,13 @@ const RegisterForm = () => {
     return (
         <div className="register-wrapper">
             <h1>Create Account</h1>
-
-            {message.text && (
-                <div className={`message ${message.type}`}>
-                    {message.text}
-                </div>
-            )}
+            <div className="register-error">
+                {message.text && (
+                    <div className={`message ${message.type}`}>
+                        {message.text}
+                    </div>
+                )}
+            </div>
 
             <div className={`toggle-registration-type ${isBusiness ? "business" : ""}`}>
                 <label>
@@ -334,7 +351,7 @@ const RegisterForm = () => {
                                 name="phoneNumber"
                                 placeholder="Phone Number"
                                 value={formData.phoneNumber || ""}
-                                required={!isBusiness}
+                                required={isBusiness}
                                 onChange={handleChange}
                             />
                             <FaUser className="icon" />
@@ -348,7 +365,7 @@ const RegisterForm = () => {
                                 name="openHour"
                                 value={selectedOpenTime || ""}
                                 onChange={handleTimeChange}
-                                required
+                                required={isBusiness}
                             />
                             <FaDoorOpen className="icon" />
                         </div>
@@ -361,7 +378,7 @@ const RegisterForm = () => {
                                 name="closeHour"
                                 value={selectedCloseTime || ""}
                                 onChange={handleTimeChange}
-                                required
+                                required={isBusiness}
                             />
                             <FaDoorClosed className="icon" />
                         </div>
