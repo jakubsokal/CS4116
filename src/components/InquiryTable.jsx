@@ -39,8 +39,7 @@ const InquiryTable = () => {
 
   const handleAccept = async (inquiry) => {
     try {
-      const data = await response.json();
-      if (data.error) throw new Error(data.error);
+
 
       const res = await fetch("/api/inquiries/inquiries", {
         method: "PATCH",

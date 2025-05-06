@@ -33,22 +33,6 @@ const RegisterForm = () => {
         openHour: ""
     });
 
-    useEffect(() => {
-        console.log("Form data changed:", JSON.stringify(formData) === JSON.stringify({
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            businessName: "",
-            location: "",
-            profilePicture: "",
-            phoneNumber: "",
-            closeHour: "",
-            openHour: ""
-        }));
-    }, [formData]);
-
     const [isBusiness, setIsBusiness] = useState(false);
 
     const handleChange = (e) => {

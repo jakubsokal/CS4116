@@ -65,9 +65,7 @@ const ServiceDialog = (service) => {
 
 			const result = await res.json()
 
-			console.log(result)
 			if (result.data) {
-				console.log(result.data)
 				setBusiness(result.data)
 			}
 		} catch (error) {

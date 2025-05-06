@@ -8,7 +8,6 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    // 
     const { data: inquiryData, error: inquiryError } = await supabase
       .from("inquiries")
       .select("sender_id, service_id, receiver_id")

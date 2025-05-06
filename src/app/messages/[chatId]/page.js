@@ -66,7 +66,7 @@ export default function ChatPage() {
       if (chatPartnerData.data) {
         setChatPartnerDetails(prev => ({
           ...prev,
-          [chatPartnerId]: chatPartnerData.data
+          [0]: chatPartnerData.data
         }));
       }
     } catch (error) {
@@ -147,7 +147,6 @@ export default function ChatPage() {
       const data = await res.json();
 
       if (res.ok && data) {
-        console.log("Inquiry data:", data);
         setMessageRequestStatus(data.status);
         setReceiverId(parseInt(data.receiver_id));
         setIsConversationAccepted(data.status === 1 || !data.request_id);
@@ -285,10 +284,9 @@ export default function ChatPage() {
       return;
     }
     
-    const receiverId = chatPartnerDetails[1]?.user_id
+    const receiverId = chatPartnerDetails[0]?.user_id
 
     if (!receiverId) {
-      console.log("Receiver ID:", receiverId);
       setError("Unable to determine message recipient. Please try refreshing the page.");
       return;
     }
