@@ -11,6 +11,9 @@
     margin: 100px auto 20px;
     position: relative;
     overflow: hidden;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
 }
 
 h1 {
@@ -50,38 +53,49 @@ h1 {
 .form-fields {
     position: relative;
     transition: all 0.3s ease-in-out;
+    overflow-y: auto;
+    max-height: 60vh;
+    padding-right: 10px;
 }
 
-.customer-fields {
-    transform: translateX(0);
-    opacity: 1;
-    transition: all 0.3s ease-in-out;
+.form-fields::-webkit-scrollbar {
+    width: 8px;
 }
 
-.business-fields {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    opacity: 0;
-    width: 100%;
-    transition: all 0.3s ease-in-out;
+.form-fields::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
 }
 
-.form-fields.business .customer-fields {
-    transform: translateX(-100%);
-    opacity: 0;
+.form-fields::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.form-fields::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.customer-fields, .business-fields {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.form-fields.customer .customer-fields {
+    display: flex;
 }
 
 .form-fields.business .business-fields {
-    transform: translateX(-100%);
-    opacity: 1;
+    display: flex;
 }
 
 .input-box {
     color: #bec0c3;
     position: relative;
     display: flex;
-    margin: 14px 0;
+    margin: 0;
     height: 48px;
 }
 
@@ -120,7 +134,7 @@ h1 {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
-    margin-top: 200px;
+    margin-top: 20px;
 }
 
 .submit-button-customer {
