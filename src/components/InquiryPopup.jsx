@@ -4,7 +4,7 @@ import React from "react";
 import "@/styles/ReviewPopup.css";
 import useSessionCheck from "@/utils/hooks/useSessionCheck";
 
-const InquiryPopup = ({ serviceId,receiver_id, onClose }) => {
+const InquiryPopup = ({ serviceId, receiver_id, onClose }) => {
   const { session, loading } = useSessionCheck(); // logged in user_id
 
   const handleSendInquiry = async () => {
@@ -14,33 +14,46 @@ const InquiryPopup = ({ serviceId,receiver_id, onClose }) => {
       console.error("Missing sender, service, or receiver info");
       return;
     }
-
     try {
       const response = await fetch("/api/inquiries/sendInquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sender_id,
-          receiver_id, 
+          receiver_id,
           service_id: serviceId,
           created_at: new Date().toISOString(),
           status: 0,
         }),
-        
       });
 
       if (!response.ok) {
         throw new Error("Failed to send inquiry.");
       }
 
-      const text = await response.text(); 
-  
-      const result = JSON.parse(text); 
-  
+      const text = await response.text();
+
+      const result = JSON.parse(text);
+
       if (!response.ok) {
         throw new Error(result?.error || "Failed to send inquiry.");
       }
-  
+
+      
+      const res = await fetch("/api/conversations/createConversation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sender_id: session?.user?.user_id,
+          receiver_id: receiver_id,
+          inquiry_id: text.inquiry_id,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to create conversation.");
+      }
+
       console.log("Inquiry success");
       onClose();
     } catch (err) {

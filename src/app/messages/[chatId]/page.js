@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, use } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Loading from '@/components/Loading';
 import '@/styles/Chat.css';
 import useSessionCheck from '@/utils/hooks/useSessionCheck';
 import BusinessNavbar from '@/components/BusinessNavbar';
-import Link from 'next/link';
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
@@ -23,7 +22,8 @@ export default function ChatPage() {
   const [showErrorNotification, setShowErrorNotification] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [messagesLoaded, setMessagesLoaded] = useState(false);
-
+  const [receiverId, setReceiverId] = useState(null);
+  const [isClosed, setIsClosed] = useState(false);
   const [inquiry, setInquiry] = useState(null);
   const [messageRequestStatus, setMessageRequestStatus] = useState(null);
   const [isConversationAccepted, setIsConversationAccepted] = useState(false);
@@ -63,11 +63,10 @@ export default function ChatPage() {
     try {
       const response = await fetch(`/api/user/getUserDetailsId?userId=${chatPartnerId}`);
       const chatPartnerData = await response.json();
-
       if (chatPartnerData.data) {
         setChatPartnerDetails(prev => ({
           ...prev,
-          [chatPartnerId]: chatPartnerData.data
+          [0]: chatPartnerData.data
         }));
       }
     } catch (error) {
@@ -103,6 +102,7 @@ export default function ChatPage() {
       }
 
       if (data.data) {
+        setIsClosed(data.isClosed == 1);
         setMessages(data.data);
         const unreadMessages = data.data.filter(msg =>
           msg.receiver_id === session.user.user_id &&
@@ -111,9 +111,7 @@ export default function ChatPage() {
         ).length;
         setUnreadCount(unreadMessages);
 
-        const chatPartnerId = data.data[0]?.sender_id === session.user.user_id
-          ? data.data[0]?.receiver_id
-          : data.data[0]?.sender_id;
+        const chatPartnerId = data.receiver_id
 
         if (chatPartnerId) {
           fetchChatPartnerDetails(chatPartnerId);
@@ -147,9 +145,10 @@ export default function ChatPage() {
     try {
       const res = await fetch(`/api/messages/getMessageRequestStatus?chatId=${chatId}&userId=${session.user.user_id}`);
       const data = await res.json();
-      
+
       if (res.ok && data) {
         setMessageRequestStatus(data.status);
+        setReceiverId(parseInt(data.receiver_id));
         setIsConversationAccepted(data.status === 1 || !data.request_id);
         setIsConversationRejected(data.status === 2);
         setIsMessageRequestReceiver(data.isReceiver); 
@@ -251,13 +250,16 @@ export default function ChatPage() {
     }
   };
 
-  useEffect(() => {
-    if (!sessionLoading && session?.user?.user_id) {
-      fetchMessages();
-      fetchInquiry();
-      fetchMessageRequestStatus();
-    }
-  }, [chatId, session, sessionLoading, fetchMessages, fetchInquiry, fetchMessageRequestStatus]);
+    useEffect(() => {
+    const fetchData = async () => {
+      if (!sessionLoading && session?.user?.user_id && !messagesLoaded) {
+        await fetchMessages();
+        await fetchInquiry();
+        await fetchMessageRequestStatus();
+      }
+    };
+    fetchData();
+  }, [chatId, session, sessionLoading, messagesLoaded, fetchMessages, fetchInquiry, fetchMessageRequestStatus]);
 
   useEffect(() => {
     const pollInterval = setInterval(() => {
@@ -271,7 +273,7 @@ export default function ChatPage() {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    
+
     if (!newMessage.trim() || !chatId || !session?.user?.user_id) {
       setError("Missing required information to send message.");
       return;
@@ -281,15 +283,8 @@ export default function ChatPage() {
       setError("Cannot send messages until the conversation is accepted.");
       return;
     }
-
-    if (!messages || messages.length === 0) {
-      setError("Unable to determine message recipient. Please try refreshing the page.");
-      return;
-    }
     
-    const receiverId = messages[0]?.sender_id === session.user.user_id
-      ? messages[0]?.receiver_id
-      : messages[0]?.sender_id;
+    const receiverId = chatPartnerDetails[0]?.user_id
 
     if (!receiverId) {
       setError("Unable to determine message recipient. Please try refreshing the page.");
@@ -454,7 +449,7 @@ export default function ChatPage() {
                 </button>
               </div>
             )}
-            {isBusiness && (
+            {isBusiness && !isClosed && (
               <button className="cs4116-chat-complete-button" onClick={handleServiceComplete}>
                 Mark Service as Completed
               </button>
@@ -508,11 +503,15 @@ export default function ChatPage() {
           )}
         </div>
 
-        {isConversationRejected ? (
+        {isClosed ? (
+          <div className="pending-conversation-notice">
+            <p>This conversation has been closed. You cannot send messages.</p>
+          </div>
+        ) : isConversationRejected ? (
           <div className="rejected-conversation-notice">
             <p>This conversation has been rejected. You cannot send messages.</p>
           </div>
-        ) : isConversationAccepted || inquiry ? (
+        ) : isConversationAccepted ? (
           <form onSubmit={handleSendMessage} className="chat-input-container">
             <input
               type="text"

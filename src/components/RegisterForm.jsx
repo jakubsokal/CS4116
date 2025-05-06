@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import "@/styles/RegisterForm.css";
 import { FaUser, FaLock, FaBuilding, FaEnvelope, FaFileUpload, FaSearchLocation, FaDoorOpen, FaDoorClosed } from "react-icons/fa";
@@ -177,12 +177,13 @@ const RegisterForm = () => {
     return (
         <div className="register-wrapper">
             <h1>Create Account</h1>
-
-            {message.text && (
-                <div className={`message ${message.type}`}>
-                    {message.text}
-                </div>
-            )}
+            <div className="register-error">
+                {message.text && (
+                    <div className={`message ${message.type}`}>
+                        {message.text}
+                    </div>
+                )}
+            </div>
 
             <div className={`toggle-registration-type ${isBusiness ? "business" : ""}`}>
                 <label>
@@ -215,7 +216,7 @@ const RegisterForm = () => {
                                     name="firstName"
                                     placeholder="First Name"
                                     value={formData.firstName}
-                                    required
+                                    required={!isBusiness}
                                     onChange={handleChange}
                                 />
                                 <FaUser className="icon" />
@@ -226,7 +227,7 @@ const RegisterForm = () => {
                                     name="lastName"
                                     placeholder="Last Name"
                                     value={formData.lastName}
-                                    required
+                                    required={!isBusiness}
                                     onChange={handleChange}
                                 />
                                 <FaUser className="icon" />
@@ -282,130 +283,128 @@ const RegisterForm = () => {
                         </div>
                     )}
 
-                    {isBusiness && (
-                        <div className="business-fields">
-                            <div className="input-box">
-                                <input
-                                    type="text"
-                                    name="businessName"
-                                    placeholder="Business Name"
-                                    value={formData.businessName}
-                                    required
-                                    onChange={handleChange}
-                                />
-                                <FaBuilding className="icon" />
-                            </div>
-                            <div className="input-box">
-                                <select
-                                    name="location"
-                                    value={formData.location}
-                                    onChange={handleChange}
-                                    required
-                                    className="county-select"
-                                >
-                                    <option value="">Select County</option>
-                                    {[
-                                        "Antrim", "Armagh", "Carlow", "Cavan", "Clare", "Cork", "Derry",
-                                        "Donegal", "Down", "Dublin", "Fermanagh", "Galway", "Kerry",
-                                        "Kildare", "Kilkenny", "Laois", "Leitrim", "Limerick", "Longford",
-                                        "Louth", "Mayo", "Meath", "Monaghan", "Offaly", "Roscommon",
-                                        "Sligo", "Tipperary", "Tyrone", "Waterford", "Westmeath",
-                                        "Wexford", "Wicklow"
-                                    ].map((county) => (
-                                        <option key={county} value={county}>
-                                            {county}
-                                        </option>
-                                    ))}
-                                </select>
-                                <FaSearchLocation className="icon" />
-                            </div>
-                            <div className="input-box">
-                                <label className="cs4116-custom-upload">
-                                    <input
-                                        type="file"
-                                        onChange={handleFileChange}
-                                        accept="image/*"
-                                    />
-                                    {fileName === 'No file selected' ? (
-                                        <span>Upload Logo</span>
-                                    ) : (
-                                        <span className="file-name">{fileName}</span>
-                                    )}
-                                </label>
-                                <FaFileUpload className="icon" />
-                            </div>
-                            <div className="input-box">
-                                <input
-                                    type="text"
-                                    name="phoneNumber"
-                                    placeholder="Phone Number"
-                                    value={formData.phoneNumber || ""}
-                                    required
-                                    onChange={handleChange}
-                                />
-                                <FaUser className="icon" />
-                            </div>
-                            <div className="input-box" onClick={toggleTimePicker}>
-                                Opening Hour
-                                <input
-                                    ref={OpenTimeRef}
-                                    className={isTimePickerOpen ? "" : "hidden-input"}
-                                    type="time"
-                                    name="openHour"
-                                    value={selectedOpenTime || ""}
-                                    onChange={handleTimeChange}
-                                    required
-                                />
-                                <FaDoorOpen className="icon" />
-                            </div>
-                            <div className="input-box" onClick={toggleTimePicker}>
-                                Closing Hour
-                                <input
-                                    ref={CloseTimeRef}
-                                    className={isTimePickerClose ? "" : "hidden-input"}
-                                    type="time"
-                                    name="closeHour"
-                                    value={selectedCloseTime || ""}
-                                    onChange={handleTimeChange}
-                                    required
-                                />
-                                <FaDoorClosed className="icon" />
-                            </div>
-                            <div className="input-box">
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder="Email"
-                                    value={formData.email}
-                                    required
-                                    onChange={handleChange}
-                                />
-                                <FaEnvelope className="icon" />
-                            </div>
-                            <div className="input-box">
-                                <input
-                                    type="password"
-                                    name="password"
-                                    placeholder="Password"
-                                    value={formData.password}
-                                    required
-                                    onChange={handleChange}
-                                />
-                                <FaLock className="icon" />
-                            </div>
-                            <div className="input-box">
-                                <input
-                                    type="password"
-                                    name="confirmPassword"
-                                    placeholder="Confirm Password"
-                                    value={formData.confirmPassword}
-                                    required
-                                    onChange={handleChange}
-                                />
-                                <FaLock className="icon" />
-                            </div>
+                    <div className="business-fields">
+                        <div className="input-box">
+                            <input
+                                type="text"
+                                name="businessName"
+                                placeholder="Business Name"
+                                value={formData.businessName}
+                                required={isBusiness}
+                                onChange={handleChange}
+                            />
+                            <FaBuilding className="icon" />
                         </div>
-                    )}
+                        <div className="input-box">
+                            <select
+                                name="location"
+                                value={formData.location}
+                                onChange={handleChange}
+                                required={isBusiness}
+                                className="county-select"
+                            >
+                                <option value="">Select County</option>
+                                {[
+                                    "Antrim", "Armagh", "Carlow", "Cavan", "Clare", "Cork", "Derry",
+                                    "Donegal", "Down", "Dublin", "Fermanagh", "Galway", "Kerry",
+                                    "Kildare", "Kilkenny", "Laois", "Leitrim", "Limerick", "Longford",
+                                    "Louth", "Mayo", "Meath", "Monaghan", "Offaly", "Roscommon",
+                                    "Sligo", "Tipperary", "Tyrone", "Waterford", "Westmeath",
+                                    "Wexford", "Wicklow"
+                                ].map((county) => (
+                                    <option key={county} value={county}>
+                                        {county}
+                                    </option>
+                                ))}
+                            </select>
+                            <FaSearchLocation className="icon" />
+                        </div>
+                        <div className="input-box">
+                            <label className="cs4116-custom-upload">
+                                <input
+                                    type="file"
+                                    onChange={handleFileChange}
+                                    accept="image/*"
+                                />
+                                {fileName === 'No file selected' ? (
+                                    <span>Upload Logo</span>
+                                ) : (
+                                    <span className="file-name">{fileName}</span>
+                                )}
+                            </label>
+                            <FaFileUpload className="icon" />
+                        </div>
+                        <div className="input-box">
+                            <input
+                                type="text"
+                                name="phoneNumber"
+                                placeholder="Phone Number"
+                                value={formData.phoneNumber || ""}
+                                required={isBusiness}
+                                onChange={handleChange}
+                            />
+                            <FaUser className="icon" />
+                        </div>
+                        <div className="input-box" onClick={toggleTimePicker}>
+                            Opening Hour
+                            <input
+                                ref={OpenTimeRef}
+                                className={isTimePickerOpen ? "" : "hidden-input"}
+                                type="time"
+                                name="openHour"
+                                value={selectedOpenTime || ""}
+                                onChange={handleTimeChange}
+                                required={isBusiness}
+                            />
+                            <FaDoorOpen className="icon" />
+                        </div>
+                        <div className="input-box" onClick={toggleTimePicker}>
+                            Closing Hour
+                            <input
+                                ref={CloseTimeRef}
+                                className={isTimePickerClose ? "" : "hidden-input"}
+                                type="time"
+                                name="closeHour"
+                                value={selectedCloseTime || ""}
+                                onChange={handleTimeChange}
+                                required={isBusiness}
+                            />
+                            <FaDoorClosed className="icon" />
+                        </div>
+                        <div className="input-box">
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                value={formData.email}
+                                required
+                                onChange={handleChange}
+                            />
+                            <FaEnvelope className="icon" />
+                        </div>
+                        <div className="input-box">
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                value={formData.password}
+                                required
+                                onChange={handleChange}
+                            />
+                            <FaLock className="icon" />
+                        </div>
+                        <div className="input-box">
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                placeholder="Confirm Password"
+                                value={formData.confirmPassword}
+                                required
+                                onChange={handleChange}
+                            />
+                            <FaLock className="icon" />
+                        </div>
+                    </div>
                 </div>
 
                 <button

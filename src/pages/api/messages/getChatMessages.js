@@ -51,7 +51,9 @@ export default async function handler(req, res) {
 
             return res.status(200).json({ 
                 message: "Messages retrieved successfully", 
+                isClosed: conversation.isClosed,
                 data: messages || [],
+                receiver_id: conversation.participant1_id === parseInt(userId) ? conversation.participant2_id : conversation.participant1_id,
                 conversation: conversation
             });
         } catch (error) {

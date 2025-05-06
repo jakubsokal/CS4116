@@ -17,7 +17,6 @@ export default async function handler(req, res) {
                     users2:participant2_id (first_name, last_name)
                 `)
                 .or(`participant1_id.eq.${userId},participant2_id.eq.${userId}`)
-                .is('isClosed', null)
 
             if (convoError) {
                 console.error("Error fetching conversations:", convoError);

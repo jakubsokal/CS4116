@@ -39,18 +39,7 @@ const InquiryTable = () => {
 
   const handleAccept = async (inquiry) => {
     try {
-      const response = await fetch("/api/conversations/createConversation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          sender_id: inquiry.receiver_id,
-          receiver_id: inquiry.sender_id,
-          inquiry_id: inquiry.inquiry_id,
-        }),
-      });
 
-      const data = await response.json();
-      if (data.error) throw new Error(data.error);
 
       const res = await fetch("/api/inquiries/inquiries", {
         method: "PATCH",
