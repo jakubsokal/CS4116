@@ -41,10 +41,12 @@ export default async function handler(req, res) {
         const { error: tiersError } = await supabase.from("tiers").delete().eq("service_id", service_id);
         if (tiersError) throw tiersError;
 
-        const { error: inquiriesError } = await supabase.from("inquiries").delete().eq("service_id", service_id);
+        const { error: reportsError } = await supabase.from("reported").delete().eq("service_id", service_id);
+
+        const { error: inquiriesError } = await supabase.from("inquiries").update({ isDeleted: 1 }).eq("service_id", service_id);
         if (inquiriesError) throw inquiriesError;
 
-        const { error: servicesError } = await supabase.from("services").delete().eq("service_id", service_id);
+        const { error: servicesError } = await supabase.from("services").update({ isDeleted: 1 }).eq("service_id", service_id);
         if (servicesError) throw servicesError;
 
         return res.status(200).json({ message: "Service and related data deleted" });

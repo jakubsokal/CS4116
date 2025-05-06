@@ -6,6 +6,7 @@ export default async function handler(req, res) {
 			const { data } = await supabase
                 .from("services")
                 .select("*")
+				.eq("isDeleted", 0)
 
 			return res.status(200).json({ message: "Successful Search", data: data })
 		} catch (error) {

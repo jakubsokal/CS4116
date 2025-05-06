@@ -30,7 +30,7 @@ export default async function handler(req, res) {
             if (action === 'reject') {
                 const { error: deleteError } = await supabase
                     .from("conversations")
-                    .delete()
+                    .update({ isClosed: 2 })
                     .or(`and(participant1_id.eq.${messageRequest.sender_id},participant2_id.eq.${messageRequest.receiver_id}),and(participant1_id.eq.${messageRequest.receiver_id},participant2_id.eq.${messageRequest.sender_id})`);
 
                 if (deleteError) {
