@@ -22,8 +22,10 @@ export default async function handler(req, res) {
         status: 0,
       },
     ])
-    .select()
+    .select("*")
     .single()
+
+    console.log("Inquiry data:", data)
     
   if (error) {
     return res.status(500).json({ error: error.message })
