@@ -39,14 +39,14 @@ const InquiryPopup = ({ serviceId, receiver_id, onClose }) => {
         throw new Error(result?.error || "Failed to send inquiry.");
       }
 
-      
+      console.log("Inquiry sent successfully", result);
       const res = await fetch("/api/conversations/createConversation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sender_id: session?.user?.user_id,
           receiver_id: receiver_id,
-          inquiry_id: text.inquiry_id,
+          inquiry_id: result.inquiry.inquiry_id,
         }),
       });
 
