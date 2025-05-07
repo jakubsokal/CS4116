@@ -12,6 +12,7 @@ export default async function handler(req, res) {
             .from("services")
             .select("*")
             .eq("business_id", businessId)
+            .eq("isDeleted", 0)
             .order("service_id", { ascending: true });
 
         if (error) throw error;

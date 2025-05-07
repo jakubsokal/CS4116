@@ -55,6 +55,7 @@ export default async function handler(req, res) {
                     sender_id: sender_id,
                     receiver_id: receiver_id,
                     status: 0, // 0 = pending
+                    convo_id: conversation.convo_id,
                     created_at: new Date().toISOString()
                 })
                 .select()

@@ -34,10 +34,10 @@ const BusinessNavbar = () => {
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
         <ul>
           {pathName !== "/business" && (
-          <li> <Link href="/business" onClick={() => setMenuOpen(false)}> HOME</Link> </li>)}
-
+            <li> <Link href="/business" onClick={() => setMenuOpen(false)}> HOME</Link> </li>)}
+          <li><Link href="/explore" onClick={() => setMenuOpen(false)}>EXPLORE</Link></li>
           {pathName !== "/messages" && (
-          <li> <Link href="/messages" onClick={() => setMenuOpen(false)}> MESSAGES</Link> </li>)}
+            <li> <Link href="/messages" onClick={() => setMenuOpen(false)}> MESSAGES</Link> </li>)}
 
           <li className="cs4116-account"><AccountNav /></li>
         </ul>

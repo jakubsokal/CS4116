@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, use } from "react"
 import "@/styles/servicedialog.css"
 import Button from "@mui/material/Button"
 import Dialog from "@mui/material/Dialog"
@@ -49,6 +49,12 @@ const ServiceDialog = (service) => {
 		"Offensive Language"
 	];
 
+	useEffect(() => {
+		(async () => {
+			await businessApi()
+		})();
+	}, [service.service.business_id])
+
 	const businessApi = async () => {
 		setLoading(true)
 		try {
@@ -64,8 +70,8 @@ const ServiceDialog = (service) => {
 			}
 
 			const result = await res.json()
-
 			if (result.data) {
+				
 				setBusiness(result.data)
 			}
 		} catch (error) {
